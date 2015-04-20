@@ -3,16 +3,16 @@ package main
 import (
 	"github.com/astaxie/beego"
 	//"github.com/astaxie/beego/httplib"
-	"github.com/astaxie/beego/logs"
+	//"encoding/json"
+	"flag"
 	"github.com/ddliu/go-httpclient"
+	"runtime"
 	"strings"
 	"sync"
-	_ "testweb/routers"
 )
 
 var c1, c2 httpclient.HttpClient
 var once sync.Once
-var log logs.BeeLogger
 
 type Demand struct {
 	url    string
@@ -20,17 +20,27 @@ type Demand struct {
 	result chan string
 }
 
-const serverUrl1 = "http://ad.madserving.com/adcall_j/"
-const serverUrl2 = "http://ad.madserving.com/adcall_j/bidrequest?adspaceid=MAHAD90000001&adtype=2&width=1280&height=200&pid=1&pcat=111&media=1&bid=0000000006&ip=&uid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&vid=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&imei=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&os=0&osv=4.3&ua=Mozilla/5.0%20(Linux;%20Android%204.3;%20zh-cn;%20ME525+%20Build/)%20AppleWebKit/534.30%20(KHTML,%20like%20Gecko)%20Version/4.0%20Mobile%20Safari/534.30&pkgname=&appname=&conn=0&carrier=0&apitype=0&density=&cell=&device=iPhone5s"
+type LogData struct {
+	domain       string
+	hasAd        bool
+	responseTime int
+}
+
+//const serverUrl1 = "http://ad.madserving.com/adcall_j/"
+//const serverUrl2 = "http://ad.madserving.com/adcall_j/bidrequest?adspaceid=MAHAD90000001&adtype=2&width=1280&height=200&pid=1&pcat=111&media=1&bid=0000000006&ip=&uid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&vid=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&imei=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&os=0&osv=4.3&ua=Mozilla/5.0%20(Linux;%20Android%204.3;%20zh-cn;%20ME525+%20Build/)%20AppleWebKit/534.30%20(KHTML,%20like%20Gecko)%20Version/4.0%20Mobile%20Safari/534.30&pkgname=&appname=&conn=0&carrier=0&apitype=0&density=&cell=&device=iPhone5s"
+
+const serverUrl1 = "http://ad.madserving.com"
+const serverUrl2 = "http://ad.madserving.com"
 
 type MainController struct {
 	beego.Controller
 }
 
 func setup() {
-
-	log := logs.NewLogger(10000)
-	log.SetLogger("console", `{"level":5}`)
+	flag.Parse()
+	pool = newPool(*redisServer, *redisPassword)
+	beego.SetLogger("file", `{"filename":"admux.log","daily":"true"}`)
+	beego.SetLogFuncCall(true)
 
 	//c1 := httpclient.NewHttpClient().Defaults(httpclient.Map{
 	//	httpclient.OPT_USERAGENT: "browser1", httpclient.OPT_CONNECTTIMEOUT_MS: 300, httpclient.OPT_TIMEOUT_MS: 80,
@@ -48,7 +58,11 @@ func setup() {
 
 func main() {
 	setup()
-	beego.Router("/bidrequest", &MainController{})
+	beego.EnableAdmin = true
+	beego.AdminHttpAddr = "localhost"
+	beego.AdminHttpPort = 8888
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	beego.Router("/adcall_j/bidrequest", &MainController{})
 	beego.Router("/api", &MainController{})
 
 	beego.Run()
@@ -64,35 +78,51 @@ func (this *MainController) Get() {
 		go ProcessDemand(demand)
 	}
 
-	var result string
+	var result, tmp string
 
 	for _, demand := range demands {
 
-		tmp := <-demand.result
-		beego.BeeLogger.Debug("result:" + tmp)
+		tmp = <-demand.result
+		//beego.BeeLogger.Debug("result:" + tmp)
 
 		if len(result) == 0 {
 			if strings.Contains(tmp, "imgurl") {
 				result = tmp
+				beego.Info("success!")
 			}
 		}
 
-		beego.BeeLogger.Debug("Finish")
 	}
+	if len(result) == 0 {
+		result = tmp
+		beego.Info("no ads")
+	}
+	//jsonStr := `{"MAH3AD90000001": {"adspaceid": "MAH3AD90000001", "returncode": 405} }`
+	//var dat map[string]interface{}
+	//if err := json.Unmarshal([]byte(jsonStr), &dat); err == nil {
+	//	beego.Info("==============json str 转map=======================")
+	//	beego.Info(dat)
+	//	beego.Info(dat["MAH3AD90000001"])
+	//}
 
+	c := pool.Get()
+	c.Do("lpush", "ADMUX_LOG", "test")
+
+	defer c.Close()
 	this.Ctx.WriteString(result)
 }
 
 func GetDemandUrls(requestString string) []*Demand {
 
-	beego.BeeLogger.Debug("Request String:" + requestString)
+	//beego.BeeLogger.Debug("Request String:" + requestString)
 	demand1 := new(Demand)
-	demand1.client = c1
+	demand1.client.WithOptions(httpclient.Map{httpclient.OPT_CONNECTTIMEOUT_MS: 200, httpclient.OPT_TIMEOUT_MS: 200})
 	demand1.url = serverUrl1 + requestString
 	demand1.result = make(chan string)
 
 	demand2 := new(Demand)
-	demand2.client = c2
+	demand2.client.WithOptions(httpclient.Map{httpclient.OPT_CONNECTTIMEOUT_MS: 200, httpclient.OPT_TIMEOUT_MS: 200})
+
 	demand2.url = serverUrl2 + requestString
 	demand2.result = make(chan string)
 
@@ -103,12 +133,20 @@ func GetDemandUrls(requestString string) []*Demand {
 
 func ProcessDemand(demand *Demand) {
 
-	res, err := demand.client.Begin().Get(demand.url, nil)
+	var bodyString string
+	res, err := demand.client.Get(demand.url, nil)
 	if err != nil {
-		beego.BeeLogger.Error("System error:" + err.Error())
 
+		if httpclient.IsTimeoutError(err) {
+			bodyString = "timeout"
+			beego.Info("timeout")
+		} else {
+			bodyString = "error"
+		}
+
+	} else {
+		bodyString, _ = res.ToString()
 	}
-	bodyString, _ := res.ToString()
 
 	demand.result <- bodyString
 }
