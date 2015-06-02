@@ -1,0 +1,142 @@
+package main;
+
+message BidRequest {
+	required string request_id = 1;
+	required Version api_version = 2; 
+	required App app = 3; // 必填。应用信息,具体填充说明参见 2.2 应用信息
+	required Device device = 4; 
+	optional Gps gps = 6; 
+	optional Content content = 7; 
+	optional User user = 8; 
+	repeated AdSlot adslots = 9; 
+	optional bool is_debug = 10; 
+};
+
+message App {
+	required string id = 1; 
+};
+
+message StaticInfo {
+	required string bundle_id = 1; // 必填。应用包名 optional string name = 2; // 可选。应用名称,建议提供
+	repeated uint32 categories = 3; // 必填,至少一个。应用分类,具体应用分类方式,如 果获取当前应用的分类 ID 需要由 Union 给出。
+	repeated string keywords = 4; // 可选。应用关键词,用于描述当前应用的基本特征。 optional bool is_paid_app = 5; // 可选。是否付费下载应用
+	optional bool has_in_app_purchase = 6; // 可选。是否支持应用内购买
+};
+
+message UserPermission {
+	required Type type = 1; // 必填。用户授权类型,可选值列表参见 2.2.2.1 用户授权类型
+	required Status status = 2; // 必填。用户授权状态,可选值列表参见 2.2.2.2 用户授权 状态
+};
+
+enum Type {
+	ACCESS_FINE_LOCATION = 1; // 精细定位 
+	CAMERA = 2; // 摄像头
+	RECORD_AUDIO = 3; // 录音
+};
+
+enum Status {
+	UNKNOWN = 0; // 表示未询问用户
+	ACCEPTED = 1; // 接受
+	REFUSED = 2; // 拒绝
+};
+
+message Device {
+	required Type type = 1;
+	required Os os = 2; 
+	required Version os_version = 3; 
+	required string vendor = 4; 	
+	required string model = 5;
+	required UdId udid = 6; 
+	optional float screen_density = 8;
+	optional Size screen_size = 9; 
+	repeated Sensor sensors = 10; 
+	optional bool is_jailbreaked = 11;
+};
+
+enum Os {
+	ANDROID = 1; // Android
+	IOS = 2; // iOS 
+};
+
+message UdId {
+	optional string idfa = 1; 
+	optional string imei = 2; 
+	optional string mac = 3; 
+	optional string idfv = 4; 
+};
+
+enum Orientation {
+	LAND=1;
+	PORT=2; 
+};
+
+enum Sensor {
+	ACCELEROMETER = 1; // 加速度传感器 AMBIENT_TEMPERATURE = 13; // 环境温度传感器 GAME_ROTATION_VECTOR = 15; // 未校准的旋转适量传感器 GEOMAGNETIC_ROTATION_VECTOR = 20; // 地磁旋转矢量传感器 GRAVITY = 9; // 重力传感器
+	GYROSCOPE = 4; // 陀螺仪传感器
+	GYROSCOPE_UNCALIBRATED = 16;
+	LIGHT = 5; // 光线传感器
+	LINEAR_ACCELERATION = 10; // 线性加速度传感器 MAGNETIC_FIELD = 2; // 磁场传感器 MAGNETIC_FIELD_UNCALIBRATED = 14; // 未校准磁场传感器 ORIENTATION = 3; // 方向传感器
+	PRESSURE = 6; // 压力传感器
+	PROXIMITY = 8; // 接近传感器
+	RELATIVE_HUMIDITY = 12; // 相对湿度传感器 ROTATION_VECTOR = 11; // 旋转矢量传感器 SIGNIFICANT_MOTION = 17; // 显著运动触发传感器 STEP_COUNTER = 19; // 计步传感器
+	STEP_DETECTOR = 18;
+	TEMPERATURE = 7;
+};
+
+message Version {
+	required uint32 major = 1; // 必填。主版本号,例如 API 版本 4.0,即填写为 major=4, minor=0
+	optional uint32 minor = 2[default = 0]; // 可选。 optional uint32 micro = 3[default = 0]; // 可选。 optional uint32 build = 4[default = 0]; // 可选。
+};
+
+message Gps {
+	required Type type = 1; // 必填。坐标类型,可选值列表参见 2.5.1 GPS 坐标类型
+	required double longitude = 2; // 必填。经度
+	required double latitude = 3; // 必填。纬度
+	required uint32 timestamp = 4; // 必填。时间戳信息,单位毫秒。
+};
+
+message User {
+	optional Gender gender = 1; // 可选。性别可选值列表参见 2.7.1 性别类型
+	optional uint32 age = 2; // 可选。年龄
+	repeated string keywords = 3; // 可选。用户标签与关键词
+	repeated Meta meta = 4; 
+};
+
+message AdSlot {
+	required string id = 1; // 必填。广告位 ID
+	optional StaticInfo static_info = 2; // 可选。授权接入方使用的广告位静态信息,一般不 需要在请求时候额外提供。具体填充说明参见 2.8.1 广告位静态信息
+	required Size size = 3; // 必填。广告位尺寸,即当前请求的广告尺寸,会直接影响到图 片、图文类广告。具体填充说明参见 2.10 尺寸信息
+	repeated InteractionType accepted_interaction_types = 4; // 可选。可接受交互类型,可以 执行能够接受的多种交互类型,如果不指定,按照系统默认指定值进行广告请求。可选值列 表参见 2.12 交互类型
+	optional uint32 impression_time = 5; // 可选。计时曝光类广告位曝光时长,单位秒。 };
+};
+
+message Size {
+	required uint32 width = 1; // 必填。宽度
+	required uint32 height = 2; // 必填。高度
+};
+
+message Content {
+	optional string url = 1; // 可选。当前内容对应可访问 URL
+	optional string referer = 2; // 可选。上一页内容对应可访问 URL
+	repeated string keywords = 3; // 可选。媒体自定义内容关键词
+	repeated Meta meta = 4; 
+};
+
+enum Gender {
+	MALE = 1; // 男性
+	FEMAIL = 2; // 女性 
+	THIRD_GENDER = 3; // 第三性
+};
+
+message Meta {
+	required string name = 1; // 必填。自定义内容字段名
+	required string value = 2; // 必填。自定义内容值,例如自定义数据"天气晴",name= 天气, value=晴
+}
+
+enum InteractionType {
+	NO_INTERACTION = 0; // 无动作,用于开屏等特殊位置,不可用于请求,仅用于应答 SURFING = 1; // 使用浏览器打开网页
+	DOWNLOAD = 2; // 下载应用
+	DIALING = 3; // 拨打电话
+	MESSAGE = 4; // 发送短信
+	MAIL = 5; // 发送邮件 
+};

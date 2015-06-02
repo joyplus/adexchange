@@ -36,11 +36,11 @@ type MainController struct {
 	beego.Controller
 }
 
-func setup() {
+func Setup() {
 	flag.Parse()
 	pool = newPool(*redisServer, *redisPassword)
-	beego.SetLogger("file", `{"filename":"admux.log","daily":"true"}`)
-	beego.SetLogFuncCall(true)
+	//beego.SetLogger("file", `{"filename":"admux.log","daily":"true"}`)
+	//beego.SetLogFuncCall(true)
 
 	//c1 := httpclient.NewHttpClient().Defaults(httpclient.Map{
 	//	httpclient.OPT_USERAGENT: "browser1", httpclient.OPT_CONNECTTIMEOUT_MS: 300, httpclient.OPT_TIMEOUT_MS: 80,
@@ -57,7 +57,8 @@ func setup() {
 }
 
 func main() {
-	setup()
+	Setup()
+	TestProtobuf()
 	beego.EnableAdmin = true
 	beego.AdminHttpAddr = "localhost"
 	beego.AdminHttpPort = 8888
