@@ -780,3 +780,4 @@
 2015/06/12 13:54:26 [router.go:845] [D] | GET        | /api/request                             | 303.219487ms     | match      | /api/request                             | 
 2015/06/12 13:55:15 [app.go:103] [I] http server Running on :7070
 2015/06/12 14:04:14 [app.go:103] [I] http server Running on :7070
+2015/06/12 14:04:43 [app.go:103] [I] http server Running on :7070
