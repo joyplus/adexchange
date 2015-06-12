@@ -1,0 +1,783 @@
+2015/06/02 22:00:13 [app.go:103] [I] http server Running on :8080
+2015/06/02 23:59:38 [router.go:845] [D] | POST       | /api/resturant/cancelOrder               | 10.937999ms      | notmatch   | 
+2015/06/04 22:34:02 [app.go:103] [I] http server Running on :8080
+2015/06/04 22:36:20 [app.go:103] [I] http server Running on :8080
+2015/06/04 22:36:37 [app.go:103] [I] http server Running on :8080
+2015/06/04 22:40:26 [app.go:103] [I] http server Running on :8080
+2015/06/04 22:40:31 [RequestController.go:16] [D] MHspacekey1 
+2015/06/05 09:32:41 [app.go:103] [I] http server Running on :8080
+2015/06/05 09:38:51 [app.go:103] [I] http server Running on :8080
+2015/06/05 09:38:59 [RequestController.go:17] [D] MHspacekey1 
+2015/06/05 09:39:13 [app.go:103] [I] http server Running on :8080
+2015/06/05 09:39:33 [app.go:103] [I] http server Running on :8080
+2015/06/05 09:39:39 [app.go:103] [I] http server Running on :8080
+2015/06/05 09:51:02 [app.go:103] [I] http server Running on :8080
+2015/06/05 09:51:22 [app.go:103] [I] http server Running on :8080
+2015/06/07 21:52:37 [app.go:103] [I] http server Running on :8080
+2015/06/07 21:52:52 [RequestController.go:15] [D] &{<nil> map[] map[] 0xc208124000 [] <nil> } 
+2015/06/07 21:52:52 [RequestController.go:17] [D] MHspacekey1 
+2015/06/07 21:59:44 [app.go:103] [I] http server Running on :8080
+2015/06/07 21:59:57 [RequestController.go:15] [D]  
+2015/06/07 21:59:57 [RequestController.go:17] [D] MHspacekey1 
+2015/06/07 22:00:26 [RequestController.go:15] [D]  
+2015/06/07 22:00:26 [RequestController.go:17] [D] MHspacekey1 
+2015/06/07 22:00:38 [router.go:33] [I] admux start 
+2015/06/07 22:00:38 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:00:41 [RequestController.go:15] [D] map[] 
+2015/06/07 22:00:41 [RequestController.go:17] [D] MHspacekey1 
+2015/06/07 22:01:59 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:02:01 [RequestController.go:15] [D] map[] 
+2015/06/07 22:02:01 [RequestController.go:16] [D] 111 
+2015/06/07 22:02:01 [RequestController.go:18] [D] MHspacekey1 
+2015/06/07 22:13:39 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:13:48 [RequestController.go:15] [D]  
+2015/06/07 22:13:48 [RequestController.go:16] [D] 111 
+2015/06/07 22:13:48 [RequestController.go:18] [D] MHspacekey1 
+2015/06/07 22:21:48 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:21:53 [RequestController.go:17] [D]  
+2015/06/07 22:21:53 [RequestController.go:18] [D] 111 
+2015/06/07 22:21:53 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 22:22:50 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:22:54 [RequestController.go:17] [D]  
+2015/06/07 22:22:54 [RequestController.go:18] [D] 111 
+2015/06/07 22:22:54 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 22:23:41 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:23:48 [RequestController.go:16] [D] 111 
+2015/06/07 22:23:48 [RequestController.go:18] [D]  
+2015/06/07 22:23:48 [RequestController.go:21] [D] MHspacekey1 
+2015/06/07 22:57:48 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:57:59 [app.go:103] [I] http server Running on :8080
+2015/06/07 22:58:52 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:01:28 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:01:31 [RequestController.go:16] [D]  
+2015/06/07 23:01:31 [RequestController.go:19] [D] MHspacekey1 
+2015/06/07 23:02:25 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:02:29 [RequestController.go:16] [D] 111 
+2015/06/07 23:02:29 [RequestController.go:19] [D] MHspacekey1 
+2015/06/07 23:04:02 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:04:08 [RequestController.go:16] [D] 111 
+2015/06/07 23:04:08 [RequestController.go:17] [D]  
+2015/06/07 23:04:08 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 23:04:09 [RequestController.go:16] [D] 111 
+2015/06/07 23:04:09 [RequestController.go:17] [D]  
+2015/06/07 23:04:09 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 23:06:47 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:06:51 [RequestController.go:16] [D] 111 
+2015/06/07 23:06:51 [RequestController.go:17] [D]  
+2015/06/07 23:06:51 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 23:07:23 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:07:29 [RequestController.go:16] [D] 111 
+2015/06/07 23:07:29 [RequestController.go:17] [D]  
+2015/06/07 23:07:29 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 23:08:33 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:08:37 [RequestController.go:16] [D] 111 
+2015/06/07 23:08:37 [RequestController.go:17] [D]  
+2015/06/07 23:08:37 [RequestController.go:20] [D] MHspacekey1 
+2015/06/07 23:27:37 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:27:43 [RequestController.go:18] [D] map[] 
+2015/06/07 23:27:43 [RequestController.go:21] [D] MHspacekey1 
+2015/06/07 23:28:36 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:28:47 [RequestController.go:19] [D] map[] 
+2015/06/07 23:28:47 [RequestController.go:22] [D] MHspacekey1 
+2015/06/07 23:29:50 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:29:53 [RequestController.go:19] [D] [] 
+2015/06/07 23:29:53 [RequestController.go:22] [D] MHspacekey1 
+2015/06/07 23:31:24 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:31:27 [RequestController.go:19] [D] map[bid:[111] mac:[testmac]] 
+2015/06/07 23:31:27 [RequestController.go:22] [D] MHspacekey1 
+2015/06/07 23:33:38 [app.go:103] [I] http server Running on :8080
+2015/06/07 23:33:46 [RequestController.go:19] [D] [111] 
+2015/06/07 23:33:46 [RequestController.go:22] [D] MHspacekey1 
+2015/06/07 23:35:16 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:26:16 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:26:19 [RequestController.go:19] [D] map[bid:[111] mac:[testmac]] 
+2015/06/08 10:26:19 [RequestController.go:22] [D] MHspacekey1 
+2015/06/08 10:26:58 [RequestController.go:19] [D] map[bid:[111] mac:[testmac]] 
+2015/06/08 10:26:58 [RequestController.go:22] [D] MHspacekey1 
+2015/06/08 10:27:17 [router.go:33] [I] admux start 
+2015/06/08 10:27:17 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:27:23 [RequestController.go:19] [D] [111] 
+2015/06/08 10:27:23 [RequestController.go:22] [D] MHspacekey1 
+2015/06/08 10:27:56 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:28:01 [RequestController.go:19] [D] 111 
+2015/06/08 10:28:01 [RequestController.go:22] [D] MHspacekey1 
+2015/06/08 10:29:32 [router.go:33] [I] admux start 
+2015/06/08 10:29:32 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:39:13 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:40:13 [app.go:103] [I] http server Running on :8080
+2015/06/08 10:41:33 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:21:19 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:22:09 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:25:20 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:26:03 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:27:52 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:38:29 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:38:49 [app.go:103] [I] http server Running on :8080
+2015/06/08 22:41:00 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:16:27 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:25:01 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:26:41 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:29:06 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:31:02 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:46:41 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:47:00 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:48:10 [app.go:103] [I] http server Running on :8080
+2015/06/08 23:50:07 [app.go:103] [I] http server Running on :8080
+2015/06/11 18:49:58 [app.go:103] [I] http server Running on :8080
+2015/06/11 22:47:23 [app.go:103] [I] http server Running on :8080
+2015/06/11 22:55:26 [app.go:103] [I] http server Running on :8080
+2015/06/11 23:18:24 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:23:04 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:24:19 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:24:52 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:28:45 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:30:00 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:34:47 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:38:24 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:40:49 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:42:09 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:42:23 [router.go:33] [I] admux start 
+2015/06/11 23:42:23 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:42:28 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:42:50 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:43:04 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:43:50 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:43:54 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:43:54 [InvokerEngine.go:63] [D] Enter Invoke Demand 
+2015/06/11 23:44:18 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:44:20 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:44:20 [InvokerEngine.go:63] [D] Enter Invoke Demand 
+2015/06/11 23:45:18 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:45:22 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:45:22 [InvokerEngine.go:65] [D] TE57EAC5FA3FFACC 
+2015/06/11 23:45:42 [router.go:33] [I] admux start 
+2015/06/11 23:45:42 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:45:45 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:45:45 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:46:19 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:46:22 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:46:22 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:46:22 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:46:43 [router.go:33] [I] admux start 
+2015/06/11 23:46:43 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:46:46 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:46:46 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:46:46 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:05 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:47:08 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:47:08 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:47:08 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:11 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:47:11 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:47:11 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:13 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:47:13 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:47:13 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:30 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:47:34 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:47:34 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:47:34 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:34 [RequestController.go:25] [D] Enter sss ad 
+2015/06/11 23:47:47 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:47:49 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:47:49 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:47:49 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:49 [RequestController.go:25] [D] Enter sss ad 
+2015/06/11 23:47:53 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:47:53 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:47:53 [InvokerEngine.go:69] [D] Enter Invoke Demand2 
+2015/06/11 23:47:53 [RequestController.go:25] [D] Enter sss ad 
+2015/06/11 23:52:23 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:52:35 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:52:35 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:52:38 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:52:38 [InvokerEngine.go:67] [D] [] 
+2015/06/11 23:52:46 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:52:50 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:52:50 [InvokerEngine.go:67] [D] [2] 
+2015/06/11 23:54:24 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:54:28 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:54:28 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:54:34 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:54:34 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:55:13 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:55:16 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:55:16 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:55:19 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:55:19 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:55:37 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:55:47 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:55:49 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:55:49 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:55:51 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:55:51 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:14 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:56:17 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:56:17 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:25 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:56:25 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:28 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:56:28 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:29 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:56:29 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:30 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:56:30 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:30 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:56:30 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:56:52 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:57:30 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:57:49 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:57:51 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:57:51 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:57:53 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:57:53 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:57:55 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:57:55 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:58:31 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:58:34 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:58:34 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:58:39 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:58:39 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:59:08 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:59:10 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:59:10 [InvokerEngine.go:78] [D] false 
+2015/06/11 23:59:10 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/11 23:59:39 [app.go:103] [I] http server Running on :7070
+2015/06/11 23:59:42 [RequestController.go:18] [D] Enter Request ad 
+2015/06/11 23:59:42 [InvokerEngine.go:78] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/11 23:59:42 [InvokerEngine.go:91] [D] Finish Demend array 
+2015/06/12 00:00:33 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:00:36 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:00:36 [InvokerEngine.go:79] [D] TE57EAC5FA3FFACC_  
+2015/06/12 00:00:36 [InvokerEngine.go:92] [D] Finish Demend array 
+2015/06/12 00:01:23 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:01:25 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:01:25 [InvokerEngine.go:68] [D] map[TE57EAC5FA3FFACC:[2]] 
+2015/06/12 00:01:25 [InvokerEngine.go:80] [D] TE57EAC5FA3FFACC_  
+2015/06/12 00:01:25 [InvokerEngine.go:93] [D] Finish Demend array 
+2015/06/12 00:01:37 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:01:39 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:01:39 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:01:39 [InvokerEngine.go:80] [D] TE57EAC5FA3FFACC_  
+2015/06/12 00:01:39 [InvokerEngine.go:93] [D] Finish Demend array 
+2015/06/12 00:02:07 [router.go:33] [I] admux start 
+2015/06/12 00:02:07 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:02:18 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:02:22 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:02:22 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:02:22 [InvokerEngine.go:80] [D] 0 
+2015/06/12 00:02:22 [InvokerEngine.go:93] [D] Finish Demend array 
+2015/06/12 00:02:36 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:02:46 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:02:47 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:02:47 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:02:47 [InvokerEngine.go:80] [D] 1 
+2015/06/12 00:02:47 [InvokerEngine.go:93] [D] Finish Demend array 
+2015/06/12 00:03:01 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:03:04 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:03:04 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:03:04 [InvokerEngine.go:80] [D] 0 
+2015/06/12 00:03:04 [InvokerEngine.go:93] [D] Finish Demend array 
+2015/06/12 00:03:27 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:03:30 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:03:30 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:03:30 [InvokerEngine.go:80] [D]  
+2015/06/12 00:03:30 [InvokerEngine.go:93] [D] Finish Demend array 
+2015/06/12 00:04:13 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:04:15 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:04:15 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:04:15 [InvokerEngine.go:80] [D]  
+2015/06/12 00:04:15 [InvokerEngine.go:93] [D] [<nil>] 
+2015/06/12 00:04:41 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:04:43 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:04:43 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:04:43 [InvokerEngine.go:80] [D]  
+2015/06/12 00:04:43 [InvokerEngine.go:93] [D] 1 
+2015/06/12 00:05:13 [router.go:33] [I] admux start 
+2015/06/12 00:05:13 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:05:15 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:05:15 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:05:15 [InvokerEngine.go:80] [D]  
+2015/06/12 00:05:15 [InvokerEngine.go:93] [D] 1 
+2015/06/12 00:05:15 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 00:06:41 [app.go:103] [I] http server Running on :7070
+2015/06/12 00:06:43 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 00:06:43 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 00:06:43 [InvokerEngine.go:80] [D]  
+2015/06/12 00:06:43 [InvokerEngine.go:93] [D] 1 
+2015/06/12 00:06:43 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 09:55:19 [router.go:33] [I] admux start 
+2015/06/12 09:55:19 [app.go:103] [I] http server Running on :7070
+2015/06/12 09:55:30 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 09:55:30 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 09:55:30 [InvokerEngine.go:80] [D]  
+2015/06/12 09:55:30 [InvokerEngine.go:93] [D] 1 
+2015/06/12 09:55:30 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 09:55:30 [router.go:845] [D] | GET        | /api/request                             | 693.797us        | match      | /api/request                             | 
+2015/06/12 10:01:01 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:03:32 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:03:33 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:03:33 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:03:33 [InvokerEngine.go:80] [D]  
+2015/06/12 10:03:33 [InvokerEngine.go:110] [D] Finish Demend result 
+2015/06/12 10:03:33 [router.go:845] [D] | GET        | /api/request                             | 668.615us        | match      | /api/request                             | 
+2015/06/12 10:04:14 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:04:20 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:04:20 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:04:20 [InvokerEngine.go:80] [D] http://ad.sandbox.madserving.com/adcall/bidrequest 
+2015/06/12 10:04:20 [InvokerEngine.go:110] [D] Finish Demend result 
+2015/06/12 10:04:20 [router.go:845] [D] | GET        | /api/request                             | 638.198us        | match      | /api/request                             | 
+2015/06/12 10:05:01 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:05:02 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:05:02 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:05:02 [InvokerEngine.go:80] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:05:02 [InvokerEngine.go:110] [D] Finish Demend result 
+2015/06/12 10:05:02 [router.go:845] [D] | GET        | /api/request                             | 790.843us        | match      | /api/request                             | 
+2015/06/12 10:05:30 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:05:34 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:05:34 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:05:34 [InvokerEngine.go:80] [D] [] 
+2015/06/12 10:05:34 [InvokerEngine.go:110] [D] Finish Demend result 
+2015/06/12 10:05:34 [router.go:845] [D] | GET        | /api/request                             | 656.011us        | match      | /api/request                             | 
+2015/06/12 10:08:02 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:08:15 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:08:21 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:08:21 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:08:21 [InvokerEngine.go:81] [D] Key for AdspaceMap:TE57EAC5FA3FFACC_ 
+2015/06/12 10:08:21 [InvokerEngine.go:82] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:08:21 [InvokerEngine.go:114] [D] Finish Demend result 
+2015/06/12 10:08:21 [router.go:845] [D] | GET        | /api/request                             | 509.046us        | match      | /api/request                             | 
+2015/06/12 10:08:48 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:08:51 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:08:51 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:08:51 [InvokerEngine.go:81] [D] 2 
+2015/06/12 10:08:51 [InvokerEngine.go:82] [D] Key for AdspaceMap:TE57EAC5FA3FFACC_ 
+2015/06/12 10:08:51 [InvokerEngine.go:83] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:08:51 [InvokerEngine.go:115] [D] Finish Demend result 
+2015/06/12 10:08:51 [router.go:845] [D] | GET        | /api/request                             | 1.789153ms       | match      | /api/request                             | 
+2015/06/12 10:11:18 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:11:23 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:11:23 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:11:23 [InvokerEngine.go:81] [D] 2 
+2015/06/12 10:11:23 [InvokerEngine.go:82] [D] Key for AdspaceMap:TE57EAC5FA3FFACC_%d 2
+ 
+2015/06/12 10:11:23 [InvokerEngine.go:83] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:11:23 [InvokerEngine.go:115] [D] Finish Demend result 
+2015/06/12 10:11:23 [router.go:845] [D] | GET        | /api/request                             | 546.097us        | match      | /api/request                             | 
+2015/06/12 10:13:42 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:13:49 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:13:49 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:13:49 [InvokerEngine.go:81] [D] 2 
+2015/06/12 10:13:49 [InvokerEngine.go:82] [D] Key for AdspaceMap:TE57EAC5FA3FFACC_2 
+2015/06/12 10:13:49 [InvokerEngine.go:83] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:13:49 [InvokerEngine.go:121] [D] Start Invoke 
+2015/06/12 10:13:51 [InvokerEngine.go:154] [D] map[E757EAC5FA3FFACC:0xc208110120] 
+2015/06/12 10:13:51 [InvokerEngine.go:104] [D] 0xc208004d80 
+2015/06/12 10:13:51 [InvokerEngine.go:115] [D] Finish Demend result 
+2015/06/12 10:13:51 [router.go:845] [D] | GET        | /api/request                             | 1.654102454s     | match      | /api/request                             | 
+2015/06/12 10:14:39 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:14:39 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:14:39 [InvokerEngine.go:81] [D] 2 
+2015/06/12 10:14:39 [InvokerEngine.go:82] [D] Key for AdspaceMap:TE57EAC5FA3FFACC_2 
+2015/06/12 10:14:39 [InvokerEngine.go:83] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:14:39 [InvokerEngine.go:121] [D] Start Invoke 
+2015/06/12 10:14:40 [InvokerEngine.go:154] [D] map[E757EAC5FA3FFACC:0xc20806afc0] 
+2015/06/12 10:14:40 [InvokerEngine.go:104] [D] 0xc2080fa180 
+2015/06/12 10:14:40 [InvokerEngine.go:115] [D] Finish Demend result 
+2015/06/12 10:14:40 [router.go:845] [D] | GET        | /api/request                             | 755.772936ms     | match      | /api/request                             | 
+2015/06/12 10:15:30 [router.go:33] [I] admux start 
+2015/06/12 10:15:30 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:15:31 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:15:31 [InvokerEngine.go:68] [D] [2] 
+2015/06/12 10:15:31 [InvokerEngine.go:81] [D] 2 
+2015/06/12 10:15:31 [InvokerEngine.go:82] [D] Key for AdspaceMap:s 
+2015/06/12 10:15:31 [InvokerEngine.go:83] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:15:31 [InvokerEngine.go:121] [D] Start Invoke 
+2015/06/12 10:15:32 [InvokerEngine.go:154] [D] map[E757EAC5FA3FFACC:0xc20809e360] 
+2015/06/12 10:15:32 [InvokerEngine.go:104] [D] 0xc208004180 
+2015/06/12 10:15:32 [InvokerEngine.go:115] [D] Finish Demend result 
+2015/06/12 10:15:32 [router.go:845] [D] | GET        | /api/request                             | 778.177821ms     | match      | /api/request                             | 
+2015/06/12 10:16:10 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:16:23 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:16:31 [router.go:33] [I] admux start 
+2015/06/12 10:16:31 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:16:34 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:16:34 [InvokerEngine.go:80] [D] 2 
+2015/06/12 10:16:34 [InvokerEngine.go:81] [D] Key for AdspaceMap:s 
+2015/06/12 10:16:34 [InvokerEngine.go:82] [D] map[TE57EAC5FA3FFACC_2:[E757EAC5FA3FFACC ]] 
+2015/06/12 10:16:34 [InvokerEngine.go:120] [D] Start Invoke 
+2015/06/12 10:16:35 [InvokerEngine.go:153] [D] map[E757EAC5FA3FFACC:0xc2080a02d0] 
+2015/06/12 10:16:35 [InvokerEngine.go:103] [D] 0xc2081b0180 
+2015/06/12 10:16:35 [InvokerEngine.go:114] [D] Finish Demend result 
+2015/06/12 10:16:35 [router.go:845] [D] | GET        | /api/request                             | 729.096876ms     | match      | /api/request                             | 
+2015/06/12 10:17:57 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:25:23 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:25:23 [InvokerEngine.go:117] [D] Start Invoke MH 
+2015/06/12 10:25:23 [InvokerEngine.go:150] [D] map[E757EAC5FA3FFACC:0xc208054120] 
+2015/06/12 10:25:23 [InvokerEngine.go:100] [D] 0xc208188120 
+2015/06/12 10:25:23 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 10:25:23 [router.go:845] [D] | GET        | /api/request                             | 444.333626ms     | match      | /api/request                             | 
+2015/06/12 10:26:26 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:26:27 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:26:27 [InvokerEngine.go:117] [D] Start Invoke MH 
+2015/06/12 10:26:28 [InvokerEngine.go:158] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121026272230&requestid=d7cfa772e84835df94352010e1752e3e&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121026272230&requestid=d7cfa772e84835df94352010e1752e3e&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 10:26:28 [InvokerEngine.go:100] [D] 0xc208188180 
+2015/06/12 10:26:28 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 10:26:28 [router.go:845] [D] | GET        | /api/request                             | 436.576488ms     | match      | /api/request                             | 
+2015/06/12 10:26:40 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:26:40 [InvokerEngine.go:117] [D] Start Invoke MH 
+2015/06/12 10:26:41 [router.go:33] [I] admux start 
+2015/06/12 10:26:41 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:26:55 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:26:59 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:26:59 [InvokerEngine.go:117] [D] Start Invoke MH 
+2015/06/12 10:26:59 [InvokerEngine.go:158] [D] 0xc20815c020 
+2015/06/12 10:26:59 [InvokerEngine.go:100] [D] 0xc208194180 
+2015/06/12 10:26:59 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 10:26:59 [router.go:845] [D] | GET        | /api/request                             | 355.733593ms     | match      | /api/request                             | 
+2015/06/12 10:28:13 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:28:26 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:28:28 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:28:28 [InvokerEngine.go:117] [D] Start Invoke MH 
+2015/06/12 10:28:29 [InvokerEngine.go:162] [D] 200 
+2015/06/12 10:28:29 [InvokerEngine.go:100] [D] 0xc208170180 
+2015/06/12 10:28:29 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 10:28:29 [router.go:845] [D] | GET        | /api/request                             | 673.894877ms     | match      | /api/request                             | 
+2015/06/12 10:31:20 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:31:26 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:31:26 [InvokerEngine.go:117] [D] Start Invoke MH 
+2015/06/12 10:31:28 [InvokerEngine.go:162] [D] 200 
+2015/06/12 10:31:28 [InvokerEngine.go:100] [D] &{200  0xc208188280} 
+2015/06/12 10:31:28 [InvokerEngine.go:111] [D] Finish Demend result 
+2015/06/12 10:31:28 [router.go:845] [D] | GET        | /api/request                             | 1.63528121s      | match      | /api/request                             | 
+2015/06/12 10:32:25 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:32:26 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:32:26 [InvokerEngine.go:119] [D] Start Invoke MH 
+2015/06/12 10:32:30 [router.go:33] [I] admux start 
+2015/06/12 10:32:30 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:32:38 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:32:38 [InvokerEngine.go:119] [D] Start Invoke MH 
+2015/06/12 10:32:42 [InvokerEngine.go:164] [D] 200 
+2015/06/12 10:32:42 [InvokerEngine.go:100] [D] &{200  0xc20804c580} 
+2015/06/12 10:32:42 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 10:32:42 [InvokerEngine.go:113] [D] Finish Demend result 
+2015/06/12 10:32:42 [router.go:845] [D] | GET        | /api/request                             | 4.437901613s     | match      | /api/request                             | 
+2015/06/12 10:33:02 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:33:07 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:33:09 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:33:09 [InvokerEngine.go:119] [D] Start Invoke MH 
+2015/06/12 10:33:10 [InvokerEngine.go:164] [D] 200 
+2015/06/12 10:33:10 [InvokerEngine.go:100] [D] &{200  0xc20819e480} 
+2015/06/12 10:33:10 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 10:33:10 [InvokerEngine.go:113] [D] [<nil> <nil> 0xc208062440] 
+2015/06/12 10:33:10 [router.go:845] [D] | GET        | /api/request                             | 1.453582818s     | match      | /api/request                             | 
+2015/06/12 10:34:10 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:34:16 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 10:34:16 [InvokerEngine.go:119] [D] Start Invoke MH 
+2015/06/12 10:34:20 [InvokerEngine.go:164] [D] 200 
+2015/06/12 10:34:20 [InvokerEngine.go:100] [D] &{200  0xc208182280} 
+2015/06/12 10:34:20 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 10:34:20 [InvokerEngine.go:113] [D] [<nil> 0xc208184380] 
+2015/06/12 10:34:20 [router.go:845] [D] | GET        | /api/request                             | 3.979559957s     | match      | /api/request                             | 
+2015/06/12 10:56:06 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:56:58 [app.go:103] [I] http server Running on :7070
+2015/06/12 10:57:43 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:02:11 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:02:29 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:02:44 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:02:44 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:02:46 [InvokerEngine.go:163] [D] 200 
+2015/06/12 11:02:46 [InvokerEngine.go:100] [D] &{200  0xc20817c280} 
+2015/06/12 11:02:46 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:02:46 [router.go:845] [D] | GET        | /api/request                             | 2.584308955s     | match      | /api/request                             | 
+2015/06/12 11:04:19 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:05:13 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:05:13 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:05:14 [InvokerEngine.go:163] [D] 200 
+2015/06/12 11:05:14 [InvokerEngine.go:168] [D]  
+2015/06/12 11:05:14 [InvokerEngine.go:100] [D] &{200  0xc208188280} 
+2015/06/12 11:05:14 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:05:14 [router.go:845] [D] | GET        | /api/request                             | 739.114483ms     | match      | /api/request                             | 
+2015/06/12 11:08:42 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:09:09 [router.go:33] [I] admux start 
+2015/06/12 11:09:09 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:12:07 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:12:44 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:12:56 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:12:56 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:12:59 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121112564356&requestid=f6af313421ddd26a8a378ab3c925982d&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121112564356&requestid=f6af313421ddd26a8a378ab3c925982d&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:12:59 [InvokerEngine.go:169] [D]  
+2015/06/12 11:12:59 [InvokerEngine.go:100] [D] &{200  0xc208090d80} 
+2015/06/12 11:12:59 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:12:59 [router.go:845] [D] | GET        | /api/request                             | 2.891611533s     | match      | /api/request                             | 
+2015/06/12 11:14:13 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:14:13 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:14:13 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121114138960&requestid=e29f1d2c09a38c3ced6622d16f8d2f9f&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121114138960&requestid=e29f1d2c09a38c3ced6622d16f8d2f9f&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:14:13 [InvokerEngine.go:169] [D]  
+2015/06/12 11:14:13 [InvokerEngine.go:100] [D] &{200  0xc20818e360} 
+2015/06/12 11:14:13 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:14:13 [router.go:845] [D] | GET        | /api/request                             | 509.427605ms     | match      | /api/request                             | 
+2015/06/12 11:14:16 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:14:16 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:14:18 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121114167061&requestid=c69e70e395dabe296ee4be58f582cafb&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121114167061&requestid=c69e70e395dabe296ee4be58f582cafb&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:14:18 [InvokerEngine.go:169] [D]  
+2015/06/12 11:14:18 [InvokerEngine.go:100] [D] &{200  0xc20809e630} 
+2015/06/12 11:14:18 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:14:18 [router.go:845] [D] | GET        | /api/request                             | 2.300692065s     | match      | /api/request                             | 
+2015/06/12 11:23:23 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:23:23 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:23:23 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121123237233&requestid=83da86517b82ac1dc23045b49f7b98db&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121123237233&requestid=83da86517b82ac1dc23045b49f7b98db&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:23:23 [InvokerEngine.go:169] [D]  
+2015/06/12 11:23:23 [InvokerEngine.go:100] [D] &{200  0xc2080902d0} 
+2015/06/12 11:23:23 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:23:23 [router.go:845] [D] | GET        | /api/request                             | 80.102886ms      | match      | /api/request                             | 
+2015/06/12 11:23:34 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:23:34 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:23:34 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121123349949&requestid=2b6e4af8ccfdae11c246da1b2ba517cc&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121123349949&requestid=2b6e4af8ccfdae11c246da1b2ba517cc&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:23:34 [InvokerEngine.go:169] [D]  
+2015/06/12 11:23:34 [InvokerEngine.go:100] [D] &{200  0xc2080fa360} 
+2015/06/12 11:23:34 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:23:34 [router.go:845] [D] | GET        | /api/request                             | 84.999134ms      | match      | /api/request                             | 
+2015/06/12 11:23:35 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:23:35 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:23:41 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2  http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121123353277&requestid=1bbd0f920c7fdeec77e846efb6b2da65&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121123353277&requestid=1bbd0f920c7fdeec77e846efb6b2da65&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:23:41 [InvokerEngine.go:169] [D]  
+2015/06/12 11:23:41 [InvokerEngine.go:100] [D] &{200  0xc208090990} 
+2015/06/12 11:23:41 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:23:41 [router.go:845] [D] | GET        | /api/request                             | 5.43760478s      | match      | /api/request                             | 
+2015/06/12 11:26:02 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:26:27 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:26:27 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:26:39 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:26:39 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:27:14 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:27:14 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:29:31 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:29:31 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:29:32 [InvokerEngine.go:163] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2 http://adv.madserving.com/material/1428054839357_640_960.png http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121129316380&requestid=3f1da6a9954bfb9b5d8032756e4ecceb&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121129316380&requestid=3f1da6a9954bfb9b5d8032756e4ecceb&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:29:32 [InvokerEngine.go:100] [D] &{200  0xc20809e5a0} 
+2015/06/12 11:29:32 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:29:32 [router.go:845] [D] | GET        | /api/request                             | 372.916584ms     | match      | /api/request                             | 
+2015/06/12 11:30:24 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:31:43 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:52:50 [router.go:33] [I] admux start 
+2015/06/12 11:52:50 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:52:54 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:52:54 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:52:55 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 11:52:55 [InvokerEngine.go:168] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2 http://adv.madserving.com/material/1428054839357_640_960.png http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121152542024&requestid=c46edac85e529959606bf88aa4a8abd8&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121152542024&requestid=c46edac85e529959606bf88aa4a8abd8&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:52:55 [InvokerEngine.go:100] [D] &{200  0xc208164360} 
+2015/06/12 11:52:55 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:52:55 [router.go:845] [D] | GET        | /api/request                             | 1.079011341s     | match      | /api/request                             | 
+2015/06/12 11:53:00 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:53:00 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:53:01 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 11:53:01 [InvokerEngine.go:168] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2 http://adv.madserving.com/material/1428054839357_640_960.png http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121153004330&requestid=3137f4d83490c26f595ec6d9e32a9328&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121153004330&requestid=3137f4d83490c26f595ec6d9e32a9328&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:53:01 [InvokerEngine.go:100] [D] &{200  0xc2080a0f30} 
+2015/06/12 11:53:01 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:53:01 [router.go:845] [D] | GET        | /api/request                             | 675.553671ms     | match      | /api/request                             | 
+2015/06/12 11:53:26 [app.go:103] [I] http server Running on :7070
+2015/06/12 11:53:29 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 11:53:29 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 11:53:30 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 11:53:30 [InvokerEngine.go:168] [D] &{E757EAC5FA3FFACC 200 7E2550A2788B8A56 640 960 2 http://adv.madserving.com/material/1428054839357_640_960.png http://clk.sandbox.madserving.com/clk/v2?bid=E757EAC5FA3FFACC201506121153297970&requestid=a6e0e538939b37e427875f5e89f8d699&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&target=http%3A%2F%2Fwww.baidu.com&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3 [http://imp.sandbox.madserving.com/imp/v2?bid=E757EAC5FA3FFACC201506121153297970&requestid=a6e0e538939b37e427875f5e89f8d699&adspaceid=E757EAC5FA3FFACC&cid=7E2550A2788B8A56&crea=5&adtype=2&pkgname=&appname=&conn=0&carrier=0&apitype=2&os=0&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&device=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ip=&width=640&height=960&pid=&pcat=&media=&debug=&density=Mozilla/5.0 (Linux; Android 4.3; zh-cn; ME525  Build/) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30&lon=&lat=&cell=&mcell=&optiMode=3] []} 
+2015/06/12 11:53:30 [InvokerEngine.go:100] [D] &{200  0xc2080b0750} 
+2015/06/12 11:53:30 [InvokerEngine.go:104] [D] Add one ad response 
+2015/06/12 11:53:30 [router.go:845] [D] | GET        | /api/request                             | 506.669277ms     | match      | /api/request                             | 
+2015/06/12 13:19:49 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:19:49 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:40:41 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:40:53 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:40:53 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:40:53 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:40:53 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:40:53 [router.go:845] [D] | GET        | /api/request                             | 101.751509ms     | match      | /api/request                             | 
+2015/06/12 13:40:59 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:40:59 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:40:59 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:40:59 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:40:59 [router.go:845] [D] | GET        | /api/request                             | 107.809775ms     | match      | /api/request                             | 
+2015/06/12 13:41:00 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:00 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:00 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:00 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:00 [router.go:845] [D] | GET        | /api/request                             | 102.495527ms     | match      | /api/request                             | 
+2015/06/12 13:41:01 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:01 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:01 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:01 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:01 [router.go:845] [D] | GET        | /api/request                             | 104.533075ms     | match      | /api/request                             | 
+2015/06/12 13:41:01 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:01 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:02 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:02 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:02 [router.go:845] [D] | GET        | /api/request                             | 102.873629ms     | match      | /api/request                             | 
+2015/06/12 13:41:02 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:02 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:02 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:02 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:02 [router.go:845] [D] | GET        | /api/request                             | 102.651134ms     | match      | /api/request                             | 
+2015/06/12 13:41:03 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:03 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:03 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:03 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:03 [router.go:845] [D] | GET        | /api/request                             | 104.567442ms     | match      | /api/request                             | 
+2015/06/12 13:41:04 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:04 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:04 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:04 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:04 [router.go:845] [D] | GET        | /api/request                             | 192.698716ms     | match      | /api/request                             | 
+2015/06/12 13:41:05 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:05 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:05 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:05 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:05 [router.go:845] [D] | GET        | /api/request                             | 103.73405ms      | match      | /api/request                             | 
+2015/06/12 13:41:06 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:06 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:06 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:06 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:06 [router.go:845] [D] | GET        | /api/request                             | 102.501882ms     | match      | /api/request                             | 
+2015/06/12 13:41:06 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:06 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:07 [router.go:845] [D] | GET        | /api/request                             | 109.829615ms     | match      | /api/request                             | 
+2015/06/12 13:41:07 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:07 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:07 [router.go:845] [D] | GET        | /api/request                             | 102.748937ms     | match      | /api/request                             | 
+2015/06/12 13:41:07 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:07 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:07 [router.go:845] [D] | GET        | /api/request                             | 107.283089ms     | match      | /api/request                             | 
+2015/06/12 13:41:07 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:07 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:07 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:07 [router.go:845] [D] | GET        | /api/request                             | 101.789282ms     | match      | /api/request                             | 
+2015/06/12 13:41:08 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:08 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:08 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:08 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:08 [router.go:845] [D] | GET        | /api/request                             | 103.212578ms     | match      | /api/request                             | 
+2015/06/12 13:41:09 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:09 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:09 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:09 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:09 [router.go:845] [D] | GET        | /api/request                             | 103.08504ms      | match      | /api/request                             | 
+2015/06/12 13:41:11 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:11 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:11 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:11 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:11 [router.go:845] [D] | GET        | /api/request                             | 104.606467ms     | match      | /api/request                             | 
+2015/06/12 13:41:12 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:12 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:12 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:12 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:12 [router.go:845] [D] | GET        | /api/request                             | 104.947838ms     | match      | /api/request                             | 
+2015/06/12 13:41:13 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:13 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:13 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:13 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:13 [router.go:845] [D] | GET        | /api/request                             | 105.973477ms     | match      | /api/request                             | 
+2015/06/12 13:41:14 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:14 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:14 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:14 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:14 [router.go:845] [D] | GET        | /api/request                             | 102.809125ms     | match      | /api/request                             | 
+2015/06/12 13:41:14 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:14 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:14 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:14 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:14 [router.go:845] [D] | GET        | /api/request                             | 102.24314ms      | match      | /api/request                             | 
+2015/06/12 13:41:15 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:15 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:15 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:15 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:15 [router.go:845] [D] | GET        | /api/request                             | 105.035609ms     | match      | /api/request                             | 
+2015/06/12 13:41:16 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:16 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:16 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:16 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:16 [router.go:845] [D] | GET        | /api/request                             | 103.079618ms     | match      | /api/request                             | 
+2015/06/12 13:41:17 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:17 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:17 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:17 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:17 [router.go:845] [D] | GET        | /api/request                             | 104.455188ms     | match      | /api/request                             | 
+2015/06/12 13:41:17 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:17 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:17 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:17 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:17 [router.go:845] [D] | GET        | /api/request                             | 104.60123ms      | match      | /api/request                             | 
+2015/06/12 13:41:17 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:17 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:17 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:17 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:17 [router.go:845] [D] | GET        | /api/request                             | 177.87108ms      | match      | /api/request                             | 
+2015/06/12 13:41:18 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:18 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:18 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:18 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:18 [router.go:845] [D] | GET        | /api/request                             | 104.351461ms     | match      | /api/request                             | 
+2015/06/12 13:41:18 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:18 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:18 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:18 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:18 [router.go:845] [D] | GET        | /api/request                             | 105.642992ms     | match      | /api/request                             | 
+2015/06/12 13:41:18 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:18 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:18 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:18 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:18 [router.go:845] [D] | GET        | /api/request                             | 107.720138ms     | match      | /api/request                             | 
+2015/06/12 13:41:19 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:19 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:19 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:19 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:19 [router.go:845] [D] | GET        | /api/request                             | 103.525764ms     | match      | /api/request                             | 
+2015/06/12 13:41:20 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:41:20 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:41:20 [InvokerEngine.go:151] [D] End Invoke MH 
+2015/06/12 13:41:20 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:41:20 [router.go:845] [D] | GET        | /api/request                             | 102.273545ms     | match      | /api/request                             | 
+2015/06/12 13:43:50 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:46:57 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:48:57 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:48:57 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:48:57 [InvokerEngine.go:151] [D]  Get http://ad.sandbox.madserving.com/adcall/bidrequest?device=iPhone5s&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&lat=&os=0&wma=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&ip=&width=640&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&appname=&apitype=2&osv=4.3&aid=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&bid=E757EAC5FA3FFACC201506121348576900&adspaceid=E757EAC5FA3FFACC&adtype=2&carrier=0&lon=&pkgname=&conn=0&imei=6ec9fe2b94777ace00d5f67528570cf9&height=960&device=iPhone5s&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&lat=&os=0&wma=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&ip=&width=640&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&appname=&apitype=2&osv=4.3&aid=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&bid=E757EAC5FA3FFACC201506121348576900&adspaceid=E757EAC5FA3FFACC&adtype=2&carrier=0&lon=&pkgname=&conn=0&imei=6ec9fe2b94777ace00d5f67528570cf9&height=960: dial tcp: i/o timeout 
+2015/06/12 13:48:57 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:48:57 [router.go:845] [D] | GET        | /api/request                             | 203.169658ms     | match      | /api/request                             | 
+2015/06/12 13:49:29 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:49:33 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:49:33 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:49:33 [InvokerEngine.go:151] [D]  Get http://ad.sandbox.madserving.com/adcall/bidrequest?idfa=6ec9fe2b94777ace00d5f67528570cf9&width=640&lon=&bid=E757EAC5FA3FFACC20150612134933537&adspaceid=E757EAC5FA3FFACC&conn=0&apitype=2&aid=6ec9fe2b94777ace00d5f67528570cf9&height=960&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&appname=&os=0&osv=4.3&uid=6ec9fe2b94777ace00d5f67528570cf9&ip=&adtype=2&pkgname=&device=iPhone5s&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&lat=&carrier=0&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&apitype=2&aid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&width=640&lon=&bid=E757EAC5FA3FFACC20150612134933537&adspaceid=E757EAC5FA3FFACC&conn=0&uid=6ec9fe2b94777ace00d5f67528570cf9&ip=&height=960&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&appname=&os=0&osv=4.3&adtype=2&pkgname=&aaid=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&device=iPhone5s&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&lat=&carrier=0&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9: dial tcp 114.80.90.100:80: i/o timeout 
+2015/06/12 13:49:33 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:49:33 [router.go:845] [D] | GET        | /api/request                             | 206.064962ms     | match      | /api/request                             | 
+2015/06/12 13:49:51 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:49:54 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:49:54 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:49:54 [InvokerEngine.go:151] [D]  Get http://ad.sandbox.madserving.com/adcall/bidrequest?idfa=6ec9fe2b94777ace00d5f67528570cf9&bid=E757EAC5FA3FFACC201506121349548709&pkgname=&aaid=6ec9fe2b94777ace00d5f67528570cf9&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&width=640&conn=0&carrier=0&apitype=2&os=0&device=iPhone5s&ip=&height=960&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&adspaceid=E757EAC5FA3FFACC&adtype=2&appname=&lon=&lat=&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&osv=4.3&aid=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&bid=E757EAC5FA3FFACC201506121349548709&pkgname=&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&conn=0&carrier=0&apitype=2&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&width=640&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&adspaceid=E757EAC5FA3FFACC&adtype=2&appname=&os=0&device=iPhone5s&ip=&height=960&lon=&lat=&osv=4.3&aid=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30: dial tcp 114.80.90.100:80: i/o timeout 
+2015/06/12 13:49:54 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:49:54 [router.go:845] [D] | GET        | /api/request                             | 206.819257ms     | match      | /api/request                             | 
+2015/06/12 13:50:09 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:50:18 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:50:21 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:50:21 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:50:21 [InvokerEngine.go:151] [D]  Get http://ad.sandbox.madserving.com/adcall/bidrequest?ip=&lat=&oid=6ec9fe2b94777ace00d5f67528570cf9&device=iPhone5s&width=640&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&lon=&adtype=2&osv=4.3&appname=&conn=0&os=0&aaid=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&bid=E757EAC5FA3FFACC201506121350217961&adspaceid=E757EAC5FA3FFACC&apitype=2&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&height=960&pkgname=&carrier=0&ip=&lat=&lon=&adtype=2&osv=4.3&oid=6ec9fe2b94777ace00d5f67528570cf9&device=iPhone5s&width=640&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&uid=6ec9fe2b94777ace00d5f67528570cf9&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&bid=E757EAC5FA3FFACC201506121350217961&adspaceid=E757EAC5FA3FFACC&appname=&conn=0&os=0&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&height=960&pkgname=&carrier=0&apitype=2&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&aid=6ec9fe2b94777ace00d5f67528570cf9: dial tcp: i/o timeout 
+2015/06/12 13:50:21 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:50:21 [router.go:845] [D] | GET        | /api/request                             | 303.309585ms     | match      | /api/request                             | 
+2015/06/12 13:50:46 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:50:46 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:50:46 [InvokerEngine.go:118] [D] Start Invoke MH 
+2015/06/12 13:50:46 [InvokerEngine.go:100] [D] &{702  <nil>} 
+2015/06/12 13:50:46 [router.go:845] [D] | GET        | /api/request                             | 166.159485ms     | match      | /api/request                             | 
+2015/06/12 13:54:18 [app.go:103] [I] http server Running on :7070
+2015/06/12 13:54:25 [RequestController.go:18] [D] Enter Request ad 
+2015/06/12 13:54:25 [InvokerEngine.go:109] [D] Start Invoke MH 
+2015/06/12 13:54:26 [InvokerEngine.go:142] [D]  Get http://ad.sandbox.madserving.com/adcall/bidrequest?uid=6ec9fe2b94777ace00d5f67528570cf9&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&width=640&bid=E757EAC5FA3FFACC201506121354253649&apitype=2&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&lon=&adtype=2&carrier=0&os=0&device=iPhone5s&lat=&height=960&adspaceid=E757EAC5FA3FFACC&pkgname=&appname=&conn=0&ip=&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&ua=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30&width=640&bid=E757EAC5FA3FFACC201506121354253649&apitype=2&osv=4.3&imei=6ec9fe2b94777ace00d5f67528570cf9&wma=6ec9fe2b94777ace00d5f67528570cf9&uid=6ec9fe2b94777ace00d5f67528570cf9&lon=&adtype=2&carrier=0&os=0&device=iPhone5s&lat=&adspaceid=E757EAC5FA3FFACC&pkgname=&appname=&conn=0&ip=&height=960&aid=6ec9fe2b94777ace00d5f67528570cf9&aaid=6ec9fe2b94777ace00d5f67528570cf9&idfa=6ec9fe2b94777ace00d5f67528570cf9&oid=6ec9fe2b94777ace00d5f67528570cf9&density=Mozilla%2F5.0+%28Linux%3B+Android+4.3%3B+zh-cn%3B+ME525++Build%2F%29+AppleWebKit%2F534.30+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Mobile+Safari%2F534.30: dial tcp: i/o timeout 
+2015/06/12 13:54:26 [router.go:845] [D] | GET        | /api/request                             | 303.219487ms     | match      | /api/request                             | 
+2015/06/12 13:55:15 [app.go:103] [I] http server Running on :7070
+2015/06/12 14:04:14 [app.go:103] [I] http server Running on :7070
+2015/06/12 14:04:43 [app.go:103] [I] http server Running on :7070
