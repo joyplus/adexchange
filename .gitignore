@@ -26,3 +26,7 @@ logs
 *.log
 
 *.log
+
+logs/admux.log
+
+admux

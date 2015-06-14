@@ -49,8 +49,10 @@ func test() {
 	DemandMap = make(map[int]string)
 
 	AdspaceMap["TE57EAC5FA3FFACC_2"] = []string{"E757EAC5FA3FFACC", ""}
-	AdspaceDemandMap["TE57EAC5FA3FFACC"] = []int{2}
+	AdspaceMap["TE57EAC5FA3FFACC_3"] = []string{"B4F1B7ABAA10D214", ""}
+	AdspaceDemandMap["TE57EAC5FA3FFACC"] = []int{3, 2}
 	DemandMap[2] = "http://ad.sandbox.madserving.com/adcall/bidrequest"
+	DemandMap[3] = "http://api.sandbox.airwaveone.net/adcall/bidrequest"
 }
 
 //func generateParamsMapForMH(adRequest *m.AdRequest) map[string]string {
@@ -72,7 +74,9 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 	demandAry := make([]*Demand, len(demandIds))
 
-	for index, demandId := range demandIds {
+	demandIndex := 0
+
+	for _, demandId := range demandIds {
 		demandUrl := DemandMap[demandId]
 
 		key4AdspaceMap := adspaceKey + "_" + lib.ConvertIntToString(demandId)
@@ -80,26 +84,34 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		adspaceAry, ok := AdspaceMap[key4AdspaceMap]
 
 		if ok {
+
 			demand := new(Demand)
 			demand.URL = demandUrl
 			demand.AdRequest = adRequest
 			demand.AdspaceKey = adspaceAry[0]
 			demand.AdSecretKey = adspaceAry[1]
 			demand.Result = make(chan *m.AdResponse)
-			demandAry[index] = demand
+			demandAry[demandIndex] = demand
+			demandIndex++
 			go invokeMH(demand)
 		}
 	}
 
-	adResultAry := make([]*m.AdResponse, len(demandAry))
+	adResultAry := make([]*m.AdResponse, demandIndex)
 
-	for index, demand := range demandAry {
-		if demand != nil {
-			tmp := <-demand.Result
-			adResultAry[index] = tmp
-		}
-
+	for index := 0; index < demandIndex; index++ {
+		demand := demandAry[index]
+		tmp := <-demand.Result
+		adResultAry[index] = tmp
 	}
+
+	//for index, demand := range demandAry {
+	//	if demand != nil {
+	//		tmp := <-demand.Result
+	//		adResultAry[index] = tmp
+	//	}
+
+	//}
 
 	return chooseAdResponse(adResultAry)
 }
@@ -107,7 +119,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 func invokeMH(demand *Demand) {
 
 	beego.Debug("Start Invoke MH")
-	req := httplib.Get(demand.URL).SetTimeout(150*time.Millisecond, 100*time.Millisecond)
+	req := httplib.Get(demand.URL).Debug(true).SetTimeout(400*time.Millisecond, 300*time.Millisecond)
 
 	adRequest := demand.AdRequest
 	req.Param("bid", lib.GenerateBid(demand.AdspaceKey))
@@ -171,15 +183,16 @@ func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
 	return adResponse
 }
 
-func chooseAdResponse(aryAdResponse []*m.AdResponse) *m.AdResponse {
-	for _, adResponse := range aryAdResponse {
+func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) {
+
+	for _, adResponse = range aryAdResponse {
 		if adResponse != nil && adResponse.StatusCode == 200 {
 			return adResponse
 			break
 		}
 	}
 
-	return nil
+	return adResponse
 }
 
 func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
