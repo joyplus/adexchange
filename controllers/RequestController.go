@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"admux/engine"
-	"admux/lib"
-	m "admux/models"
+	"adexchange/engine"
+	"adexchange/lib"
+	m "adexchange/models"
 	"github.com/astaxie/beego"
 )
 
@@ -38,6 +38,19 @@ func (this *RequestController) RequestAd() {
 		//	beego.Debug("Enter ssaass ad")
 		//}
 	}
+
+	this.Data["json"] = &adResponse
+	this.ServeJson()
+
+}
+
+//Request Ad
+func (this *RequestController) TestAd() {
+
+	adResponse := new(m.AdResponse)
+	beego.Debug("Enter Request ad")
+
+	m.InitEngineData()
 
 	this.Data["json"] = &adResponse
 	this.ServeJson()

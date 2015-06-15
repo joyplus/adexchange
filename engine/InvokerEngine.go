@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"admux/lib"
-	m "admux/models"
+	"adexchange/lib"
+	m "adexchange/models"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/httplib"
 	"time"
@@ -22,7 +22,7 @@ type Demand struct {
 var AdspaceSecretMap map[string]string
 
 //key:<adspace_key>_<demand_id>; value:<demand_adspace_key>,<demand_secret_key>
-var AdspaceMap map[string][]string
+var AdspaceMap map[string]m.AdspaceData
 
 //key:<adspace_key>; value:<demand_id1>,<demand_id2>...
 var AdspaceDemandMap map[string][]int
@@ -44,12 +44,12 @@ func init() {
 }
 
 func test() {
-	AdspaceMap = make(map[string][]string)
+	AdspaceMap = make(map[string]m.AdspaceData)
 	AdspaceDemandMap = make(map[string][]int)
 	DemandMap = make(map[int]string)
 
-	AdspaceMap["TE57EAC5FA3FFACC_2"] = []string{"E757EAC5FA3FFACC", ""}
-	AdspaceMap["TE57EAC5FA3FFACC_3"] = []string{"B4F1B7ABAA10D214", ""}
+	AdspaceMap["TE57EAC5FA3FFACC_2"] = m.AdspaceData{AdspaceKey: "E757EAC5FA3FFACC"}
+	AdspaceMap["TE57EAC5FA3FFACC_3"] = m.AdspaceData{AdspaceKey: "B4F1B7ABAA10D214"}
 	AdspaceDemandMap["TE57EAC5FA3FFACC"] = []int{3, 2}
 	DemandMap[2] = "http://ad.sandbox.madserving.com/adcall/bidrequest"
 	DemandMap[3] = "http://api.sandbox.airwaveone.net/adcall/bidrequest"
@@ -81,15 +81,15 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 		key4AdspaceMap := adspaceKey + "_" + lib.ConvertIntToString(demandId)
 
-		adspaceAry, ok := AdspaceMap[key4AdspaceMap]
+		adspaceData, ok := AdspaceMap[key4AdspaceMap]
 
 		if ok {
 
 			demand := new(Demand)
 			demand.URL = demandUrl
 			demand.AdRequest = adRequest
-			demand.AdspaceKey = adspaceAry[0]
-			demand.AdSecretKey = adspaceAry[1]
+			demand.AdspaceKey = adspaceData.AdspaceKey
+			demand.AdSecretKey = adspaceData.SecretKey
 			demand.Result = make(chan *m.AdResponse)
 			demandAry[demandIndex] = demand
 			demandIndex++
@@ -200,4 +200,9 @@ func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
 	adResponse.StatusCode = statusCode
 
 	return adResponse
+}
+
+func UpdateAdspaceStatus(adspaceKey string, demandAdspaceKey string, status bool) {
+	AvbAdSpaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
+
 }

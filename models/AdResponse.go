@@ -29,3 +29,20 @@ type MHAdUnit struct {
 	Imgtracking []string
 	Thclkurl    []string
 }
+
+type AdspaceData struct {
+	AdspaceKey string
+	SecretKey  string
+}
+
+type PmpAdplaceInfo struct {
+	AdspaceKey       string
+	DemandId         int
+	DemandAdspaceKey string
+	DemandSecretKey  string
+}
+
+type DemandInfo struct {
+	DemandId int
+	Url      string
+}

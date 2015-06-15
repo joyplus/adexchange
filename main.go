@@ -1,15 +1,11 @@
 package main
 
 import (
+	"adexchange/engine"
+	m "adexchange/models"
+	_ "adexchange/routers"
 	"github.com/astaxie/beego"
-	//"github.com/astaxie/beego/httplib"
-	//"encoding/json"
-	_ "admux/routers"
-	//"flag"
-	//	"github.com/ddliu/go-httpclient"
-	//"runtime"
-	//"strings"
-	//"sync"
+	"github.com/astaxie/beego/orm"
 )
 
 //var c1, c2 httpclient.HttpClient
@@ -58,13 +54,16 @@ func setup() {
 }
 
 func main() {
-	setup()
+	//setup()
 	//beego.EnableAdmin = true
 	//beego.AdminHttpAddr = "localhost"
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
+	m.Connect()
+	go engine.ScheduleInit(1)
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
+	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
 	beego.Run()
 }
 
