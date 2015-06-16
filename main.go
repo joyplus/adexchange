@@ -66,7 +66,7 @@ func main() {
 	beego.SetLogFuncCall(true)
 	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
 
-	lib.Pool = lib.NewPool(":6379", "")
+	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
 
 	beego.Run()
 }
