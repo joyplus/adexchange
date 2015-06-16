@@ -3,7 +3,7 @@ package models
 type AdRequest struct {
 	Bid              string `form:"bid"`
 	AdspaceKey       string `form:"adspaceid"`
-	DemandAdspaceKey string `form:"demandadspaceid"`
+	DemandAdspaceKey string `form:"dkey"`
 	AdType           string `form:"adtype"`
 	Pkgname          string `form:"pkgname"`
 	Appname          string `form:"appname"`

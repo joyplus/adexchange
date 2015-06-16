@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"adexchange/engine"
-	"adexchange/lib"
 	m "adexchange/models"
 	"github.com/astaxie/beego"
 )
@@ -15,9 +13,7 @@ type MonitorController struct {
 func (this *MonitorController) UpdateStatus() {
 
 	adResponse := new(m.AdResponse)
-	beego.Debug("Enter Request ad")
-
-	m.InitEngineData()
+	beego.Debug("Enter update status")
 
 	this.Data["json"] = &adResponse
 	this.ServeJson()

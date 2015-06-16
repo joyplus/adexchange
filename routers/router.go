@@ -33,5 +33,6 @@ func init() {
 	beego.Info("admux start")
 	beego.Router("/api/request", &controllers.RequestController{}, "*:RequestAd")
 	beego.Router("/api/test", &controllers.RequestController{}, "*:TestAd")
+	beego.Router("/api/trackimp", &controllers.RequestController{}, "*:TrackImp")
 
 }

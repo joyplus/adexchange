@@ -1,9 +1,10 @@
 package main
 
 import (
-	"adexchange/engine"
+	"adexchange/lib"
 	m "adexchange/models"
 	_ "adexchange/routers"
+	"adexchange/tasks"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
@@ -60,10 +61,13 @@ func main() {
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 	m.Connect()
-	go engine.ScheduleInit(1)
+	go tasks.ScheduleInit(100)
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
 	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
+
+	lib.Pool = lib.NewPool(":6379", "")
+
 	beego.Run()
 }
 

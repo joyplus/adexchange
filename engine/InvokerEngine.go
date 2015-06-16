@@ -19,40 +19,40 @@ type Demand struct {
 }
 
 //key:<adspace_key>; value:<secret_key>
-var AdspaceSecretMap map[string]string
+var _AdspaceSecretMap map[string]string
 
 //key:<adspace_key>_<demand_id>; value:<demand_adspace_key>,<demand_secret_key>
-var AdspaceMap map[string]m.AdspaceData
+var _AdspaceMap map[string]m.AdspaceData
 
 //key:<adspace_key>; value:<demand_id1>,<demand_id2>...
-var AdspaceDemandMap map[string][]int
+var _AdspaceDemandMap map[string][]int
 
 //key:<demand_id>; value:<demand_url>
-var DemandMap map[int]string
+var _DemandMap map[int]string
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
-var AvbAdSpaceDemand map[string]bool
+var _AvbAdSpaceDemand map[string]bool
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
-var AvbAdspaceRegionTargeting map[string]bool
+var _AvbAdspaceRegionTargeting map[string]bool
 
 //key:<adspace_key>_<demand_adspace_key>_<region_code>; value:<left_imp>
-var AvbAdSpaceRegion map[string]bool
+var _AvbAdSpaceRegion map[string]bool
 
 func init() {
 	test()
 }
 
 func test() {
-	AdspaceMap = make(map[string]m.AdspaceData)
-	AdspaceDemandMap = make(map[string][]int)
-	DemandMap = make(map[int]string)
+	_AdspaceMap = make(map[string]m.AdspaceData)
+	_AdspaceDemandMap = make(map[string][]int)
+	_DemandMap = make(map[int]string)
 
-	AdspaceMap["TE57EAC5FA3FFACC_2"] = m.AdspaceData{AdspaceKey: "E757EAC5FA3FFACC"}
-	AdspaceMap["TE57EAC5FA3FFACC_3"] = m.AdspaceData{AdspaceKey: "B4F1B7ABAA10D214"}
-	AdspaceDemandMap["TE57EAC5FA3FFACC"] = []int{3, 2}
-	DemandMap[2] = "http://ad.sandbox.madserving.com/adcall/bidrequest"
-	DemandMap[3] = "http://api.sandbox.airwaveone.net/adcall/bidrequest"
+	_AdspaceMap["TE57EAC5FA3FFACC_2"] = m.AdspaceData{AdspaceKey: "E757EAC5FA3FFACC"}
+	_AdspaceMap["TE57EAC5FA3FFACC_3"] = m.AdspaceData{AdspaceKey: "B4F1B7ABAA10D214"}
+	_AdspaceDemandMap["TE57EAC5FA3FFACC"] = []int{3, 2}
+	_DemandMap[2] = "http://ad.sandbox.madserving.com/adcall/bidrequest"
+	_DemandMap[3] = "http://api.sandbox.airwaveone.net/adcall/bidrequest"
 }
 
 //func generateParamsMapForMH(adRequest *m.AdRequest) map[string]string {
@@ -63,9 +63,9 @@ func test() {
 
 func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
-	adspaceKey := adRequest.AdspaceId
+	adspaceKey := adRequest.AdspaceKey
 
-	demandIds := AdspaceDemandMap[adspaceKey]
+	demandIds := _AdspaceDemandMap[adspaceKey]
 
 	if len(demandIds) == 0 {
 
@@ -77,11 +77,11 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	demandIndex := 0
 
 	for _, demandId := range demandIds {
-		demandUrl := DemandMap[demandId]
+		demandUrl := _DemandMap[demandId]
 
 		key4AdspaceMap := adspaceKey + "_" + lib.ConvertIntToString(demandId)
 
-		adspaceData, ok := AdspaceMap[key4AdspaceMap]
+		adspaceData, ok := _AdspaceMap[key4AdspaceMap]
 
 		if ok {
 
@@ -203,6 +203,19 @@ func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
 }
 
 func UpdateAdspaceStatus(adspaceKey string, demandAdspaceKey string, status bool) {
-	AvbAdSpaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
+	_AvbAdSpaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
 
+}
+
+func SetupAdspaceSecretMap(adspaceSecretMap map[string]string) {
+	_AdspaceSecretMap = adspaceSecretMap
+}
+func SetupAdspaceMap(adspaceMap map[string]m.AdspaceData) {
+	_AdspaceMap = adspaceMap
+}
+func SetupAdspaceDemandMap(adspaceDemandMap map[string][]int) {
+	_AdspaceDemandMap = adspaceDemandMap
+}
+func SetupDemandMap(demandMap map[int]string) {
+	_DemandMap = demandMap
 }

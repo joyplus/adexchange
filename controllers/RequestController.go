@@ -50,7 +50,7 @@ func (this *RequestController) TestAd() {
 	adResponse := new(m.AdResponse)
 	beego.Debug("Enter Request ad")
 
-	m.InitEngineData()
+	//m.InitEngineData()
 
 	this.Data["json"] = &adResponse
 	this.ServeJson()

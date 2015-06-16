@@ -6,22 +6,6 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-func InitEngineData() {
-
-	beego.Debug("Start Init Engine Data")
-	adspaceMap, adspaceDemandMap, err := GetMatrixData()
-
-	if err != nil {
-		panic(err.Error())
-	}
-	beego.Debug(adspaceMap)
-	beego.Debug(adspaceDemandMap)
-	demandMap, err := GetDemandInfo()
-
-	beego.Debug(demandMap)
-
-}
-
 func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[string][]int, err error) {
 	o := orm.NewOrm()
 
