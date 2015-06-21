@@ -3,6 +3,7 @@ package engine
 import (
 	"adexchange/lib"
 	m "adexchange/models"
+	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/httplib"
 	"time"
@@ -40,7 +41,7 @@ var _AvbAdspaceRegionTargeting map[string]bool
 var _AvbAdSpaceRegion map[string]bool
 
 func init() {
-	test()
+	//test()
 }
 
 func test() {
@@ -62,6 +63,10 @@ func test() {
 //}
 
 func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
+
+	if _AdspaceMap == nil || _AdspaceDemandMap == nil || _DemandMap == nil {
+		return &m.AdResponse{StatusCode: lib.ERROR_INITIAL_FAILED}
+	}
 
 	adspaceKey := adRequest.AdspaceKey
 
@@ -130,7 +135,7 @@ func invokeMH(demand *Demand) {
 	req.Param("conn", adRequest.Conn)
 	req.Param("carrier", adRequest.Carrier)
 	req.Param("apitype", adRequest.ApiType)
-	req.Param("os", adRequest.Os)
+	req.Param("os", string(adRequest.Os))
 	req.Param("osv", adRequest.Osv)
 	req.Param("imei", adRequest.Imei)
 	req.Param("wma", adRequest.Wma)
@@ -149,16 +154,35 @@ func invokeMH(demand *Demand) {
 	req.Param("lat", adRequest.Lat)
 
 	var resultMap map[string]*m.MHAdUnit
-	req.ToJson(&resultMap)
 
-	if resultMap != nil {
-		for _, v := range resultMap {
-			demand.Result <- mapMHResult(v)
-			break
-		}
+	b, err := req.Bytes()
+
+	if err != nil {
+		beego.Error(err.Error())
+		demand.Result <- generateErrorResponse(lib.ERROR_MHSERVER_ERROR)
 	} else {
-		demand.Result <- generateErrorResponse(lib.ERROR_MH_ERROR)
+		err = json.Unmarshal(lib.EscapeCtrl(b), &resultMap)
+		if resultMap != nil {
+			for _, v := range resultMap {
+				demand.Result <- mapMHResult(v)
+				break
+			}
+		} else {
+			beego.Error(err.Error())
+			demand.Result <- generateErrorResponse(lib.ERROR_MAP_ERROR)
+		}
 	}
+
+	//req.ToJson(&resultMap)
+
+	//if resultMap != nil {
+	//	for _, v := range resultMap {
+	//		demand.Result <- mapMHResult(v)
+	//		break
+	//	}
+	//} else {
+	//	demand.Result <- generateErrorResponse(lib.ERROR_MH_ERROR)
+	//}
 
 }
 

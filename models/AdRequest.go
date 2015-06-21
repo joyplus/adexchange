@@ -10,7 +10,7 @@ type AdRequest struct {
 	Conn             string `form:"conn"`
 	Carrier          string `form:"carrier"`
 	ApiType          string `form:"apitype"`
-	Os               string `form:"os"`
+	Os               int    `form:"os"`
 	Osv              string `form:"osv"`
 	Imei             string `form:"imei"`
 	Wma              string `form:"wma"`

@@ -36,7 +36,7 @@ type AdspaceData struct {
 }
 
 type PmpAdplaceInfo struct {
-	AdspaceKey       string
+	PmpAdspaceKey    string
 	DemandId         int
 	DemandAdspaceKey string
 	DemandSecretKey  string

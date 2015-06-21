@@ -9,7 +9,7 @@ import (
 func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[string][]int, err error) {
 	o := orm.NewOrm()
 
-	sql := "select matrix.pmp_adspace_id, adspace.adspace_key, matrix.demand_id as demand_id,demand.adspace_key as demand_adspace_key,demand.secret_key as demand_adspace_secret from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id order by adspace.adspace_key,matrix.priority"
+	sql := "select matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_adspace_secret from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id order by adspace.pmp_adspace_key,matrix.priority"
 
 	var dataList []PmpAdplaceInfo
 
@@ -31,10 +31,10 @@ func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[st
 	for _, record := range dataList {
 		adspaceData := AdspaceData{AdspaceKey: record.DemandAdspaceKey}
 		adspaceData.SecretKey = record.DemandSecretKey
-		adspaceMap[record.AdspaceKey+"_"+lib.ConvertIntToString(record.DemandId)] = adspaceData
+		adspaceMap[record.PmpAdspaceKey+"_"+lib.ConvertIntToString(record.DemandId)] = adspaceData
 
-		if oldAdspaceKey != record.AdspaceKey {
-			oldAdspaceKey = record.AdspaceKey
+		if oldAdspaceKey != record.PmpAdspaceKey {
+			oldAdspaceKey = record.PmpAdspaceKey
 
 			if pmpDemandInfo != nil {
 				demandIds := pmpDemandInfo.GetDemandIds()
@@ -42,7 +42,7 @@ func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[st
 			}
 			pmpDemandInfo = new(PmpDemandInfo)
 			pmpDemandInfo.InitDemand()
-			pmpDemandInfo.AdspaceKey = record.AdspaceKey
+			pmpDemandInfo.AdspaceKey = record.PmpAdspaceKey
 			pmpDemandInfo.AddDemand(record.DemandId)
 		} else {
 			pmpDemandInfo.AddDemand(record.DemandId)
