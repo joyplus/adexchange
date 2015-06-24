@@ -8,7 +8,7 @@ import (
 )
 
 type RequestController struct {
-	beego.Controller
+	BaseController
 }
 
 //Request Ad
@@ -27,7 +27,8 @@ func (this *RequestController) RequestAd() {
 		} else {
 			adResponse = tmp
 		}
-
+		adRequest.StatusCode = adResponse.StatusCode
+		SendLog(adRequest, 1)
 		//if err != nil {
 		//	beego.Debug("Enter sss ad")
 		//	if e, ok := err.(*lib.SysError); ok {
@@ -38,19 +39,6 @@ func (this *RequestController) RequestAd() {
 		//	beego.Debug("Enter ssaass ad")
 		//}
 	}
-
-	this.Data["json"] = &adResponse
-	this.ServeJson()
-
-}
-
-//Request Ad
-func (this *RequestController) TestAd() {
-
-	adResponse := new(m.AdResponse)
-	beego.Debug("Enter Request ad")
-
-	//m.InitEngineData()
 
 	this.Data["json"] = &adResponse
 	this.ServeJson()

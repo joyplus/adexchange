@@ -1,9 +1,48 @@
 package models
 
+//import (
+//	"github.com/astaxie/beego"
+//)
+
 type AdResponse struct {
-	StatusCode int
-	Bid        string
-	Adunit     *AdUnit
+	StatusCode       int
+	demandAdspaceKey string
+	Bid              string
+	Adunit           *AdUnit
+}
+
+func (this *AdResponse) SetDemandAdspaceKey(dkey string) {
+	this.demandAdspaceKey = dkey
+}
+
+func (this *AdResponse) GetDemandAdspaceKey() string {
+	return this.demandAdspaceKey
+}
+
+func (this *AdResponse) AddImpTracking(url string) {
+	if this.Adunit == nil {
+		return
+	}
+
+	if this.Adunit.ImpTrackingUrls != nil {
+		this.Adunit.ImpTrackingUrls = append(this.Adunit.ImpTrackingUrls, url)
+	} else {
+		this.Adunit.ImpTrackingUrls = []string{url}
+	}
+
+}
+
+func (this *AdResponse) AddClkTracking(url string) {
+	if this.Adunit == nil {
+		return
+	}
+
+	if this.Adunit.ClkTrackingUrls != nil {
+		this.Adunit.ClkTrackingUrls = append(this.Adunit.ClkTrackingUrls, url)
+	} else {
+		this.Adunit.ClkTrackingUrls = []string{url}
+	}
+
 }
 
 type AdUnit struct {
@@ -43,6 +82,8 @@ type PmpAdplaceInfo struct {
 }
 
 type DemandInfo struct {
-	DemandId int
-	Url      string
+	DemandId           int
+	Name               string
+	RequestUrlTemplate string
+	Timeout            int
 }

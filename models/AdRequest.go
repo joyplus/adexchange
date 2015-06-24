@@ -28,4 +28,5 @@ type AdRequest struct {
 	Density          string `form:"density"`
 	Lon              string `form:"lon"`
 	Lat              string `form:"lat"`
+	StatusCode       int
 }

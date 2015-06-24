@@ -55,10 +55,10 @@ func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[st
 	return adspaceMap, adspaceDemandMap, err
 }
 
-func GetDemandInfo() (demandMap map[int]string, err error) {
+func GetDemandInfo() (demandMap map[int]DemandInfo, err error) {
 	o := orm.NewOrm()
 
-	sql := "select id as demand_id, request_url_template as url from pmp_demand_platform_desk"
+	sql := "select id as demand_id, request_url_template, name, timeout from pmp_demand_platform_desk"
 
 	var dataList []DemandInfo
 
@@ -68,14 +68,13 @@ func GetDemandInfo() (demandMap map[int]string, err error) {
 		return nil, err
 	}
 
-	demandMap = make(map[int]string)
+	demandMap = make(map[int]DemandInfo)
 
 	for _, record := range dataList {
-		if validUrl(record.Url) {
-			demandMap[record.DemandId] = record.Url
-			beego.Debug(demandMap[record.DemandId])
-		}
+		demandMap[record.DemandId] = record
 	}
+
+	beego.Debug(demandMap)
 
 	return demandMap, nil
 }

@@ -12,6 +12,9 @@ import (
 	"sync"
 )
 
+var aryDirectCities []string
+var arySpecialProvince []string
+
 type Ip2LocationReq struct {
 	ip string //查询的ip
 }
@@ -27,6 +30,11 @@ const queryLength = 2
 var queryPool chan Ip2LocationReq
 var recodePool chan Ip2LocationResp
 var queryMutex sync.RWMutex
+
+func init() {
+	aryDirectCities = []string{"北京市", "天津市", "上海市", "重庆市", "香港", "澳门"}
+	arySpecialProvince = []string{"内蒙古", "广西", "西藏", "宁夏", "新疆"}
+}
 
 func startQueryService(dbfile string) {
 
@@ -257,7 +265,38 @@ func QueryIP(ipStr string) (string, string) {
 	record := <-recodePool
 	queryMutex.Unlock()
 
-	return record.country, record.area
+	province, city := getLocation(record)
+	return province, city
+
+}
+
+func getLocation(record Ip2LocationResp) (province string, city string) {
+
+	strRegion := record.country
+
+	for _, directCity := range aryDirectCities {
+		if strings.Contains(strRegion, directCity) {
+			return directCity, directCity
+		}
+	}
+
+	for _, province := range arySpecialProvince {
+		if strings.Contains(strRegion, province) {
+
+			rs := []rune(record.country)
+			rsProvince := []rune(province)
+			return string(rs[0:len(rsProvince)]), string(rs[len(rsProvince):])
+		}
+	}
+
+	if strings.Contains(strRegion, "省") {
+
+		result := strings.Split(strRegion, "省")
+
+		return result[0] + "省", result[1]
+	}
+
+	return "", ""
 
 }
 
