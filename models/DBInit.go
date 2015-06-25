@@ -2,10 +2,8 @@ package models
 
 import (
 	"fmt"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
@@ -43,4 +41,6 @@ func Connect() {
 		beego.Critical("Database driver is not allowed:", db_type)
 	}
 	orm.RegisterDataBase("default", db_type, dns)
+	//loc, _ := time.LoadLocation("CST")
+	//orm.SetDataBaseTZ("default", loc)
 }

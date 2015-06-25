@@ -1,5 +1,9 @@
 package models
 
+//import (
+//	"time"
+//)
+
 type AdRequest struct {
 	Bid              string `form:"bid"`
 	AdspaceKey       string `form:"adspaceid"`
@@ -29,4 +33,5 @@ type AdRequest struct {
 	Lon              string `form:"lon"`
 	Lat              string `form:"lat"`
 	StatusCode       int
+	RequestTime      int64
 }

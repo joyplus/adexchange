@@ -128,6 +128,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 	//}
 	adResponse := chooseAdResponse(adResultAry)
+	adResponse.AdspaceKey = adRequest.AdspaceKey
 	if adResponse.StatusCode == 200 {
 		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
@@ -182,7 +183,8 @@ func invokeMH(demand *Demand) {
 	adRequest := demand.AdRequest
 	item := url.Values{}
 
-	item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
+	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
+	item.Set("bid", adRequest.Bid)
 	item.Set("adspaceid", demand.AdspaceKey)
 	item.Set("adtype", adRequest.AdType)
 	item.Set("pkgname", adRequest.Pkgname)
@@ -204,7 +206,7 @@ func invokeMH(demand *Demand) {
 	item.Set("ip", adRequest.Ip)
 	item.Set("width", adRequest.Width)
 	item.Set("height", adRequest.Height)
-	item.Set("density", adRequest.Ua)
+	item.Set("density", adRequest.Density)
 	item.Set("lon", adRequest.Lon)
 	item.Set("lat", adRequest.Lat)
 

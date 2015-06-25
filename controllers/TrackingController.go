@@ -4,6 +4,7 @@ import (
 	"adexchange/lib"
 	m "adexchange/models"
 	"github.com/astaxie/beego"
+	"time"
 )
 
 type TrackingController struct {
@@ -19,8 +20,11 @@ func (this *RequestController) TrackImp() {
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
 		adResponse.StatusCode = lib.STATUS_SUCCESS
+		clientIp := GetClientIP(this.Ctx.Input)
+		beego.Debug("Clk Client IP:" + clientIp)
+		adRequest.Ip = clientIp
+		adRequest.RequestTime = time.Now().Unix()
 		SendLog(adRequest, 2)
-
 	}
 
 	this.Data["json"] = &adResponse
@@ -37,6 +41,10 @@ func (this *RequestController) TrackClk() {
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
 		adResponse.StatusCode = lib.STATUS_SUCCESS
+		clientIp := GetClientIP(this.Ctx.Input)
+		beego.Debug("Imp Client IP:" + clientIp)
+		adRequest.Ip = clientIp
+		adRequest.RequestTime = time.Now().Unix()
 		SendLog(adRequest, 3)
 	}
 

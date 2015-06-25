@@ -4,7 +4,9 @@ import (
 	"adexchange/lib"
 	m "adexchange/models"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 	"gopkg.in/vmihailenco/msgpack.v2"
+	"strings"
 )
 
 type BaseController struct {
@@ -38,4 +40,16 @@ func getQueueName(logType int) string {
 	} else {
 		return ""
 	}
+}
+
+func GetClientIP(input *context.BeegoInput) string {
+	ips := input.Proxy()
+	if len(ips) > 0 && ips[0] != "" {
+		return ips[0]
+	}
+	ip := strings.Split(input.Request.RemoteAddr, ":")
+	if len(ip) > 0 {
+		return ip[0]
+	}
+	return ""
 }

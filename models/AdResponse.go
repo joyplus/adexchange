@@ -5,10 +5,11 @@ package models
 //)
 
 type AdResponse struct {
-	StatusCode       int
+	StatusCode       int    `json:"statusCode"`
+	AdspaceKey       string `json:"adspaceKey"`
 	demandAdspaceKey string
-	Bid              string
-	Adunit           *AdUnit
+	Bid              string  `json:"bid"`
+	Adunit           *AdUnit `json:"adunit"`
 }
 
 func (this *AdResponse) SetDemandAdspaceKey(dkey string) {
@@ -46,14 +47,14 @@ func (this *AdResponse) AddClkTracking(url string) {
 }
 
 type AdUnit struct {
-	Cid             string
-	ClickUrl        string
-	DisplayText     string
-	ImageUrls       []string
-	ImpTrackingUrls []string
-	ClkTrackingUrls []string
-	AdWidth         int
-	AdHeight        int
+	Cid             string   `json:"cid"`
+	ClickUrl        string   `json:"clickUrl"`
+	DisplayText     string   `json:"displayText"`
+	ImageUrls       []string `json:"imageUrls"`
+	ImpTrackingUrls []string `json:"impTrackingUrls"`
+	ClkTrackingUrls []string `json:"clkTrackingUrls"`
+	AdWidth         int      `json:"adWidth"`
+	AdHeight        int      `json:"adHeight"`
 }
 
 type MHAdUnit struct {
