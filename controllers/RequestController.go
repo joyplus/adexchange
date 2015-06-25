@@ -1,14 +1,15 @@
 package controllers
 
 import (
-	"admux/engine"
-	"admux/lib"
-	m "admux/models"
+	"adexchange/engine"
+	"adexchange/lib"
+	m "adexchange/models"
 	"github.com/astaxie/beego"
+	"time"
 )
 
 type RequestController struct {
-	beego.Controller
+	BaseController
 }
 
 //Request Ad
@@ -20,6 +21,7 @@ func (this *RequestController) RequestAd() {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
+		adRequest.RequestTime = time.Now().Unix()
 		tmp := engine.InvokeDemand(&adRequest)
 
 		if tmp == nil {
@@ -27,7 +29,8 @@ func (this *RequestController) RequestAd() {
 		} else {
 			adResponse = tmp
 		}
-
+		adRequest.StatusCode = adResponse.StatusCode
+		SendLog(adRequest, 1)
 		//if err != nil {
 		//	beego.Debug("Enter sss ad")
 		//	if e, ok := err.(*lib.SysError); ok {

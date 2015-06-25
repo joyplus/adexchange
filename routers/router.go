@@ -8,7 +8,7 @@
 package routers
 
 import (
-	"admux/controllers"
+	"adexchange/controllers"
 	"github.com/astaxie/beego"
 )
 
@@ -32,5 +32,7 @@ func init() {
 
 	beego.Info("admux start")
 	beego.Router("/api/request", &controllers.RequestController{}, "*:RequestAd")
+	beego.Router("/api/trackimp", &controllers.RequestController{}, "*:TrackImp")
+	beego.Router("/api/trackclk", &controllers.RequestController{}, "*:TrackClk")
 
 }

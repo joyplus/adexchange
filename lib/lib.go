@@ -139,3 +139,55 @@ func GetBytes(key interface{}) ([]byte, error) {
 	}
 	return buf.Bytes(), nil
 }
+
+func DivisionInt(first int, second int) float32 {
+	if second == 0 || first == 0 {
+		return 0.0
+	} else {
+		f := float32(first) / float32(second)
+		return f
+	}
+}
+
+func EscapeCtrl(ctrl []byte) (esc []byte) {
+	u := []byte(`\u0000`)
+	for i, ch := range ctrl {
+		if ch <= 31 {
+			if esc == nil {
+				esc = append(make([]byte, 0, len(ctrl)+len(u)), ctrl[:i]...)
+			}
+			esc = append(esc, u...)
+			hex.Encode(esc[len(esc)-2:], ctrl[i:i+1])
+			continue
+		}
+		if esc != nil {
+			esc = append(esc, ch)
+		}
+	}
+	if esc == nil {
+		return ctrl
+	}
+	return esc
+}
+
+//截取中文字符串
+func SubString(str string, begin, length int) (substr string) {
+	// 将字符串的转换成[]rune
+	rs := []rune(str)
+	lth := len(rs)
+
+	// 简单的越界判断
+	if begin < 0 {
+		begin = 0
+	}
+	if begin >= lth {
+		begin = lth
+	}
+	end := begin + length
+	if end > lth {
+		end = lth
+	}
+
+	// 返回子串
+	return string(rs[begin:end])
+}

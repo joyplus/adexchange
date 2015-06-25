@@ -1,15 +1,12 @@
 package main
 
 import (
+	"adexchange/lib"
+	m "adexchange/models"
+	_ "adexchange/routers"
+	"adexchange/tasks"
 	"github.com/astaxie/beego"
-	//"github.com/astaxie/beego/httplib"
-	//"encoding/json"
-	_ "admux/routers"
-	//"flag"
-	//	"github.com/ddliu/go-httpclient"
-	//"runtime"
-	//"strings"
-	//"sync"
+	"github.com/astaxie/beego/orm"
 )
 
 //var c1, c2 httpclient.HttpClient
@@ -37,34 +34,41 @@ import (
 //	beego.Controller
 //}
 
-func setup() {
-	//flag.Parse()
-	//pool = newPool(*redisServer, *redisPassword)
-	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
-	beego.SetLogFuncCall(true)
+//func setup() {
+//	//flag.Parse()
+//	//pool = newPool(*redisServer, *redisPassword)
+//	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
+//	beego.SetLogFuncCall(true)
 
-	//c1 := httpclient.NewHttpClient().Defaults(httpclient.Map{
-	//	httpclient.OPT_USERAGENT: "browser1", httpclient.OPT_CONNECTTIMEOUT_MS: 300, httpclient.OPT_TIMEOUT_MS: 80,
-	//})
+//	//c1 := httpclient.NewHttpClient().Defaults(httpclient.Map{
+//	//	httpclient.OPT_USERAGENT: "browser1", httpclient.OPT_CONNECTTIMEOUT_MS: 300, httpclient.OPT_TIMEOUT_MS: 80,
+//	//})
 
-	//c1.Get("http://www.baidu.com/", nil)
+//	//c1.Get("http://www.baidu.com/", nil)
 
-	//c2 := httpclient.NewHttpClient().Defaults(httpclient.Map{
-	//	httpclient.OPT_USERAGENT: "browser2", httpclient.OPT_CONNECTTIMEOUT_MS: 300, httpclient.OPT_TIMEOUT_MS: 80,
-	//})
+//	//c2 := httpclient.NewHttpClient().Defaults(httpclient.Map{
+//	//	httpclient.OPT_USERAGENT: "browser2", httpclient.OPT_CONNECTTIMEOUT_MS: 300, httpclient.OPT_TIMEOUT_MS: 80,
+//	//})
 
-	//c2.Get("http://www.baidubee.com/", nil)
+//	//c2.Get("http://www.baidubee.com/", nil)
 
-}
+//}
 
 func main() {
-	setup()
+	//setup()
 	//beego.EnableAdmin = true
 	//beego.AdminHttpAddr = "localhost"
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
+	m.Connect()
+	tasks.InitEngineData()
+	go tasks.ScheduleInit(5)
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
+	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
+
+	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
+
 	beego.Run()
 }
 
