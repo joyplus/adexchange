@@ -5,19 +5,45 @@ package models
 //)
 
 type AdResponse struct {
-	StatusCode       int    `json:"statusCode"`
-	AdspaceKey       string `json:"adspaceKey"`
-	demandAdspaceKey string
-	Bid              string  `json:"bid"`
-	Adunit           *AdUnit `json:"adunit"`
+	StatusCode       int
+	AdspaceKey       string
+	DemandAdspaceKey string
+	ResponseTime     int64
+	Bid              string
+	Adunit           *AdUnit
+}
+
+type CommonResponse struct {
+	StatusCode int     `json:"statusCode"`
+	AdspaceKey string  `json:"adspaceKey"`
+	Bid        string  `json:"bid"`
+	Adunit     *AdUnit `json:"adunit"`
+}
+
+func (this *AdResponse) GenerateCommonResponse() CommonResponse {
+	res := CommonResponse{}
+	res.StatusCode = this.StatusCode
+	res.AdspaceKey = this.AdspaceKey
+	res.Bid = this.Bid
+	res.Adunit = this.Adunit
+
+	return res
 }
 
 func (this *AdResponse) SetDemandAdspaceKey(dkey string) {
-	this.demandAdspaceKey = dkey
+	this.DemandAdspaceKey = dkey
 }
 
 func (this *AdResponse) GetDemandAdspaceKey() string {
-	return this.demandAdspaceKey
+	return this.DemandAdspaceKey
+}
+
+func (this *AdResponse) SetResponseTime(responseTime int64) {
+	this.ResponseTime = responseTime
+}
+
+func (this *AdResponse) GetResponseTime() int64 {
+	return this.ResponseTime
 }
 
 func (this *AdResponse) AddImpTracking(url string) {

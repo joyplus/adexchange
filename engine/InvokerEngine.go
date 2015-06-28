@@ -118,6 +118,8 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		demand := demandAry[index]
 		tmp := <-demand.Result
 		adResultAry[index] = tmp
+
+		SendDemandLog(tmp)
 	}
 
 	//for index, demand := range demandAry {
@@ -259,75 +261,11 @@ func invokeMH(demand *Demand) {
 
 }
 
-//func invokeMH(demand *Demand) {
-
-//	beego.Debug("Start Invoke MH")
-//	req := httplib.Get(demand.URL).Debug(true).SetTimeout(400*time.Millisecond, 300*time.Millisecond)
-
-//	adRequest := demand.AdRequest
-//	req.Param("bid", lib.GenerateBid(demand.AdspaceKey))
-//	req.Param("adspaceid", demand.AdspaceKey)
-//	req.Param("adtype", adRequest.AdType)
-//	req.Param("pkgname", adRequest.Pkgname)
-//	req.Param("appname", adRequest.Appname)
-//	req.Param("conn", adRequest.Conn)
-//	req.Param("carrier", adRequest.Carrier)
-//	req.Param("apitype", adRequest.ApiType)
-//	req.Param("os", string(adRequest.Os))
-//	req.Param("osv", adRequest.Osv)
-//	req.Param("imei", adRequest.Imei)
-//	req.Param("wma", adRequest.Wma)
-//	req.Param("aid", adRequest.Aid)
-//	req.Param("aaid", adRequest.Aaid)
-//	req.Param("idfa", adRequest.Idfa)
-//	req.Param("oid", adRequest.Oid)
-//	req.Param("uid", adRequest.Uid)
-//	req.Param("device", adRequest.Device)
-//	req.Param("ua", adRequest.Ua)
-//	req.Param("ip", adRequest.Ip)
-//	req.Param("width", adRequest.Width)
-//	req.Param("height", adRequest.Height)
-//	req.Param("density", adRequest.Ua)
-//	req.Param("lon", adRequest.Lon)
-//	req.Param("lat", adRequest.Lat)
-
-//	var resultMap map[string]*m.MHAdUnit
-
-//	b, err := req.Bytes()
-
-//	if err != nil {
-//		beego.Error(err.Error())
-//		demand.Result <- generateErrorResponse(lib.ERROR_MHSERVER_ERROR)
-//	} else {
-//		err = json.Unmarshal(lib.EscapeCtrl(b), &resultMap)
-//		if resultMap != nil {
-//			for _, v := range resultMap {
-//				demand.Result <- mapMHResult(v)
-//				break
-//			}
-//		} else {
-//			beego.Error(err.Error())
-//			demand.Result <- generateErrorResponse(lib.ERROR_MAP_ERROR)
-//		}
-//	}
-
-//	//req.ToJson(&resultMap)
-
-//	//if resultMap != nil {
-//	//	for _, v := range resultMap {
-//	//		demand.Result <- mapMHResult(v)
-//	//		break
-//	//	}
-//	//} else {
-//	//	demand.Result <- generateErrorResponse(lib.ERROR_MH_ERROR)
-//	//}
-
-//}
-
 func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
 
 	adResponse = new(m.AdResponse)
 	adResponse.StatusCode = mhAdunit.Returncode
+	adResponse.SetResponseTime(time.Now().Unix())
 
 	if adResponse.StatusCode == 200 {
 		adUnit := new(m.AdUnit)

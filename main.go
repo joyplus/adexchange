@@ -1,6 +1,7 @@
 package main
 
 import (
+	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
 	_ "adexchange/routers"
@@ -68,6 +69,7 @@ func main() {
 	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
 
 	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
+	go engine.StartDemandLogService()
 
 	beego.Run()
 }
