@@ -42,10 +42,17 @@ var _AvbAdspaceRegionTargeting map[string]bool
 //key:<adspace_key>_<demand_adspace_key>_<region_code>; value:<left_imp>
 var _AvbAdSpaceRegion map[string]bool
 
+var _FuncMap lib.Funcs
+
 var IMP_TRACKING_SERVER string
 var CLK_TRACKING_SERVER string
 
 func init() {
+	_FuncMap = lib.NewFuncs(1)
+	err := _FuncMap.Bind("invokeMH", invokeMH)
+	if err != nil {
+		panic(err.Error())
+	}
 
 	IMP_TRACKING_SERVER = beego.AppConfig.String("imp_tracking_server")
 	CLK_TRACKING_SERVER = beego.AppConfig.String("clk_tracking_server")
@@ -108,7 +115,8 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.Result = make(chan *m.AdResponse)
 			demandAry[demandIndex] = demand
 			demandIndex++
-			go invokeMH(demand)
+			//go invokeMH(demand)
+			go _FuncMap.Call(demandInfo.InvokeFuncName, demand)
 		}
 	}
 

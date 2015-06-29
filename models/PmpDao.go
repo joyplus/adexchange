@@ -58,7 +58,7 @@ func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[st
 func GetDemandInfo() (demandMap map[int]DemandInfo, err error) {
 	o := orm.NewOrm()
 
-	sql := "select id as demand_id, request_url_template, name, timeout from pmp_demand_platform_desk"
+	sql := "select id as demand_id, request_url_template, name, timeout, invoke_func_name from pmp_demand_platform_desk"
 
 	var dataList []DemandInfo
 

@@ -113,4 +113,5 @@ type DemandInfo struct {
 	Name               string
 	RequestUrlTemplate string
 	Timeout            int
+	InvokeFuncName     string
 }
