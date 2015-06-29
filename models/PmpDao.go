@@ -83,3 +83,29 @@ func GetDemandInfo() (demandMap map[int]DemandInfo, err error) {
 func validUrl(url string) bool {
 	return true
 }
+
+//adDate: 2006-01-02
+func GetAvbDemandMap(adDate string) (avbDemandMap map[string]bool, err error) {
+	o := orm.NewOrm()
+
+	beego.Debug("Start update demand daily report")
+
+	var records []*AvbDemand
+	sql := "select pmp.pmp_adspace_key,demand.demand_adspace_key from pmp_daily_allocation as allocation inner join pmp_daily_report as report on allocation.ad_date=report.ad_date and allocation.pmp_adspace_id=report.pmp_adspace_id and allocation.demand_adspace_id=report.demand_adspace_id and allocation.imp>report.imp inner join pmp_adspace as pmp on allocation.pmp_adspace_id=pmp.id inner join pmp_demand_adspace as demand on allocation.demand_adspace_id=demand.id where allocation.ad_date=?"
+
+	paramList := []interface{}{adDate}
+
+	_, err = o.Raw(sql, paramList).QueryRows(&records)
+
+	if err != nil {
+		return avbDemandMap, err
+	}
+
+	avbDemandMap = make(map[string]bool)
+
+	for _, record := range records {
+		avbDemandMap[record.PmpAdspaceKey+"_"+record.DemandAdspaceKey] = true
+	}
+
+	return avbDemandMap, err
+}

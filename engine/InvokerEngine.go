@@ -34,7 +34,7 @@ var _AdspaceDemandMap map[string][]int
 var _DemandMap map[int]m.DemandInfo
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
-var _AvbAdSpaceDemand map[string]bool
+var _AvbAdspaceDemand map[string]bool
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
 var _AvbAdspaceRegionTargeting map[string]bool
@@ -139,6 +139,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	//}
 	adResponse := chooseAdResponse(adResultAry)
 	adResponse.AdspaceKey = adRequest.AdspaceKey
+	adRequest.DemandAdspaceKey = adResponse.DemandAdspaceKey
 	if adResponse.StatusCode == 200 {
 		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
@@ -175,6 +176,12 @@ func generateTrackingUrl(adRequest *m.AdRequest) (string, string) {
 	buffer.WriteString("&uid=")
 	buffer.WriteString(adRequest.Uid)
 	buffer.WriteString("&ua=")
+	//strUa, err := url.Parse(adRequest.Ua)
+	beego.Error(adRequest.Ua)
+	//if err != nil {
+	//	beego.Error(err.Error)
+	//}
+	//buffer.WriteString(strUa.Query().Encode())
 	buffer.WriteString(adRequest.Ua)
 
 	paramStr := buffer.String()
@@ -310,8 +317,7 @@ func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
 }
 
 func UpdateAdspaceStatus(adspaceKey string, demandAdspaceKey string, status bool) {
-	_AvbAdSpaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
-
+	_AvbAdspaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
 }
 
 func SetupAdspaceSecretMap(adspaceSecretMap map[string]string) {
@@ -325,4 +331,7 @@ func SetupAdspaceDemandMap(adspaceDemandMap map[string][]int) {
 }
 func SetupDemandMap(demandMap map[int]m.DemandInfo) {
 	_DemandMap = demandMap
+}
+func SetupAvbAdspaceDemandMap(avbDemandMap map[string]bool) {
+	_AvbAdspaceDemand = avbDemandMap
 }
