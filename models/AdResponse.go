@@ -13,6 +13,13 @@ type AdResponse struct {
 	Adunit           *AdUnit
 }
 
+type UrlResponse struct {
+	StatusCode int    `json:"statusCode"`
+	AdspaceKey string `json:"adspaceKey"`
+	Bid        string `json:"bid"`
+	DisplayUrl string `json:"displayUrl"`
+}
+
 type CommonResponse struct {
 	StatusCode int     `json:"statusCode"`
 	AdspaceKey string  `json:"adspaceKey"`
