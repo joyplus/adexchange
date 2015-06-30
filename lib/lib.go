@@ -191,3 +191,12 @@ func SubString(str string, begin, length int) (substr string) {
 	// 返回子串
 	return string(rs[begin:end])
 }
+
+func GetRandomNumber(min, max int) int {
+	if min == max {
+		return min
+	}
+
+	nums := generateRandomNumber(min, max, 1)
+	return nums[0]
+}

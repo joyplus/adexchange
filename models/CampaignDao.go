@@ -4,10 +4,10 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-func GetCampaign(pmpAdspaceKey string, adDate string) (campaigns []*PmpCampaign, err error) {
+func GetCampaigns(pmpAdspaceKey string, adDate string) (campaigns []*PmpCampaign, err error) {
 	o := orm.NewOrm()
 
-	sql := "select * from pmp_campaign as campaign inner join pmp_campaign_matrix as matrix on campaign.id=matrix.pmp_campaign_id inner join pmp_adspace as pmp on matrix.pmp_adspace_id=pmp.id where pmp.pmp_adspace_key=? and campaign.end_date>=? and ?>=campaign.start_date"
+	sql := "select * from pmp_campaign as campaign inner join pmp_campaign_matrix as matrix on campaign.id=matrix.pmp_campaign_id inner join pmp_adspace as pmp on matrix.pmp_adspace_id=pmp.id where pmp.pmp_adspace_key=? and campaign.end_date>=? and ?>=campaign.start_date and status=1"
 
 	paramList := []interface{}{pmpAdspaceKey, adDate, adDate}
 

@@ -53,6 +53,10 @@ func init() {
 	if err != nil {
 		panic(err.Error())
 	}
+	err = _FuncMap.Bind("invokeCampaign", invokeCampaign)
+	if err != nil {
+		panic(err.Error())
+	}
 
 	IMP_TRACKING_SERVER = beego.AppConfig.String("imp_tracking_server")
 	CLK_TRACKING_SERVER = beego.AppConfig.String("clk_tracking_server")
@@ -121,23 +125,18 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	}
 
 	adResultAry := make([]*m.AdResponse, demandIndex)
-
+	successIndex := 0
 	for index := 0; index < demandIndex; index++ {
 		demand := demandAry[index]
 		tmp := <-demand.Result
-		adResultAry[index] = tmp
+		if tmp != nil && tmp.StatusCode == 200 {
+			adResultAry[successIndex] = tmp
+			successIndex++
+		}
 
 		SendDemandLog(tmp)
 	}
-
-	//for index, demand := range demandAry {
-	//	if demand != nil {
-	//		tmp := <-demand.Result
-	//		adResultAry[index] = tmp
-	//	}
-
-	//}
-	adResponse := chooseAdResponse(adResultAry)
+	adResponse := chooseAdResponse(adResultAry[:successIndex])
 	adResponse.AdspaceKey = adRequest.AdspaceKey
 	adRequest.DemandAdspaceKey = adResponse.DemandAdspaceKey
 	if adResponse.StatusCode == 200 {
@@ -176,7 +175,6 @@ func generateTrackingUrl(adRequest *m.AdRequest) (string, string) {
 	buffer.WriteString("&uid=")
 	buffer.WriteString(adRequest.Uid)
 	buffer.WriteString("&ua=")
-	beego.Error(adRequest.Ua)
 	buffer.WriteString(adRequest.Ua)
 
 	paramStr := buffer.String()
@@ -189,14 +187,17 @@ func generateTrackingUrl(adRequest *m.AdRequest) (string, string) {
 
 func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) {
 
-	for _, adResponse = range aryAdResponse {
-		if adResponse != nil && adResponse.StatusCode == 200 {
-			return adResponse
-			break
-		}
-	}
+	//for _, adResponse = range aryAdResponse {
+	//	if adResponse != nil && adResponse.StatusCode == 200 {
+	//		return adResponse
+	//		break
+	//	}
+	//}
+	random := lib.GetRandomNumber(0, len(aryAdResponse))
 
-	return adResponse
+	adResponse = aryAdResponse[random]
+
+	return
 }
 
 func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {

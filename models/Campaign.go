@@ -19,4 +19,5 @@ type PmpCampaign struct {
 	Height      int    `orm:"column(height);null"`
 	CreativeUrl string `orm:"column(creative_url);size(255);null"`
 	Status      int    `orm:"column(status);null"`
+	LandingUrl  string `orm:"column(landing_url);size(500);null"`
 }
