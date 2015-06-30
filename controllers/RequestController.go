@@ -42,7 +42,7 @@ func (this *RequestController) RequestAd() {
 		//}
 	}
 
-	this.Data["json"] = &adResponse
+	this.Data["json"] = adResponse.GenerateCommonResponse()
 	this.ServeJson()
 
 }

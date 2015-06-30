@@ -5,9 +5,9 @@ import (
 	m "adexchange/models"
 	"bytes"
 	"github.com/astaxie/beego"
-	"github.com/franela/goreq"
-	"net/url"
-	"time"
+	//"github.com/franela/goreq"
+	//"net/url"
+	//"time"
 )
 
 //var c1 *httpclient.HttpClient
@@ -34,7 +34,7 @@ var _AdspaceDemandMap map[string][]int
 var _DemandMap map[int]m.DemandInfo
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
-var _AvbAdSpaceDemand map[string]bool
+var _AvbAdspaceDemand map[string]bool
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
 var _AvbAdspaceRegionTargeting map[string]bool
@@ -42,10 +42,21 @@ var _AvbAdspaceRegionTargeting map[string]bool
 //key:<adspace_key>_<demand_adspace_key>_<region_code>; value:<left_imp>
 var _AvbAdSpaceRegion map[string]bool
 
+var _FuncMap lib.Funcs
+
 var IMP_TRACKING_SERVER string
 var CLK_TRACKING_SERVER string
 
 func init() {
+	_FuncMap = lib.NewFuncs(1)
+	err := _FuncMap.Bind("invokeMH", invokeMH)
+	if err != nil {
+		panic(err.Error())
+	}
+	err = _FuncMap.Bind("invokeCampaign", invokeCampaign)
+	if err != nil {
+		panic(err.Error())
+	}
 
 	IMP_TRACKING_SERVER = beego.AppConfig.String("imp_tracking_server")
 	CLK_TRACKING_SERVER = beego.AppConfig.String("clk_tracking_server")
@@ -108,27 +119,26 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.Result = make(chan *m.AdResponse)
 			demandAry[demandIndex] = demand
 			demandIndex++
-			go invokeMH(demand)
+			//go invokeMH(demand)
+			go _FuncMap.Call(demandInfo.InvokeFuncName, demand)
 		}
 	}
 
 	adResultAry := make([]*m.AdResponse, demandIndex)
-
+	successIndex := 0
 	for index := 0; index < demandIndex; index++ {
 		demand := demandAry[index]
 		tmp := <-demand.Result
-		adResultAry[index] = tmp
+		if tmp != nil && tmp.StatusCode == 200 {
+			adResultAry[successIndex] = tmp
+			successIndex++
+		}
+
+		SendDemandLog(tmp)
 	}
-
-	//for index, demand := range demandAry {
-	//	if demand != nil {
-	//		tmp := <-demand.Result
-	//		adResultAry[index] = tmp
-	//	}
-
-	//}
-	adResponse := chooseAdResponse(adResultAry)
+	adResponse := chooseAdResponse(adResultAry[:successIndex])
 	adResponse.AdspaceKey = adRequest.AdspaceKey
+	adRequest.DemandAdspaceKey = adResponse.DemandAdspaceKey
 	if adResponse.StatusCode == 200 {
 		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
@@ -175,185 +185,19 @@ func generateTrackingUrl(adRequest *m.AdRequest) (string, string) {
 
 }
 
-func invokeMH(demand *Demand) {
-
-	beego.Debug("Start Invoke MH")
-	//	req := httplib.Get(demand.URL).Debug(true).SetTimeout(400*time.Millisecond, 300*time.Millisecond)
-
-	adRequest := demand.AdRequest
-	item := url.Values{}
-
-	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
-	item.Set("bid", adRequest.Bid)
-	item.Set("adspaceid", demand.AdspaceKey)
-	item.Set("adtype", adRequest.AdType)
-	item.Set("pkgname", adRequest.Pkgname)
-	item.Set("appname", adRequest.Appname)
-	item.Set("conn", adRequest.Conn)
-	item.Set("carrier", adRequest.Carrier)
-	item.Set("apitype", adRequest.ApiType)
-	item.Set("os", lib.ConvertIntToString(adRequest.Os))
-	item.Set("osv", adRequest.Osv)
-	item.Set("imei", adRequest.Imei)
-	item.Set("wma", adRequest.Wma)
-	item.Set("aid", adRequest.Aid)
-	item.Set("aaid", adRequest.Aaid)
-	item.Set("idfa", adRequest.Idfa)
-	item.Set("oid", adRequest.Oid)
-	item.Set("uid", adRequest.Uid)
-	item.Set("device", adRequest.Device)
-	item.Set("ua", adRequest.Ua)
-	item.Set("ip", adRequest.Ip)
-	item.Set("width", adRequest.Width)
-	item.Set("height", adRequest.Height)
-	item.Set("density", adRequest.Density)
-	item.Set("lon", adRequest.Lon)
-	item.Set("lat", adRequest.Lat)
-
-	res, err := goreq.Request{
-		Uri:         demand.URL,
-		QueryString: item,
-		Timeout:     time.Duration(demand.Timeout) * time.Millisecond,
-	}.Do()
-
-	adResponse := new(m.AdResponse)
-	adResponse.Bid = adRequest.Bid
-	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
-
-	if serr, ok := err.(*goreq.Error); ok {
-		beego.Error(err.Error())
-		if serr.Timeout() {
-			adResponse.StatusCode = lib.ERROR_TIMEOUT_ERROR
-			demand.Result <- adResponse
-		} else {
-			adResponse.StatusCode = lib.ERROR_MHSERVER_ERROR
-			demand.Result <- adResponse
-		}
-	} else {
-		var resultMap map[string]*m.MHAdUnit
-
-		err = res.Body.FromJsonTo(&resultMap)
-
-		defer res.Body.Close()
-
-		if err != nil {
-			beego.Error(err.Error())
-			adResponse.StatusCode = lib.ERROR_MAP_ERROR
-			demand.Result <- adResponse
-		} else {
-			if resultMap != nil {
-				for _, v := range resultMap {
-					adResponse = mapMHResult(v)
-					adResponse.Bid = adRequest.Bid
-					adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
-					demand.Result <- adResponse
-					break
-				}
-			} else {
-				adResponse.StatusCode = lib.ERROR_MAP_ERROR
-				demand.Result <- adResponse
-			}
-		}
-
-	}
-
-}
-
-//func invokeMH(demand *Demand) {
-
-//	beego.Debug("Start Invoke MH")
-//	req := httplib.Get(demand.URL).Debug(true).SetTimeout(400*time.Millisecond, 300*time.Millisecond)
-
-//	adRequest := demand.AdRequest
-//	req.Param("bid", lib.GenerateBid(demand.AdspaceKey))
-//	req.Param("adspaceid", demand.AdspaceKey)
-//	req.Param("adtype", adRequest.AdType)
-//	req.Param("pkgname", adRequest.Pkgname)
-//	req.Param("appname", adRequest.Appname)
-//	req.Param("conn", adRequest.Conn)
-//	req.Param("carrier", adRequest.Carrier)
-//	req.Param("apitype", adRequest.ApiType)
-//	req.Param("os", string(adRequest.Os))
-//	req.Param("osv", adRequest.Osv)
-//	req.Param("imei", adRequest.Imei)
-//	req.Param("wma", adRequest.Wma)
-//	req.Param("aid", adRequest.Aid)
-//	req.Param("aaid", adRequest.Aaid)
-//	req.Param("idfa", adRequest.Idfa)
-//	req.Param("oid", adRequest.Oid)
-//	req.Param("uid", adRequest.Uid)
-//	req.Param("device", adRequest.Device)
-//	req.Param("ua", adRequest.Ua)
-//	req.Param("ip", adRequest.Ip)
-//	req.Param("width", adRequest.Width)
-//	req.Param("height", adRequest.Height)
-//	req.Param("density", adRequest.Ua)
-//	req.Param("lon", adRequest.Lon)
-//	req.Param("lat", adRequest.Lat)
-
-//	var resultMap map[string]*m.MHAdUnit
-
-//	b, err := req.Bytes()
-
-//	if err != nil {
-//		beego.Error(err.Error())
-//		demand.Result <- generateErrorResponse(lib.ERROR_MHSERVER_ERROR)
-//	} else {
-//		err = json.Unmarshal(lib.EscapeCtrl(b), &resultMap)
-//		if resultMap != nil {
-//			for _, v := range resultMap {
-//				demand.Result <- mapMHResult(v)
-//				break
-//			}
-//		} else {
-//			beego.Error(err.Error())
-//			demand.Result <- generateErrorResponse(lib.ERROR_MAP_ERROR)
-//		}
-//	}
-
-//	//req.ToJson(&resultMap)
-
-//	//if resultMap != nil {
-//	//	for _, v := range resultMap {
-//	//		demand.Result <- mapMHResult(v)
-//	//		break
-//	//	}
-//	//} else {
-//	//	demand.Result <- generateErrorResponse(lib.ERROR_MH_ERROR)
-//	//}
-
-//}
-
-func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
-
-	adResponse = new(m.AdResponse)
-	adResponse.StatusCode = mhAdunit.Returncode
-
-	if adResponse.StatusCode == 200 {
-		adUnit := new(m.AdUnit)
-		adResponse.Adunit = adUnit
-		adUnit.Cid = mhAdunit.Cid
-		adUnit.ClickUrl = mhAdunit.Clickurl
-		adUnit.ImageUrls = []string{mhAdunit.Imgurl}
-		adUnit.ImpTrackingUrls = mhAdunit.Imgtracking
-		adUnit.ClkTrackingUrls = mhAdunit.Thclkurl
-		adUnit.AdWidth = mhAdunit.Adwidth
-		adUnit.AdHeight = mhAdunit.Adheight
-	}
-
-	return adResponse
-}
-
 func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) {
 
-	for _, adResponse = range aryAdResponse {
-		if adResponse != nil && adResponse.StatusCode == 200 {
-			return adResponse
-			break
-		}
-	}
+	//for _, adResponse = range aryAdResponse {
+	//	if adResponse != nil && adResponse.StatusCode == 200 {
+	//		return adResponse
+	//		break
+	//	}
+	//}
+	random := lib.GetRandomNumber(0, len(aryAdResponse))
 
-	return adResponse
+	adResponse = aryAdResponse[random]
+
+	return
 }
 
 func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
@@ -364,8 +208,7 @@ func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
 }
 
 func UpdateAdspaceStatus(adspaceKey string, demandAdspaceKey string, status bool) {
-	_AvbAdSpaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
-
+	_AvbAdspaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
 }
 
 func SetupAdspaceSecretMap(adspaceSecretMap map[string]string) {
@@ -379,4 +222,7 @@ func SetupAdspaceDemandMap(adspaceDemandMap map[string][]int) {
 }
 func SetupDemandMap(demandMap map[int]m.DemandInfo) {
 	_DemandMap = demandMap
+}
+func SetupAvbAdspaceDemandMap(avbDemandMap map[string]bool) {
+	_AvbAdspaceDemand = avbDemandMap
 }

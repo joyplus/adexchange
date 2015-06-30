@@ -41,3 +41,17 @@ func ScheduleInit(minutes int) {
 		}
 	}
 }
+
+func GetAvbDemand() {
+
+	beego.Debug("Check avalabile demand")
+	avbDemandMap, err := m.GetAvbDemandMap(time.Now().Format("2006-01-02"))
+
+	if err != nil {
+		beego.Error(err.Error())
+		return
+	}
+
+	engine.SetupAvbAdspaceDemandMap(avbDemandMap)
+
+}
