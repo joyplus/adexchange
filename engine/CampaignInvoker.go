@@ -65,7 +65,7 @@ func mapCampaign(campaign *m.PmpCampaign) (adResponse *m.AdResponse) {
 }
 
 func generateCacheKey(adRequest *m.AdRequest) string {
-	return "CAMPAIGN_" + adRequest.AdspaceKey
+	return beego.AppConfig.String("runmode") + "_CAMPAIGN_" + adRequest.AdspaceKey
 }
 
 func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
