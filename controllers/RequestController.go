@@ -25,7 +25,9 @@ func (this *RequestController) RequestAd() {
 		tmp := engine.InvokeDemand(&adRequest)
 
 		if tmp == nil {
-			adResponse.StatusCode = lib.ERROR_UNKNON_ERROR
+			adResponse.StatusCode = lib.ERROR_NO_DEMAND_ERROR
+			adResponse.Bid = adRequest.Bid
+			adResponse.AdspaceKey = adRequest.AdspaceKey
 		} else {
 			adResponse = tmp
 		}

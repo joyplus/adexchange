@@ -1,7 +1,6 @@
 package main
 
 import (
-	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
 	_ "adexchange/routers"
@@ -61,15 +60,20 @@ func main() {
 	//beego.AdminHttpAddr = "localhost"
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
-	m.Connect()
-	tasks.InitEngineData()
-	go tasks.ScheduleInit(5)
+
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
 	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
 
+	m.Connect()
+
 	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
-	go engine.StartDemandLogService()
+	tasks.InitEngineData()
+	tasks.CheckAvbDemand()
+	go tasks.ScheduleInit(5)
+	go tasks.CheckAvbDemandInit(1)
+
+	//go engine.StartDemandLogService()
 
 	beego.Run()
 }

@@ -108,6 +108,12 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 		if ok {
 
+			avbFlg := checkAvbDemand(adRequest, adspaceData)
+
+			if !avbFlg {
+				continue
+			}
+
 			demandInfo := _DemandMap[demandId]
 
 			demand := new(Demand)
@@ -124,6 +130,10 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		}
 	}
 
+	if demandIndex == 0 {
+		return nil
+	}
+
 	adResultAry := make([]*m.AdResponse, demandIndex)
 	successIndex := 0
 	for index := 0; index < demandIndex; index++ {
@@ -136,6 +146,11 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 		SendDemandLog(tmp)
 	}
+
+	if successIndex == 0 {
+		return nil
+	}
+
 	adResponse := chooseAdResponse(adResultAry[:successIndex])
 	adResponse.AdspaceKey = adRequest.AdspaceKey
 	adRequest.DemandAdspaceKey = adResponse.DemandAdspaceKey
@@ -193,9 +208,10 @@ func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) 
 	//		break
 	//	}
 	//}
-	random := lib.GetRandomNumber(0, len(aryAdResponse))
-
-	adResponse = aryAdResponse[random]
+	if len(aryAdResponse) > 0 {
+		random := lib.GetRandomNumber(0, len(aryAdResponse))
+		adResponse = aryAdResponse[random]
+	}
 
 	return
 }
@@ -225,4 +241,15 @@ func SetupDemandMap(demandMap map[int]m.DemandInfo) {
 }
 func SetupAvbAdspaceDemandMap(avbDemandMap map[string]bool) {
 	_AvbAdspaceDemand = avbDemandMap
+}
+
+func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
+
+	key := adRequest.AdspaceKey + "_" + adspaceData.AdspaceKey
+	if _, ok := _AvbAdspaceDemand[key]; ok {
+		return true
+	}
+
+	return false
+
 }

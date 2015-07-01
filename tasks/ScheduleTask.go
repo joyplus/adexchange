@@ -42,7 +42,17 @@ func ScheduleInit(minutes int) {
 	}
 }
 
-func GetAvbDemand() {
+func CheckAvbDemandInit(minutes int) {
+	timer := time.NewTicker(time.Minute * time.Duration(minutes))
+	for {
+		select {
+		case <-timer.C:
+			CheckAvbDemand()
+		}
+	}
+}
+
+func CheckAvbDemand() {
 
 	beego.Debug("Check avalabile demand")
 	avbDemandMap, err := m.GetAvbDemandMap(time.Now().Format("2006-01-02"))
@@ -52,6 +62,7 @@ func GetAvbDemand() {
 		return
 	}
 
+	beego.Debug(avbDemandMap)
 	engine.SetupAvbAdspaceDemandMap(avbDemandMap)
 
 }
