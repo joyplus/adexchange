@@ -31,12 +31,14 @@ func SendLog(adRequest m.AdRequest, logType int) {
 }
 
 func getQueueName(logType int) string {
+	prefix := beego.AppConfig.String("runmode")
+
 	if logType == 1 {
-		return "ADMUX_REQ"
+		return prefix + "_ADMUX_REQ"
 	} else if logType == 2 {
-		return "ADMUX_IMP"
+		return prefix + "_ADMUX_IMP"
 	} else if logType == 3 {
-		return "ADMUX_CLK"
+		return prefix + "_ADMUX_CLK"
 	} else {
 		return ""
 	}

@@ -25,7 +25,7 @@ func StartDemandLogService() {
 
 		if err == nil {
 			c = lib.Pool.Get()
-			c.Do("lpush", "ADMUX_DEMAND", b)
+			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_DEMAND", b)
 		} else {
 			beego.Error(err.Error())
 		}
@@ -43,7 +43,7 @@ func SendDemandLog(adResponse *m.AdResponse) {
 
 	if err == nil {
 		c = lib.Pool.Get()
-		c.Do("lpush", "ADMUX_DEMAND", b)
+		c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_DEMAND", b)
 	} else {
 		beego.Error(err.Error())
 	}
