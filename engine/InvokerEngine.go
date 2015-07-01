@@ -139,12 +139,13 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	for index := 0; index < demandIndex; index++ {
 		demand := demandAry[index]
 		tmp := <-demand.Result
+		SendDemandLog(tmp)
+
 		if tmp != nil && tmp.StatusCode == 200 {
 			adResultAry[successIndex] = tmp
 			successIndex++
 		}
 
-		SendDemandLog(tmp)
 	}
 
 	if successIndex == 0 {

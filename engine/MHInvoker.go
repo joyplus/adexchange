@@ -52,6 +52,7 @@ func invokeMH(demand *Demand) {
 	adResponse := new(m.AdResponse)
 	adResponse.Bid = adRequest.Bid
 	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
+	adResponse.SetResponseTime(time.Now().Unix())
 
 	if serr, ok := err.(*goreq.Error); ok {
 		beego.Error(err.Error())

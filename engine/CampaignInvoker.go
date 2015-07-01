@@ -19,6 +19,7 @@ func invokeCampaign(demand *Demand) {
 		adResponse := new(m.AdResponse)
 		adResponse.Bid = adRequest.Bid
 		adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
+		adResponse.SetResponseTime(time.Now().Unix())
 		campaigns, err := m.GetCampaigns(adRequest.AdspaceKey, time.Now().Format("2006-01-02"))
 		if err != nil {
 			beego.Error(err.Error)
