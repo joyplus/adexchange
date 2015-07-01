@@ -24,6 +24,7 @@ func StartDemandLogService() {
 		b, err := msgpack.Marshal(adResponse)
 
 		if err == nil {
+			c = lib.Pool.Get()
 			c.Do("lpush", "ADMUX_DEMAND", b)
 		} else {
 			beego.Error(err.Error())
@@ -34,8 +35,16 @@ func StartDemandLogService() {
 }
 
 func SendDemandLog(adResponse *m.AdResponse) {
-	if adResponse != nil {
-		_demandLogPool <- adResponse
-	}
+	//if adResponse != nil {
+	//	_demandLogPool <- adResponse
+	//}
+	c := lib.Pool.Get()
+	b, err := msgpack.Marshal(adResponse)
 
+	if err == nil {
+		c = lib.Pool.Get()
+		c.Do("lpush", "ADMUX_DEMAND", b)
+	} else {
+		beego.Error(err.Error())
+	}
 }
