@@ -40,8 +40,8 @@ func invokeMH(demand *Demand) {
 	item.Set("width", adRequest.Width)
 	item.Set("height", adRequest.Height)
 	item.Set("density", adRequest.Density)
-	item.Set("lon", adRequest.Lon)
-	item.Set("lat", adRequest.Lat)
+	item.Set("lon", lib.ConvertFloatToString(adRequest.Lon))
+	item.Set("lat", lib.ConvertFloatToString(adRequest.Lat))
 
 	res, err := goreq.Request{
 		Uri:         demand.URL,

@@ -130,6 +130,11 @@ func ConvertIntToString(i int) string {
 	return strconv.Itoa(i)
 }
 
+func ConvertFloatToString(f float32) string {
+
+	return fmt.Sprintf("%f", f)
+}
+
 func GetBytes(key interface{}) ([]byte, error) {
 	var buf bytes.Buffer
 	enc := gob.NewEncoder(&buf)
