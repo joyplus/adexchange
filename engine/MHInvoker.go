@@ -104,7 +104,7 @@ func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
 		adResponse.Adunit = adUnit
 		adUnit.Cid = mhAdunit.Cid
 		adUnit.ClickUrl = mhAdunit.Clickurl
-		adUnit.ImageUrls = []string{mhAdunit.Imgurl}
+		adUnit.CreativeUrls = []string{mhAdunit.Imgurl}
 		adUnit.ImpTrackingUrls = mhAdunit.Imgtracking
 		adUnit.ClkTrackingUrls = mhAdunit.Thclkurl
 		adUnit.AdWidth = mhAdunit.Adwidth

@@ -57,7 +57,7 @@ func mapCampaign(campaign *m.PmpCampaign) (adResponse *m.AdResponse) {
 	adResponse.Adunit = adUnit
 	adUnit.Cid = lib.ConvertIntToString(campaign.Id)
 	adUnit.ClickUrl = campaign.LandingUrl
-	adUnit.ImageUrls = []string{campaign.CreativeUrl}
+	adUnit.CreativeUrls = []string{campaign.CreativeUrl}
 	adUnit.AdWidth = campaign.Width
 	adUnit.AdHeight = campaign.Height
 

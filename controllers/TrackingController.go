@@ -13,7 +13,7 @@ type TrackingController struct {
 
 func (this *RequestController) TrackImp() {
 	adRequest := m.AdRequest{}
-	adResponse := new(m.AdResponse)
+	adResponse := new(m.TrackResponse)
 	beego.Debug("Enter Tracking imp")
 
 	if err := this.ParseForm(&adRequest); err != nil {
@@ -34,7 +34,7 @@ func (this *RequestController) TrackImp() {
 
 func (this *RequestController) TrackClk() {
 	adRequest := m.AdRequest{}
-	adResponse := new(m.AdResponse)
+	adResponse := new(m.TrackResponse)
 	beego.Debug("Enter Tracking clk")
 
 	if err := this.ParseForm(&adRequest); err != nil {

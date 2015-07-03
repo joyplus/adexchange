@@ -13,6 +13,10 @@ type AdResponse struct {
 	Adunit           *AdUnit
 }
 
+type TrackResponse struct {
+	StatusCode int
+}
+
 type UrlResponse struct {
 	StatusCode int    `json:"statusCode"`
 	AdspaceKey string `json:"adspaceKey"`
@@ -79,11 +83,16 @@ func (this *AdResponse) AddClkTracking(url string) {
 
 }
 
+//enum CreativeType {
+//TEXT=1;// 文字 IMAGE=2;// 图片 HTML = 3; // HTML
+//VIDEO=4;// 视频
+//TEXT_ICON = 5; // 图文 };
 type AdUnit struct {
 	Cid             string   `json:"cid"`
 	ClickUrl        string   `json:"clickUrl"`
 	DisplayText     string   `json:"displayText"`
-	ImageUrls       []string `json:"imageUrls"`
+	CreativeType    int      `json:"creativeType"`
+	CreativeUrls    []string `json:"creativeUrls"`
 	ImpTrackingUrls []string `json:"impTrackingUrls"`
 	ClkTrackingUrls []string `json:"clkTrackingUrls"`
 	AdWidth         int      `json:"adWidth"`
