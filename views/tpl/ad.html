@@ -1,30 +1,23 @@
-{{range $key, $val := .AD.implUrls }}<iframe src={{$val}} width=0 height=0 frameborder=0 />{{end}}
 <img id="adImg" width={{.width}} height={{.height}} onload="imgLoaded();" />
 <div id="trackingDiv" style="top:0;left:0;width:0;height:0"></div>
 <script type="text/javascript" >
 function initAd() {
 	var clkUrl = {{.AD.clkUrl}};
-	
-	
 	var clkTrackingUrls = {{.AD.clkTrackingUrls}};
 	var imgUrls = {{.AD.imgUrls}}
 	
 	var imgDom = document.getElementById("adImg");
-	var i = 0;
 	var len = imgUrls.length;
-	imgDom.onclick = function(){window.location.href = clkUrl;}
-	imgDom.src = imgUrls[0];
-	
-//	window.setInterval(function(){
-//		var idx = i++%len;
-//		imgDom.src = imgUrls[idx];
-//	}, 3000);
+	if (len > 0) {
+		imgDom.onclick = function(){window.location.href = clkUrl;}
+		imgDom.src = imgUrls[0];
+	}
 }
 function imgLoaded() {
 	var implTrackingUrls = {{.AD.implTrackingUrls}};
-	var i = 0, len = implTrackingUrls.length;
+	var len = implTrackingUrls.length;
 	var trackingDiv = document.getElementById("trackingDiv");
-	for (i = 0; i < len; i++) {
+	for (var i = 0; i < len; i++) {
 		var frm = document.createElement("iframe");
 		trackingDiv.appendChild(frm);
 		frm.width = 0;
@@ -32,10 +25,6 @@ function imgLoaded() {
 		frm.frameBorder = 0;
 		frm.src = implTrackingUrls[i];
 	}
-	
-	
-//	{{range $key, $val := .AD.implUrls }}<iframe src={{$val}} width=0 height=0 frameborder=0 />{{end}}
-
 }
 window.onload =initAd;
 </script>
