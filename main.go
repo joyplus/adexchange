@@ -60,6 +60,11 @@ func main() {
 	//beego.AdminHttpAddr = "localhost"
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
+	
+	beego.ViewsPath = "views"
+	beego.AddTemplateExt("html")
+	
+	
 	m.Connect()
 	tasks.InitEngineData()
 	go tasks.ScheduleInit(5)
