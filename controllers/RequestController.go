@@ -31,8 +31,13 @@ func (this *RequestController) RequestAd() {
 		} else {
 			adResponse = tmp
 		}
-		adRequest.StatusCode = adResponse.StatusCode
-		SendLog(adRequest, 1)
+
+		//only running pmp adspace need track request log
+		if adResponse.StatusCode != lib.ERROR_NO_PMP_ADSPACE_ERROR {
+			adRequest.StatusCode = adResponse.StatusCode
+			SendLog(adRequest, 1)
+		}
+
 		//if err != nil {
 		//	beego.Debug("Enter sss ad")
 		//	if e, ok := err.(*lib.SysError); ok {
@@ -43,8 +48,16 @@ func (this *RequestController) RequestAd() {
 		//	beego.Debug("Enter ssaass ad")
 		//}
 	}
+	commonResponse := adResponse.GenerateCommonResponse()
 
-	this.Data["json"] = adResponse.GenerateCommonResponse()
+	if adResponse.Adunit != nil && adResponse.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
+		cacheKey := lib.GetMd5String(adResponse.Bid)
+		url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey
+		commonResponse.SetHtmlCreativeUrl(url)
+		SetCachedAdResponse(cacheKey, adResponse)
+	}
+
+	this.Data["json"] = commonResponse
 	this.ServeJson()
 
 }

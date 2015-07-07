@@ -9,7 +9,7 @@ import (
 
 func InitEngineData() {
 
-	beego.Debug("Start Init Engine Data")
+	beego.Info("Start Init Engine Data")
 	adspaceMap, adspaceDemandMap, err := m.GetMatrixData()
 
 	if err != nil {
@@ -26,9 +26,18 @@ func InitEngineData() {
 
 	beego.Debug(demandMap)
 
+	pmpAdspaceMap, err := m.GetPmpInfo()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	beego.Debug(pmpAdspaceMap)
+
 	engine.SetupAdspaceMap(adspaceMap)
 	engine.SetupAdspaceDemandMap(adspaceDemandMap)
 	engine.SetupDemandMap(demandMap)
+	engine.SetupPmpAdspaceMap(pmpAdspaceMap)
 
 }
 

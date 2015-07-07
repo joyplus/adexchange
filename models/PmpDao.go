@@ -74,8 +74,6 @@ func GetDemandInfo() (demandMap map[int]DemandInfo, err error) {
 		demandMap[record.DemandId] = record
 	}
 
-	beego.Debug(demandMap)
-
 	return demandMap, nil
 }
 
@@ -85,29 +83,70 @@ func validUrl(url string) bool {
 }
 
 //adDate: 2006-01-02
-func GetAvbDemandMap(adDate string) (avbDemandMap map[string]bool, err error) {
+func GetAvbDemandMap(adDate string) (avbDemandMap map[string]*AvbDemand, err error) {
 	o := orm.NewOrm()
 
 	beego.Debug("Start update demand daily report")
 
 	var records []*AvbDemand
-	sql := "select allocation.pmp_adspace_id, allocation.demand_adspace_id, pmp.pmp_adspace_key,demand.demand_adspace_key,allocation.imp as plan_imp, allocation.clk as plan_clk,report.imp as actual_imp, report.clk as actual_clk from pmp_daily_allocation as allocation left join pmp_daily_report as report on allocation.ad_date=report.ad_date and allocation.pmp_adspace_id=report.pmp_adspace_id and allocation.demand_adspace_id=report.demand_adspace_id inner join pmp_adspace as pmp on allocation.pmp_adspace_id=pmp.id inner join pmp_demand_adspace as demand on allocation.demand_adspace_id=demand.id where allocation.ad_date=?"
+	sql := "select allocation.id as allocation_id,allocation.pmp_adspace_id, allocation.demand_adspace_id, pmp.pmp_adspace_key,demand.demand_adspace_key,allocation.imp as plan_imp, allocation.clk as plan_clk,report.imp as actual_imp, report.clk as actual_clk from pmp_daily_allocation as allocation left join pmp_daily_report as report on allocation.ad_date=report.ad_date and allocation.pmp_adspace_id=report.pmp_adspace_id and allocation.demand_adspace_id=report.demand_adspace_id inner join pmp_adspace as pmp on allocation.pmp_adspace_id=pmp.id inner join pmp_demand_adspace as demand on allocation.demand_adspace_id=demand.id where allocation.ad_date=?"
 
 	paramList := []interface{}{adDate}
 
 	_, err = o.Raw(sql, paramList).QueryRows(&records)
 
 	if err != nil {
+		beego.Critical(err.Error())
 		return
 	}
 
-	avbDemandMap = make(map[string]bool)
+	sql = "select targeting_type, targeting_code, plan_imp, plan_clk, actual_imp, actual_clk from pmp_daily_allocation_detail where allocation_id=? and targeting_type in ('PROVINCE','CITY') "
+
+	avbDemandMap = make(map[string]*AvbDemand)
 
 	for _, record := range records {
-		if record.PlanImp > record.ActualImp {
-			avbDemandMap[record.PmpAdspaceKey+"_"+record.DemandAdspaceKey] = true
+		var detailList []*AllocationDetail
+		paramList = []interface{}{record.AllocationId}
+		_, err = o.Raw(sql, paramList).QueryRows(&detailList)
+		if err != nil {
+			beego.Critical(err.Error())
+			continue
 		}
+
+		if detailList != nil && len(detailList) > 0 {
+			for _, detail := range detailList {
+				record.SetDetailAllocation(detail)
+			}
+		}
+
+		avbDemandMap[record.PmpAdspaceKey+"_"+record.DemandAdspaceKey] = record
+		//if record.PlanImp > record.ActualImp {
+		//	avbDemandMap[record.PmpAdspaceKey+"_"+record.DemandAdspaceKey] = true
+		//}
 	}
 
 	return avbDemandMap, err
+}
+
+func GetPmpInfo() (pmpAdspaceMap map[string]PmpInfo, err error) {
+	o := orm.NewOrm()
+
+	sql := "select pmp_adspace_key, creative_type from pmp_adspace where status=0"
+
+	var dataList []PmpInfo
+
+	_, err = o.Raw(sql).QueryRows(&dataList)
+
+	if err != nil {
+		beego.Critical(err.Error())
+		return
+	}
+
+	pmpAdspaceMap = make(map[string]PmpInfo)
+
+	for _, record := range dataList {
+		pmpAdspaceMap[record.PmpAdspaceKey] = record
+	}
+
+	return
 }

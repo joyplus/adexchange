@@ -1,8 +1,9 @@
 package models
 
-//import (
-//	"github.com/astaxie/beego"
-//)
+import (
+	"adexchange/lib"
+	//"github.com/astaxie/beego"
+)
 
 type AdResponse struct {
 	StatusCode       int
@@ -31,12 +32,30 @@ type CommonResponse struct {
 	Adunit     *AdUnit `json:"adunit"`
 }
 
+func (this *CommonResponse) SetHtmlCreativeUrl(url string) {
+	if this.Adunit == nil {
+		this.Adunit = new(AdUnit)
+	}
+	this.Adunit.CreativeUrls = []string{url}
+}
+
 func (this *AdResponse) GenerateCommonResponse() CommonResponse {
 	res := CommonResponse{}
 	res.StatusCode = this.StatusCode
 	res.AdspaceKey = this.AdspaceKey
 	res.Bid = this.Bid
-	res.Adunit = this.Adunit
+
+	if this.Adunit != nil {
+		if this.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
+			res.Adunit = new(AdUnit)
+			res.Adunit.CreativeType = this.Adunit.CreativeType
+			res.Adunit.AdHeight = this.Adunit.AdHeight
+			res.Adunit.AdWidth = this.Adunit.AdWidth
+			//res.Adunit.CreativeUrls = []string{""}
+		} else {
+			res.Adunit = this.Adunit
+		}
+	}
 
 	return res
 }
@@ -84,9 +103,7 @@ func (this *AdResponse) AddClkTracking(url string) {
 }
 
 //enum CreativeType {
-//TEXT=1;// 文字 IMAGE=2;// 图片 HTML = 3; // HTML
-//VIDEO=4;// 视频
-//TEXT_ICON = 5; // 图文 };
+// 1:文字 2:图片 3:HTML 4:视频 5:图文
 type AdUnit struct {
 	Cid             string   `json:"cid"`
 	ClickUrl        string   `json:"clickUrl"`
@@ -130,4 +147,9 @@ type DemandInfo struct {
 	RequestUrlTemplate string
 	Timeout            int
 	InvokeFuncName     string
+}
+
+type PmpInfo struct {
+	PmpAdspaceKey string
+	CreativeType  int
 }

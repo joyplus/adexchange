@@ -19,12 +19,14 @@ func invokeMH(demand *Demand) {
 	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
 	item.Set("bid", adRequest.Bid)
 	item.Set("adspaceid", demand.AdspaceKey)
-	item.Set("adtype", adRequest.AdType)
+	//hard code 2 to request MH as hero app
+	item.Set("adtype", "2")
 	item.Set("pkgname", adRequest.Pkgname)
 	item.Set("appname", adRequest.Appname)
 	item.Set("conn", adRequest.Conn)
 	item.Set("carrier", adRequest.Carrier)
-	item.Set("apitype", adRequest.ApiType)
+	//hard code 2 to return json response
+	item.Set("apitype", "2")
 	item.Set("os", lib.ConvertIntToString(adRequest.Os))
 	item.Set("osv", adRequest.Osv)
 	item.Set("imei", adRequest.Imei)
@@ -46,7 +48,8 @@ func invokeMH(demand *Demand) {
 	res, err := goreq.Request{
 		Uri:         demand.URL,
 		QueryString: item,
-		Timeout:     time.Duration(demand.Timeout) * time.Millisecond,
+		//ShowDebug:   true,
+		Timeout: time.Duration(demand.Timeout) * time.Millisecond,
 	}.Do()
 
 	adResponse := new(m.AdResponse)
@@ -55,14 +58,15 @@ func invokeMH(demand *Demand) {
 	adResponse.SetResponseTime(time.Now().Unix())
 
 	if serr, ok := err.(*goreq.Error); ok {
-		beego.Error(err.Error())
+		beego.Critical(err.Error())
 		if serr.Timeout() {
-			adResponse.StatusCode = lib.ERROR_TIMEOUT_ERROR
+			adResponse = generateErrorResponse(adRequest, lib.ERROR_TIMEOUT_ERROR)
 			demand.Result <- adResponse
 		} else {
-			adResponse.StatusCode = lib.ERROR_MHSERVER_ERROR
+			adResponse = generateErrorResponse(adRequest, lib.ERROR_MHSERVER_ERROR)
 			demand.Result <- adResponse
 		}
+
 	} else {
 		var resultMap map[string]*m.MHAdUnit
 
@@ -71,8 +75,8 @@ func invokeMH(demand *Demand) {
 		defer res.Body.Close()
 
 		if err != nil {
-			beego.Error(err.Error())
-			adResponse.StatusCode = lib.ERROR_MAP_ERROR
+			beego.Critical(err.Error())
+			adResponse = generateErrorResponse(adRequest, lib.ERROR_MAP_ERROR)
 			demand.Result <- adResponse
 		} else {
 			if resultMap != nil {
@@ -84,7 +88,7 @@ func invokeMH(demand *Demand) {
 					break
 				}
 			} else {
-				adResponse.StatusCode = lib.ERROR_MAP_ERROR
+				adResponse = generateErrorResponse(adRequest, lib.ERROR_MAP_ERROR)
 				demand.Result <- adResponse
 			}
 		}
@@ -104,6 +108,8 @@ func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
 		adResponse.Adunit = adUnit
 		adUnit.Cid = mhAdunit.Cid
 		adUnit.ClickUrl = mhAdunit.Clickurl
+		//todo hardcode 3 for MH, only support picture ad
+		//adUnit.CreativeType = 3
 		adUnit.CreativeUrls = []string{mhAdunit.Imgurl}
 		adUnit.ImpTrackingUrls = mhAdunit.Imgtracking
 		adUnit.ClkTrackingUrls = mhAdunit.Thclkurl

@@ -5,6 +5,7 @@ import (
 	m "adexchange/models"
 	_ "adexchange/routers"
 	"adexchange/tasks"
+	"adexchange/tools"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
@@ -61,17 +62,25 @@ func main() {
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 
+	beego.ViewsPath = "views"
+	beego.AddTemplateExt("html")
+
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
-	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
+	logLevel, _ := beego.AppConfig.Int("log_level")
+	beego.SetLevel(logLevel)
 
+	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
+	tools.Init("ip.dat")
 	m.Connect()
 
 	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
 	tasks.InitEngineData()
 	tasks.CheckAvbDemand()
-	go tasks.ScheduleInit(5)
-	go tasks.CheckAvbDemandInit(1)
+	initDuration, _ := beego.AppConfig.Int("init_duration")
+	avbCheckDuration, _ := beego.AppConfig.Int("avb_check_duration")
+	go tasks.ScheduleInit(initDuration)
+	go tasks.CheckAvbDemandInit(avbCheckDuration)
 
 	//go engine.StartDemandLogService()
 
