@@ -62,6 +62,9 @@ func main() {
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 
+	beego.ViewsPath = "views"
+	beego.AddTemplateExt("html")
+
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
 	logLevel, _ := beego.AppConfig.Int("log_level")

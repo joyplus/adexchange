@@ -55,3 +55,44 @@ func GetClientIP(input *context.BeegoInput) string {
 	}
 	return ""
 }
+
+func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
+	c := lib.Pool.Get()
+	val, err := msgpack.Marshal(adResponse)
+
+	if _, err = c.Do("SET", cacheKey, val); err != nil {
+		beego.Error(err.Error())
+	}
+
+	_, err = c.Do("EXPIRE", cacheKey, 60)
+	if err != nil {
+		beego.Error(err.Error())
+	}
+}
+
+func GetCachedAdResponse(cacheKey string) (adResponse *m.AdResponse) {
+	c := lib.Pool.Get()
+
+	v, err := c.Do("GET", cacheKey)
+	if err != nil {
+		beego.Error(err.Error())
+		return nil
+	}
+
+	if v == nil {
+		return
+	}
+
+	adResponse = new(m.AdResponse)
+	switch t := v.(type) {
+	case []byte:
+		err = msgpack.Unmarshal(t, adResponse)
+	default:
+		err = msgpack.Unmarshal(t.([]byte), adResponse)
+	}
+
+	if err != nil {
+		beego.Error(err.Error())
+	}
+	return
+}

@@ -21,6 +21,9 @@ type Demand struct {
 	Result      chan *m.AdResponse
 }
 
+//key:<adspace_key>; value:<PmpInfo>
+var _PmpAdspaceMap map[string]m.PmpInfo
+
 //key:<adspace_key>; value:<secret_key>
 var _AdspaceSecretMap map[string]string
 
@@ -33,7 +36,7 @@ var _AdspaceDemandMap map[string][]int
 //key:<demand_id>; value:<demand_url>
 var _DemandMap map[int]m.DemandInfo
 
-//key:<adspace_key>_<demand_adspace_key>; value:<bool>
+//key:<adspace_key>_<demand_adspace_key>; value:<*AvbDemand>
 var _AvbAdspaceDemand map[string]*m.AvbDemand
 
 var _FuncMap lib.Funcs
@@ -77,17 +80,20 @@ func init() {
 
 func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
-	if _AdspaceMap == nil || _AdspaceDemandMap == nil || _DemandMap == nil {
-		return &m.AdResponse{StatusCode: lib.ERROR_INITIAL_FAILED}
+	if _AdspaceMap == nil || _AdspaceDemandMap == nil || _DemandMap == nil || _PmpAdspaceMap == nil {
+		return generateErrorResponse(adRequest, lib.ERROR_INITIAL_FAILED)
 	}
 
 	adspaceKey := adRequest.AdspaceKey
+	if _, ok := _PmpAdspaceMap[adspaceKey]; !ok {
+		return generateErrorResponse(adRequest, lib.ERROR_NO_PMP_ADSPACE_ERROR)
+	}
 
 	demandIds := _AdspaceDemandMap[adspaceKey]
 
 	if len(demandIds) == 0 {
 
-		return &m.AdResponse{StatusCode: lib.ERROR_ILLEGAL_ADSPACE}
+		return generateErrorResponse(adRequest, lib.ERROR_ILLEGAL_ADSPACE)
 	}
 
 	demandAry := make([]*Demand, len(demandIds))
@@ -130,9 +136,10 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 	adResultAry := make([]*m.AdResponse, demandIndex)
 	successIndex := 0
+	var tmp *m.AdResponse
 	for index := 0; index < demandIndex; index++ {
 		demand := demandAry[index]
-		tmp := <-demand.Result
+		tmp = <-demand.Result
 		SendDemandLog(tmp)
 
 		if tmp != nil && tmp.StatusCode == 200 {
@@ -143,13 +150,14 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	}
 
 	if successIndex == 0 {
-		return nil
+		return tmp
 	}
 
 	adResponse := chooseAdResponse(adResultAry[:successIndex])
 	adResponse.AdspaceKey = adRequest.AdspaceKey
 	adRequest.DemandAdspaceKey = adResponse.DemandAdspaceKey
 	if adResponse.StatusCode == 200 {
+		adResponse.Adunit.CreativeType = _PmpAdspaceMap[adResponse.AdspaceKey].CreativeType
 		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
 		adResponse.AddClkTracking(clkTrackUrl)
@@ -211,16 +219,6 @@ func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) 
 	return
 }
 
-func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
-	adResponse = new(m.AdResponse)
-	adResponse.StatusCode = statusCode
-
-	return adResponse
-}
-
-func SetupAdspaceSecretMap(adspaceSecretMap map[string]string) {
-	_AdspaceSecretMap = adspaceSecretMap
-}
 func SetupAdspaceMap(adspaceMap map[string]m.AdspaceData) {
 	_AdspaceMap = adspaceMap
 }
@@ -233,6 +231,9 @@ func SetupDemandMap(demandMap map[int]m.DemandInfo) {
 func SetupAvbAdspaceDemandMap(avbDemandMap map[string]*m.AvbDemand) {
 	_AvbAdspaceDemand = avbDemandMap
 }
+func SetupPmpAdspaceMap(pmpAdspaceMap map[string]m.PmpInfo) {
+	_PmpAdspaceMap = pmpAdspaceMap
+}
 
 func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
 
@@ -244,4 +245,13 @@ func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
 
 	return false
 
+}
+
+func generateErrorResponse(adRequest *m.AdRequest, statusCode int) *m.AdResponse {
+	adResponse := new(m.AdResponse)
+	adResponse.StatusCode = statusCode
+	adResponse.Bid = adRequest.Bid
+	adResponse.AdspaceKey = adRequest.AdspaceKey
+
+	return adResponse
 }

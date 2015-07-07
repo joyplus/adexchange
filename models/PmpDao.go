@@ -74,8 +74,6 @@ func GetDemandInfo() (demandMap map[int]DemandInfo, err error) {
 		demandMap[record.DemandId] = record
 	}
 
-	beego.Debug(demandMap)
-
 	return demandMap, nil
 }
 
@@ -128,4 +126,27 @@ func GetAvbDemandMap(adDate string) (avbDemandMap map[string]*AvbDemand, err err
 	}
 
 	return avbDemandMap, err
+}
+
+func GetPmpInfo() (pmpAdspaceMap map[string]PmpInfo, err error) {
+	o := orm.NewOrm()
+
+	sql := "select pmp_adspace_key, creative_type from pmp_adspace where status=0"
+
+	var dataList []PmpInfo
+
+	_, err = o.Raw(sql).QueryRows(&dataList)
+
+	if err != nil {
+		beego.Critical(err.Error())
+		return
+	}
+
+	pmpAdspaceMap = make(map[string]PmpInfo)
+
+	for _, record := range dataList {
+		pmpAdspaceMap[record.PmpAdspaceKey] = record
+	}
+
+	return
 }
