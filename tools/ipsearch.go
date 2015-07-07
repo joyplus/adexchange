@@ -257,6 +257,11 @@ func QueryIP(ipStr string) (string, string) {
 	if len(ipStr) == 0 {
 		return "", ""
 	}
+	//todo local test mode
+	if strings.EqualFold("[", ipStr) {
+		return "上海市", "上海市"
+	}
+
 	queryMutex.Lock()
 	queryPool <- Ip2LocationReq{
 		ip: ipStr,

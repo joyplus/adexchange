@@ -34,13 +34,7 @@ var _AdspaceDemandMap map[string][]int
 var _DemandMap map[int]m.DemandInfo
 
 //key:<adspace_key>_<demand_adspace_key>; value:<bool>
-var _AvbAdspaceDemand map[string]bool
-
-//key:<adspace_key>_<demand_adspace_key>; value:<bool>
-var _AvbAdspaceRegionTargeting map[string]bool
-
-//key:<adspace_key>_<demand_adspace_key>_<region_code>; value:<left_imp>
-var _AvbAdSpaceRegion map[string]bool
+var _AvbAdspaceDemand map[string]*m.AvbDemand
 
 var _FuncMap lib.Funcs
 
@@ -224,10 +218,6 @@ func generateErrorResponse(statusCode int) (adResponse *m.AdResponse) {
 	return adResponse
 }
 
-func UpdateAdspaceStatus(adspaceKey string, demandAdspaceKey string, status bool) {
-	_AvbAdspaceDemand[adspaceKey+"_"+demandAdspaceKey] = status
-}
-
 func SetupAdspaceSecretMap(adspaceSecretMap map[string]string) {
 	_AdspaceSecretMap = adspaceSecretMap
 }
@@ -240,15 +230,16 @@ func SetupAdspaceDemandMap(adspaceDemandMap map[string][]int) {
 func SetupDemandMap(demandMap map[int]m.DemandInfo) {
 	_DemandMap = demandMap
 }
-func SetupAvbAdspaceDemandMap(avbDemandMap map[string]bool) {
+func SetupAvbAdspaceDemandMap(avbDemandMap map[string]*m.AvbDemand) {
 	_AvbAdspaceDemand = avbDemandMap
 }
 
 func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
 
+	beego.Debug("Start to Check avb demand")
 	key := adRequest.AdspaceKey + "_" + adspaceData.AdspaceKey
-	if _, ok := _AvbAdspaceDemand[key]; ok {
-		return true
+	if avbDemand, ok := _AvbAdspaceDemand[key]; ok {
+		return avbDemand.CheckAvailable(adRequest)
 	}
 
 	return false
