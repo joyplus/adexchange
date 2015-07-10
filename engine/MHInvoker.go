@@ -4,6 +4,7 @@ import (
 	"adexchange/lib"
 	m "adexchange/models"
 	//"bytes"
+	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/franela/goreq"
 	"net/url"
@@ -57,41 +58,52 @@ func invokeMH(demand *Demand) {
 	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
 	adResponse.SetResponseTime(time.Now().Unix())
 
+	var strResponse string
 	if serr, ok := err.(*goreq.Error); ok {
 		beego.Critical(err.Error())
 		if serr.Timeout() {
-			adResponse = generateErrorResponse(adRequest, lib.ERROR_TIMEOUT_ERROR)
+			adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_TIMEOUT_ERROR)
 			demand.Result <- adResponse
 		} else {
-			adResponse = generateErrorResponse(adRequest, lib.ERROR_MHSERVER_ERROR)
+			adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MHSERVER_ERROR)
 			demand.Result <- adResponse
 		}
 
 	} else {
 		var resultMap map[string]*m.MHAdUnit
 
-		err = res.Body.FromJsonTo(&resultMap)
+		strResponse, _ = res.Body.ToString()
+
+		err := json.Unmarshal([]byte(strResponse), &resultMap)
+
+		//err = res.Body.FromJsonTo(&resultMap)
 
 		defer res.Body.Close()
 
 		if err != nil {
 			beego.Critical(err.Error())
-			adResponse = generateErrorResponse(adRequest, lib.ERROR_MAP_ERROR)
-			demand.Result <- adResponse
+			adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MAP_ERROR)
+			//demand.Result <- adResponse
 		} else {
 			if resultMap != nil {
 				for _, v := range resultMap {
 					adResponse = mapMHResult(v)
 					adResponse.Bid = adRequest.Bid
 					adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
-					demand.Result <- adResponse
+					//demand.Result <- adResponse
 					break
 				}
 			} else {
-				adResponse = generateErrorResponse(adRequest, lib.ERROR_MAP_ERROR)
-				demand.Result <- adResponse
+				adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MAP_ERROR)
+				//demand.Result <- adResponse
 			}
 		}
+		if adResponse.StatusCode != lib.STATUS_SUCCESS {
+			adResponse.ResBody = strResponse
+			beego.Debug(adResponse.ResBody)
+		}
+
+		demand.Result <- adResponse
 
 	}
 

@@ -75,6 +75,8 @@ func main() {
 	m.Connect()
 
 	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
+
+	//start initial configuration
 	tasks.InitEngineData()
 	tasks.CheckAvbDemand()
 	initDuration, _ := beego.AppConfig.Int("init_duration")

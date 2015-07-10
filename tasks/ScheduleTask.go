@@ -42,6 +42,7 @@ func InitEngineData() {
 }
 
 func ScheduleInit(minutes int) {
+
 	timer := time.NewTicker(time.Minute * time.Duration(minutes))
 	for {
 		select {
@@ -52,6 +53,7 @@ func ScheduleInit(minutes int) {
 }
 
 func CheckAvbDemandInit(minutes int) {
+
 	timer := time.NewTicker(time.Minute * time.Duration(minutes))
 	for {
 		select {

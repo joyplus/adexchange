@@ -12,6 +12,7 @@ type AdResponse struct {
 	ResponseTime     int64
 	Bid              string
 	Adunit           *AdUnit
+	ResBody          string
 }
 
 type TrackResponse struct {
