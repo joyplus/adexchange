@@ -34,5 +34,6 @@ func init() {
 	beego.Router("/api/request", &controllers.RequestController{}, "*:RequestAd")
 	beego.Router("/api/trackimp", &controllers.RequestController{}, "*:TrackImp")
 	beego.Router("/api/trackclk", &controllers.RequestController{}, "*:TrackClk")
+	beego.Router("/api/viewad", &controllers.RequestController{}, "*:ViewAd")
 
 }
