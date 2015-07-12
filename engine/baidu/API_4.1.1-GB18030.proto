@@ -1,0 +1,333 @@
+package mobads.api;
+// 本文件描述API接口版本：4.1.1
+
+// 创意类型
+enum CreativeType {
+    TEXT = 1;  // 文字
+    IMAGE = 2;  // 图片
+    HTML = 3;  // HTML
+    VIDEO = 4;  // 视频
+    TEXT_ICON = 5;  // 图文
+};
+
+// 交互类型
+enum InteractionType {
+    NO_INTERACTION = 0;  // 无动作，用于开屏等特殊位置，不可用于请求，仅用于应答
+    SURFING = 1;  // 使用浏览器打开网页
+    DOWNLOAD = 2;  // 下载应用
+    DIALING = 3;  // 拨打电话
+    MESSAGE = 4;  // 发送短信
+    MAIL = 5;  // 发送邮件
+};
+
+// 版本号
+message Version {
+    required uint32 major = 1;
+    optional uint32 minor = 2[default = 0];
+    optional uint32 micro = 3[default = 0];
+    optional uint32 build = 4[default = 0];
+};
+
+// 二维尺寸
+message Size {
+    required uint32 width = 1;  // 宽度
+    required uint32 height = 2;  // 高度
+};
+
+// 自定义内容元数据
+message Meta {
+    required string name = 1;  // 自定义内容字段名
+    required string value = 2;  // 自定义内容值
+}
+
+// 应用信息
+message App {
+    // 应用静态信息
+    message StaticInfo {
+        required string bundle_id = 1;  // 应用包名
+        optional string name = 2;  // 应用名称，建议提供
+        repeated uint32 categories = 3;  // 应用分类
+        repeated string keywords = 4;  // 应用关键词
+        optional bool is_paid_app = 5;  // 是否付费下载应用
+        optional bool has_in_app_purchase = 6;  // 是否支持应用内购买
+    }
+    // 用户授权信息
+    message UserPermission {
+        // 用户授权类型，这里仅列举目前关心的授权
+        enum Type {
+            ACCESS_FINE_LOCATION = 1;  // 精细定位
+            CAMERA = 2;  // 摄像头
+            RECORD_AUDIO = 3;  // 录音
+        };
+        // 用户授权状态
+        enum Status {
+            UNKNOWN = 0;  // 表示未询问用户
+            ACCEPTED = 1;  // 接受
+            REFUSED = 2;  // 拒绝
+        };
+        required Type type = 1;  // 用户授权类型
+        required Status status = 2;  // 用户授权状态
+    };
+
+    required string id = 1;  // 应用ID，百度联盟分配
+    optional StaticInfo static_info = 2;  // 授权接入方使用的静态信息字段
+    optional string channel_id = 3;  // 发布渠道ID，渠道接入方必需填写
+    optional Version version = 4;  // 应用版本，建议提供，影响优选策略
+    repeated UserPermission user_permission = 5;  // 用户状态
+};
+
+// GPS信息
+message Gps {
+    // GPS坐标类型
+    enum Type {
+        WGS84 = 1;  // 全球卫星定位系统坐标系
+        GCJ02 = 2;  // 国家测绘局坐标系
+        BD09 = 3;  // 百度坐标系
+    };
+
+    required Type type = 1;  // 坐标类型
+    required double longitude = 2;  // 经度
+    required double latitude = 3;  // 纬度
+    required uint32 timestamp = 4;  // 时间戳
+};
+
+// 设备信息
+message Device {
+    // 设备类型
+    enum Type {
+        PHONE = 1;  // 手机，含iTouch
+        TABLET = 2;  // 平板
+        TV = 3;  // 智能电视，含机顶盒
+    };
+    // 操作系统类型
+    enum Os {
+        ANDROID = 1;  // Android
+        IOS = 2;  // iOS
+    };
+    // 屏幕方向
+    enum Orientation {
+        LAND = 1;  // 横屏
+        PORT = 2;  // 竖屏
+    };
+    // 传感器，定义参考http://goo.gl/OTcRN4
+    enum Sensor {
+        ACCELEROMETER = 1;  // 加速度传感器
+        AMBIENT_TEMPERATURE = 13;  // 环境温度传感器
+        GAME_ROTATION_VECTOR = 15;  // 未校准的旋转适量传感器
+        GEOMAGNETIC_ROTATION_VECTOR = 20;  // 地磁旋转矢量传感器
+        GRAVITY = 9;  // 重力传感器
+        GYROSCOPE = 4;  // 陀螺仪传感器
+        GYROSCOPE_UNCALIBRATED = 16;  // 未校准陀螺仪传感器
+        LIGHT = 5;  // 光线传感器
+        LINEAR_ACCELERATION = 10;  // 线性加速度传感器
+        MAGNETIC_FIELD = 2;  // 磁场传感器
+        MAGNETIC_FIELD_UNCALIBRATED = 14;  // 未校准磁场传感器
+        ORIENTATION = 3;  // 方向传感器
+        PRESSURE = 6;  // 压力传感器
+        PROXIMITY = 8;  // 接近传感器
+        RELATIVE_HUMIDITY = 12;  // 相对湿度传感器
+        ROTATION_VECTOR = 11;  // 旋转矢量传感器
+        SIGNIFICANT_MOTION = 17;  // 显著运动触发传感器
+        STEP_COUNTER = 19;  // 计步传感器
+        STEP_DETECTOR = 18;  // 步行检测传感器
+        TEMPERATURE = 7;   // 温度传感器
+    };
+    // 唯一用户标识，必需使用明文，不可加密，必需按要求填写
+    message UdId {
+        optional string idfa = 1;  // iOS设备的IDFA
+        optional string imei = 2;  // Android手机设备的IMEI
+        optional string mac = 3;  // Android非手机设备的WiFi网卡MAC地址
+        optional string idfv = 4;  // 电视厂商使用
+    };
+
+    required Type type = 1;  // 设备类型
+    required Os os = 2;  // 操作系统类型
+    required Version os_version = 3;  // 操作系统版本
+    required string vendor = 4;  // 厂商
+    required string model = 5;  // 型号
+    required UdId udid = 6;  // 唯一设备标识，必需按要求填写
+    optional Orientation orientation = 7;  // 设备方向
+    optional float screen_density = 8;  // 屏幕像素密度
+    optional Size screen_size = 9;  // 屏幕尺寸，插屏和开屏广告必须
+    repeated Sensor sensors = 10;  // 当前设备拥有的传感器列表
+    optional bool is_jailbreaked = 11;  // 当前设备是否越狱（或Root）
+};
+
+// 网络环境信息
+message Network {
+    // 网络类型，定义参考http://goo.gl/WVhKvF，非Android系统自行映射
+    enum Type {
+        BLUETOOTH = 7;
+        DUMMY = 8;
+        ETHERNET = 9;
+        MOBILE = 0;
+        MOBILE_DUN = 4;
+        MOBILE_HIPRI = 5;
+        MOBILE_MMS = 2;
+        MOBILE_SUPL = 3;
+        WIFI = 1;
+        WIMAX = 6;
+        NEW_TYPE = 999;  // 未知新类型
+    };
+    // 网络子类，定义参考http://goo.gl/oEGwpP，非Android系统自行映射
+    enum SubType {
+        RTT = 7;
+        CDMA = 4;
+        EDGE = 2;
+        EHRPD = 14;
+        EVDO_0 = 5;
+        EVDO_A = 6;
+        EVDO_B = 12;
+        GPRS = 1;
+        HSDPA = 8;
+        HSPA = 10;
+        HSPAP = 15;
+        HSUPA = 9;
+        IDEN = 11;
+        LTE = 13;
+        UMTS = 3;
+        NEW_SUBTYPE = 999;  // 未知新类型
+    };
+    // WiFi热点信息
+    message WiFiAp {
+        required string mac = 1;  // 热点MAC地址
+        required int32 rssi = 2;  // 热点信号强度，通常是负数
+        optional string name = 3;  // 热点名称，可不传递，建议传递当前接入热点的名称，用于判断用户当前所处场所
+        optional bool is_connected = 4;  // 是否是当前连接热点，配合热点名称可用于识别用户所处场所
+    };
+
+    optional string ipv4 = 1;  // IPv4地址，服务器对接必填
+    optional string ipv6 = 2;  // IPv6地址，服务器对接选填
+    optional Type type = 3;  // 网络类型，用于判断网速
+    optional SubType subtype = 4;  // 网络子类型，用于判断网速
+    optional uint32 operator_id = 5;  // 运营商ID，即MNC+MCC，用于运营商定向广告
+    optional string cellular_id = 6;  // 基站ID，用于快速用户定位
+    repeated WiFiAp wifi_aps = 7;  // 周边WiFi热点列表，用于精细用户定位
+};
+
+// 内容信息
+message Content {
+    optional string url = 1;  // 当前内容对应可访问URL
+    optional string referer = 2;  // 上一页内容对应可访问URL
+    repeated string keywords = 3;  // 媒体自定义内容关键词
+    repeated Meta meta = 4;  // 媒体自定义内容元数据信息
+};
+
+// 用户个人属性
+message User {
+    // 性别
+    enum Gender {
+        MALE = 1;  // 男性
+        FEMAIL = 2;  // 女性
+        THIRD_GENDER = 3;  // 第三性
+    };
+
+    optional Gender gender = 1;  // 性别
+    optional uint32 age = 2;  // 年龄
+    repeated string keywords = 3;  // 用户标签与关键词
+    repeated Meta meta = 4;  // 媒体自定义用户元数据信息
+};
+
+// 广告位信息
+message AdSlot {
+    // 广告位静态信息
+    message StaticInfo {
+        // 广告位类型
+        enum Type {
+            BANNER = 1;  // 横幅广告
+            INTERSTITIAL = 2;  // 插屏广告
+            SPLASH = 3;  // 开屏广告（请求后立即展现）
+            CACHED_SPLASH = 4;  // 缓存开屏广告
+            NEWS_FEED = 5;  // 信息流广告
+        };
+        // 广告位位置
+        enum Position {
+            TOP = 1;  // 顶部
+            BOTTOM = 2;  // 底部
+            FLOW = 3;  // 信息流内
+            MIDDLE = 4;  // 中部（插屏广告专用）
+            FULLSCREEN = 5;  // 全屏（开屏广告专用）
+        };
+        // 广告位填充物料必选素材
+        enum Asset {
+            TITLE = 1; //推广标题
+            TEXT = 2; //推广摘要信息
+            ICON_IMAGE = 3; //广告Logo
+            MAIN_IMAGE = 4; //图片信息
+        }
+        message Buyer {
+            required uint32 id = 1;
+            optional uint32 minimun_cpm = 2;
+        };
+
+        required Type type = 1;  // 广告位类型
+        repeated CreativeType accepted_creative_types = 2;  // 可接受创意类型
+        optional Position position = 3;  // 广告位位置
+        optional float minimun_cpm = 4;  // 最低CPM
+        repeated Buyer prefered_buyers = 5;  // 首选DSP集合，当首选集合为空时，强制允许所有DSP参与竞价
+        repeated uint32 exclusive_buyers = 6;  // 排除DSP集合
+        optional bool allow_all_buyers = 7;  // 是否允许所有其他DSP参与竞价，影响首选DSP放弃竞价后是否允许其他DSP参与竞价
+        repeated uint32 exclusive_ad_categories = 8;  // 不允许投放的广告行业，使用BES新行业分类
+        optional bool open_internal_browser = 9;  // 是否使用内部浏览器打开网页
+        repeated Asset asset = 10; //广告必备素材筛选 
+    };
+
+    required string id = 1;  // 广告位ID
+    optional StaticInfo static_info = 2;  // 授权接入方使用的广告位静态信息
+    required Size size = 3;  // 广告位尺寸
+    repeated InteractionType accepted_interaction_types = 4;  // 可接受交互类型
+    optional uint32 impression_time = 5;  // 计时曝光类广告位曝光时长
+};
+
+// 广告
+message Ad {
+    // 广告物料元数据
+    message MaterialMeta {
+        required CreativeType creative_type = 1;  // 创意类型
+        required InteractionType interaction_type = 2;  // 交互类型
+        repeated string win_notice_url = 3;  // 曝光日志URL列表
+        optional string title = 4;  // 标题
+        optional string description1 = 5;  // 描述1
+        optional string description2 = 6;  // 描述2
+        optional string media_url = 7;  // 多媒体资源URL（图标、图片和视频）
+        optional string show_url = 8;  // 展示用短网址
+        optional string click_url = 9;  // 点击行为地址
+        optional string icon_url = 10;  // 广告图标 
+        repeated string cached_url = 12; // 缓存汇报地址列表(缓存广告专用，必须按照约定执行)
+        optional string name = 13; // 下载类广告应用名
+        optional uint32 media_height = 15; // 媒体资源的高度
+        optional uint32 media_width = 16; // 媒体资源的宽度
+    };
+
+    optional string adslot_id = 1;  // 对应广告位ID，目前只支持单广告位请求，该字段可省略
+    optional uint32 buyer_id = 2;  // DSP ID，分析字段，不影响广告展现
+    optional uint32 ad_id = 3;  // 创意ID，分析字段，不影响广告展现
+    optional string html_snippet = 4;  // HTML片段，HTML物料使用此字段
+    optional MaterialMeta material_meta = 5;  // 物料元数据，非HTML物料使用此字段
+    optional uint32 impression_time = 6;  // 物料曝光时长，计时曝光类广告位使用
+    optional uint32 targeted_hours = 7;  // 定向时间段，非即时展现类广告位使用
+};
+
+// 竞价请求
+message BidRequest {
+    required string request_id = 1;  // 接入方自定义请求ID，联调测试用
+    required Version api_version = 2;  // API版本，按照当前接入所参照的API文档版本赋值，影响所有后续逻辑。
+    required App app = 3;  // 应用信息
+    required Device device = 4;  // 设备信息
+    required Network network = 5;  // 网络环境信息
+    optional Gps gps = 6;  // GPS定位信息，用于辅助触发LBS广告
+    optional Content content = 7;  // 当前内容信息，用于辅助触发关键词定向广告
+    optional User user = 8;  // 用户个人属性，用于辅助触发人群定向广告
+    repeated AdSlot adslots = 9;  // 广告位信息，当前版本仅支持一次请求一个广告位上的广告
+    optional bool is_debug = 10[default = false];  // 测试流量标记，可获取广告，但不被计费，勿用于线上请求
+};
+
+// 竞价应答
+message BidResponse {
+    required string request_id = 1;  // 对应请求的接入方自定义请求ID
+    repeated Ad ads = 2;  // 应答广告
+    optional uint64 error_code = 3;  // 请求出错时的错误码，用于问题排查
+    optional uint32 expiration_time = 4;  // 广告清单过期UTC时间戳，非即时展现类广告位使用
+};
+
+
