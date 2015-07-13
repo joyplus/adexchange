@@ -11,9 +11,10 @@ import (
 //	"github.com/franela/goreq"
 //	"time"
 //	"bytes"
-	"net/http"
-	"bytes"
 //	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/proto"
+	"time"
+	"github.com/franela/goreq"
 )
 
 func invokeBD2(demand *Demand) {
@@ -88,12 +89,12 @@ func invokeBD(demand *Demand) {
 	}
 	devModel := "Iphone6"
 	devVendor := "China MObile"
-	devId := "asdfadsfkajs;dfkja;sdfjadsflkjadjf"
+	devId := "123abc"
 	devUdid := bd.Device_UdId{
 		Idfa: &devId,
 	}
 	devType := bd.Device_PHONE
-	devOs := bd.Device_ANDROID
+	devOs := bd.Device_IOS
 	dev := &bd.Device{
 		Type: &devType,					// required. Mobile, Tablet, TV
 		Os: &devOs,						// required. android or IOS
@@ -136,16 +137,24 @@ func invokeBD(demand *Demand) {
 		},
 	}
 
-//	request, err := proto.Marshal(req)
+	data, err := proto.Marshal(&req)
 
-	beego.Debug("---------  request string: ", req.String())
+	resp, err := goreq.Request{
+		Method: "POST",
+		Uri:         demand.URL,
+		Timeout: time.Duration(demand.Timeout) * time.Millisecond,
+		Proxy: "http://localhost:8888",
+		Body: data,
+	}.Do()
 
-	resp, err := http.Post(demand.URL, "application/octet-stream", bytes.NewReader([]byte(req.String())))
+	bidResp := &bd.BidResponse{}
+	respStr, err := resp.Body.ToString()
+	err = proto.Unmarshal([]byte(respStr), bidResp)
 
 	if err != nil {
 		beego.Debug("error: ", err)
 	} else {
-		beego.Debug(resp)
+		beego.Debug("-------- get response from baidu: ", bidResp)
 	}
 
 }
