@@ -47,8 +47,14 @@ func (this *RequestController) TrackClk() {
 		adRequest.RequestTime = time.Now().Unix()
 		SendLog(adRequest, 3)
 	}
+	cacheKey := lib.GetMd5String(adRequest.Bid)
+	originalTrackingUrl := GetCachedClkUrl(cacheKey)
 
-	this.Data["json"] = &adResponse
-	this.ServeJson()
-
+	if len(originalTrackingUrl) > 0 {
+		this.Ctx.Redirect(302, originalTrackingUrl)
+	}
+	//else {
+	//	this.Data["json"] = &adResponse
+	//	this.ServeJson()
+	//}
 }

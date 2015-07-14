@@ -154,7 +154,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		adResponse.Adunit.CreativeType = _PmpAdspaceMap[adResponse.AdspaceKey].CreativeType
 		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
-		adResponse.AddClkTracking(clkTrackUrl)
+		adResponse.PmpClkTrackingUrl = clkTrackUrl
 	}
 
 	return adResponse

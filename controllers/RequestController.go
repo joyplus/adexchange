@@ -50,11 +50,17 @@ func (this *RequestController) RequestAd() {
 	}
 	commonResponse := adResponse.GenerateCommonResponse()
 
-	if adResponse.Adunit != nil && adResponse.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
-		cacheKey := lib.GetMd5String(adResponse.Bid)
-		url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey
-		commonResponse.SetHtmlCreativeUrl(url)
-		SetCachedAdResponse(cacheKey, adResponse)
+	if adResponse.Adunit != nil {
+		if adResponse.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
+			cacheKey := lib.GetMd5String(adResponse.Bid)
+			url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey
+			commonResponse.SetHtmlCreativeUrl(url)
+			SetCachedAdResponse(cacheKey, adResponse)
+		} else {
+			cacheKey := lib.GetMd5String(adResponse.Bid)
+			SetCachedClkUrl(cacheKey, adResponse.Adunit.ClickUrl)
+			adResponse.Adunit.ClickUrl = adResponse.PmpClkTrackingUrl
+		}
 	}
 
 	this.Data["json"] = commonResponse

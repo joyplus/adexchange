@@ -5,6 +5,7 @@ import (
 	m "adexchange/models"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
+	"github.com/garyburd/redigo/redis"
 	"gopkg.in/vmihailenco/msgpack.v2"
 	"strings"
 )
@@ -31,14 +32,14 @@ func SendLog(adRequest m.AdRequest, logType int) {
 }
 
 func getQueueName(logType int) string {
-	prefix := beego.AppConfig.String("runmode")
+	prefix := beego.AppConfig.String("runmode") + "_"
 
 	if logType == 1 {
-		return prefix + "_ADMUX_REQ"
+		return prefix + "ADMUX_REQ"
 	} else if logType == 2 {
-		return prefix + "_ADMUX_IMP"
+		return prefix + "ADMUX_IMP"
 	} else if logType == 3 {
-		return prefix + "_ADMUX_CLK"
+		return prefix + "ADMUX_CLK"
 	} else {
 		return ""
 	}
@@ -56,15 +57,46 @@ func GetClientIP(input *context.BeegoInput) string {
 	return ""
 }
 
-func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
+func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {
 	c := lib.Pool.Get()
-	val, err := msgpack.Marshal(adResponse)
+	prefix := beego.AppConfig.String("runmode") + "_"
 
-	if _, err = c.Do("SET", cacheKey, val); err != nil {
+	if _, err = c.Do("SET", prefix+cacheKey, clkUrl); err != nil {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", cacheKey, 60)
+	_, err = c.Do("EXPIRE", prefix+cacheKey, 300)
+	if err != nil {
+		beego.Error(err.Error())
+	}
+
+	return
+}
+
+func GetCachedClkUrl(cacheKey string) (clkUrl string) {
+	c := lib.Pool.Get()
+	prefix := beego.AppConfig.String("runmode") + "_"
+	beego.Debug(prefix + cacheKey)
+	clkUrl, err := redis.String(c.Do("GET", prefix+cacheKey))
+
+	if err != nil {
+		beego.Error(err.Error())
+	}
+
+	return
+}
+
+func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
+	c := lib.Pool.Get()
+	prefix := beego.AppConfig.String("runmode") + "_"
+
+	val, err := msgpack.Marshal(adResponse)
+
+	if _, err = c.Do("SET", prefix+cacheKey, val); err != nil {
+		beego.Error(err.Error())
+	}
+
+	_, err = c.Do("EXPIRE", prefix+cacheKey, 60)
 	if err != nil {
 		beego.Error(err.Error())
 	}
@@ -72,8 +104,9 @@ func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 
 func GetCachedAdResponse(cacheKey string) (adResponse *m.AdResponse) {
 	c := lib.Pool.Get()
+	prefix := beego.AppConfig.String("runmode") + "_"
 
-	v, err := c.Do("GET", cacheKey)
+	v, err := c.Do("GET", prefix+cacheKey)
 	if err != nil {
 		beego.Error(err.Error())
 		return nil

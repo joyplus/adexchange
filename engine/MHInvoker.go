@@ -72,12 +72,17 @@ func invokeMH(demand *Demand) {
 	} else {
 		var resultMap map[string]*m.MHAdUnit
 
+		//flg, _ := beego.AppConfig.Bool("log_demand_body")
+		//var err error
+		//if flg {
+		//	strResponse, _ = res.Body.ToString()
+		//	err = json.Unmarshal([]byte(strResponse), &resultMap)
+
+		//} else {
+		//	err = res.Body.FromJsonTo(&resultMap)
+		//}
 		strResponse, _ = res.Body.ToString()
-
-		err := json.Unmarshal([]byte(strResponse), &resultMap)
-
-		//err = res.Body.FromJsonTo(&resultMap)
-
+		err = json.Unmarshal([]byte(strResponse), &resultMap)
 		defer res.Body.Close()
 
 		if err != nil {
