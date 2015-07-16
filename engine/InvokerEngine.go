@@ -7,7 +7,7 @@ import (
 	"github.com/astaxie/beego"
 	//"github.com/franela/goreq"
 	//"net/url"
-	//"time"
+	"time"
 )
 
 //var c1 *httpclient.HttpClient
@@ -81,19 +81,19 @@ func init() {
 func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 	if _AdspaceMap == nil || _AdspaceDemandMap == nil || _DemandMap == nil || _PmpAdspaceMap == nil {
-		return generateErrorResponse(adRequest, lib.ERROR_INITIAL_FAILED)
+		return generateErrorResponse(adRequest, "", lib.ERROR_INITIAL_FAILED)
 	}
 
 	adspaceKey := adRequest.AdspaceKey
 	if _, ok := _PmpAdspaceMap[adspaceKey]; !ok {
-		return generateErrorResponse(adRequest, lib.ERROR_NO_PMP_ADSPACE_ERROR)
+		return generateErrorResponse(adRequest, "", lib.ERROR_NO_PMP_ADSPACE_ERROR)
 	}
 
 	demandIds := _AdspaceDemandMap[adspaceKey]
 
 	if len(demandIds) == 0 {
 
-		return generateErrorResponse(adRequest, lib.ERROR_ILLEGAL_ADSPACE)
+		return generateErrorResponse(adRequest, "", lib.ERROR_ILLEGAL_ADSPACE)
 	}
 
 	demandAry := make([]*Demand, len(demandIds))
@@ -103,16 +103,10 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	for _, demandId := range demandIds {
 
 		key4AdspaceMap := adspaceKey + "_" + lib.ConvertIntToString(demandId)
-
+		beego.Debug(key4AdspaceMap)
 		adspaceData, ok := _AdspaceMap[key4AdspaceMap]
 
-		if ok {
-
-			avbFlg := checkAvbDemand(adRequest, adspaceData)
-
-			if !avbFlg {
-				continue
-			}
+		if ok && checkAvbDemand(adRequest, adspaceData) {
 
 			demandInfo := _DemandMap[demandId]
 
@@ -140,13 +134,13 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	for index := 0; index < demandIndex; index++ {
 		demand := demandAry[index]
 		tmp = <-demand.Result
-		SendDemandLog(tmp)
 
 		if tmp != nil && tmp.StatusCode == 200 {
 			adResultAry[successIndex] = tmp
 			successIndex++
 		}
 
+		SendDemandLog(tmp)
 	}
 
 	if successIndex == 0 {
@@ -160,7 +154,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		adResponse.Adunit.CreativeType = _PmpAdspaceMap[adResponse.AdspaceKey].CreativeType
 		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
-		adResponse.AddClkTracking(clkTrackUrl)
+		adResponse.PmpClkTrackingUrl = clkTrackUrl
 	}
 
 	return adResponse
@@ -239,6 +233,8 @@ func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
 
 	beego.Debug("Start to Check avb demand")
 	key := adRequest.AdspaceKey + "_" + adspaceData.AdspaceKey
+
+	beego.Debug("avb key:" + key)
 	if avbDemand, ok := _AvbAdspaceDemand[key]; ok {
 		return avbDemand.CheckAvailable(adRequest)
 	}
@@ -247,11 +243,12 @@ func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
 
 }
 
-func generateErrorResponse(adRequest *m.AdRequest, statusCode int) *m.AdResponse {
+func generateErrorResponse(adRequest *m.AdRequest, demandAdspaceKey string, statusCode int) *m.AdResponse {
 	adResponse := new(m.AdResponse)
 	adResponse.StatusCode = statusCode
 	adResponse.Bid = adRequest.Bid
 	adResponse.AdspaceKey = adRequest.AdspaceKey
-
+	adResponse.DemandAdspaceKey = demandAdspaceKey
+	adResponse.ResponseTime = time.Now().Unix()
 	return adResponse
 }

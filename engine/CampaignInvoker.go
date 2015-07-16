@@ -18,11 +18,15 @@ func invokeCampaign(demand *Demand) {
 	if adResponse == nil {
 		adResponse := new(m.AdResponse)
 		adResponse.Bid = adRequest.Bid
+		adResponse.AdspaceKey = adRequest.AdspaceKey
 		adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
 		adResponse.SetResponseTime(time.Now().Unix())
 		campaigns, err := m.GetCampaigns(adRequest.AdspaceKey, time.Now().Format("2006-01-02"))
 		if err != nil {
 			beego.Error(err.Error)
+			adResponse.StatusCode = lib.ERROR_CAMPAIGN_DB_ERROR
+			demand.Result <- adResponse
+
 		}
 
 		if len(campaigns) == 0 {
@@ -80,7 +84,6 @@ func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 	if err != nil {
 		beego.Error(err.Error())
 	}
-
 }
 
 func getCachedAdResponse(adRequest *m.AdRequest) (adResponse *m.AdResponse) {

@@ -6,12 +6,14 @@ import (
 )
 
 type AdResponse struct {
-	StatusCode       int
-	AdspaceKey       string
-	DemandAdspaceKey string
-	ResponseTime     int64
-	Bid              string
-	Adunit           *AdUnit
+	StatusCode        int
+	AdspaceKey        string
+	DemandAdspaceKey  string
+	ResponseTime      int64
+	Bid               string
+	Adunit            *AdUnit
+	ResBody           string
+	PmpClkTrackingUrl string
 }
 
 type TrackResponse struct {
@@ -54,6 +56,7 @@ func (this *AdResponse) GenerateCommonResponse() CommonResponse {
 			//res.Adunit.CreativeUrls = []string{""}
 		} else {
 			res.Adunit = this.Adunit
+			//res.Adunit.ClickUrl = this.PmpClkTrackingUrl
 		}
 	}
 
