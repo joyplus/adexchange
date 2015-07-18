@@ -54,6 +54,10 @@ func init() {
 	if err != nil {
 		panic(err.Error())
 	}
+	err = _FuncMap.Bind("invokeBD", invokeBD)
+	if err != nil {
+		panic(err.Error())
+	}
 
 	IMP_TRACKING_SERVER = beego.AppConfig.String("imp_tracking_server")
 	CLK_TRACKING_SERVER = beego.AppConfig.String("clk_tracking_server")
