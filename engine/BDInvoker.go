@@ -224,20 +224,23 @@ func mapBDResponse(bdResp *bd.BidResponse, adResponse *m.AdResponse) {
 //	if adResponse.StatusCode == 0 {
 		adUnit := new(m.AdUnit)
 		adResponse.Adunit = adUnit
-		beego.Debug("ads: ", bdResp.String())
 		if len(bdResp.GetAds()) > 0 {
+
 			ad := bdResp.GetAds()[0]
-			beego.Debug("ad:   ", ad.String())
 			adMeta := ad.MaterialMeta
-			adUnit.Cid = *ad.AdslotId
+//			adUnit.Cid = *ad.AdslotId
 			adUnit.ClickUrl = *adMeta.ClickUrl
 			//todo hardcode 3 for MH, only support picture ad
-			//adUnit.CreativeType = 3
-			adUnit.ImpTrackingUrls = []string{*adMeta.ShowUrl}
-			// baidu doens't need the tracking url
-//			adUnit.ClkTrackingUrls = nil
+			adUnit.CreativeType = 3
+			adUnit.ImpTrackingUrls = []string{*adMeta.MediaUrl}
+//			 baidu doens't need the tracking url
+			adUnit.ClkTrackingUrls = nil
 			adUnit.AdWidth = int(*adMeta.MediaWidth)
 			adUnit.AdHeight = int(*adMeta.MediaHeight)
+			adResponse.StatusCode = 200
+		} else {
+			// no ads returned from baidu
+			adResponse.StatusCode = 804
 		}
 //	}
 }
