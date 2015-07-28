@@ -48,15 +48,15 @@ func init() {
 	_FuncMap = lib.NewFuncs(1)
 	err := _FuncMap.Bind("invokeMH", invokeMH)
 	if err != nil {
-		panic(err.Error())
+		beego.Emergency(err.Error())
 	}
 	err = _FuncMap.Bind("invokeCampaign", invokeCampaign)
 	if err != nil {
-		panic(err.Error())
+		beego.Emergency(err.Error())
 	}
 	err = _FuncMap.Bind("invokeBD", invokeBD)
 	if err != nil {
-		panic(err.Error())
+		beego.Emergency(err.Error())
 	}
 
 	IMP_TRACKING_SERVER = beego.AppConfig.String("imp_tracking_server")
