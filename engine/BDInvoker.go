@@ -1,9 +1,9 @@
 package engine
 
 import (
-	"github.com/astaxie/beego"
-
 	bd "adexchange/engine/baidu/mobads_api"
+	"fmt"
+	"github.com/astaxie/beego"
 	//"google.golang.org/grpc"
 	//"log"
 	//	"github.com/golang/protobuf/proto"
@@ -245,8 +245,13 @@ func mapBDResponse(bdResp *bd.BidResponse, adResponse *m.AdResponse) {
 		//			adUnit.Cid = *ad.AdslotId
 		adUnit.ClickUrl = *adMeta.ClickUrl
 		//todo hardcode 3 for MH, only support picture ad
-		adUnit.CreativeType = 3
-		adUnit.ImpTrackingUrls = []string{*adMeta.MediaUrl}
+		adUnit.Cid = fmt.Sprint(ad.AdId)
+		//adUnit.CreativeType = 3
+		adUnit.ClickUrl = *adMeta.ClickUrl
+		adUnit.CreativeUrls = []string{*adMeta.MediaUrl}
+
+		//adUnit.ImpTrackingUrls = []string{*adMeta.MediaUrl}
+		adUnit.ImpTrackingUrls = adMeta.WinNoticeUrl
 		//			 baidu doens't need the tracking url
 		adUnit.ClkTrackingUrls = nil
 		adUnit.AdWidth = int(*adMeta.MediaWidth)
