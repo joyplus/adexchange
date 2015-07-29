@@ -8,6 +8,7 @@ import (
 	"adexchange/tools"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"runtime"
 )
 
 //var c1, c2 httpclient.HttpClient
@@ -60,7 +61,7 @@ func main() {
 	//beego.EnableAdmin = true
 	//beego.AdminHttpAddr = "localhost"
 	//beego.AdminHttpPort = 8888
-	//runtime.GOMAXPROCS(runtime.NumCPU())
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	beego.ViewsPath = "views"
 	beego.AddTemplateExt("html")
@@ -71,6 +72,12 @@ func main() {
 	beego.SetLevel(logLevel)
 
 	orm.Debug, _ = beego.AppConfig.Bool("orm_debug")
+
+	consoleLogFlg, _ := beego.AppConfig.Bool("log_console_flg")
+	if !consoleLogFlg {
+		beego.BeeLogger.DelLogger("console")
+	}
+
 	tools.Init("ip.dat")
 	m.Connect()
 

@@ -55,6 +55,7 @@ func invokeMH(demand *Demand) {
 
 	adResponse := new(m.AdResponse)
 	adResponse.Bid = adRequest.Bid
+	adResponse.AdspaceKey = adRequest.AdspaceKey
 	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
 	adResponse.SetResponseTime(time.Now().Unix())
 
@@ -62,11 +63,11 @@ func invokeMH(demand *Demand) {
 	if serr, ok := err.(*goreq.Error); ok {
 		beego.Critical(err.Error())
 		if serr.Timeout() {
-			adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_TIMEOUT_ERROR)
-			demand.Result <- adResponse
+			//adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_TIMEOUT_ERROR)
+			adResponse.StatusCode = lib.ERROR_TIMEOUT_ERROR
 		} else {
-			adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MHSERVER_ERROR)
-			demand.Result <- adResponse
+			//adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MHSERVER_ERROR)
+			adResponse.StatusCode = lib.ERROR_MHSERVER_ERROR
 		}
 
 	} else {
@@ -87,38 +88,36 @@ func invokeMH(demand *Demand) {
 
 		if err != nil {
 			beego.Critical(err.Error())
-			adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MAP_ERROR)
+			//adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MAP_ERROR)
+			adResponse.StatusCode = lib.ERROR_MAP_ERROR
 			//demand.Result <- adResponse
 		} else {
 			if resultMap != nil {
 				for _, v := range resultMap {
-					adResponse = mapMHResult(v)
-					adResponse.Bid = adRequest.Bid
-					adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
+					mapMHResult(adResponse, v)
+					//adResponse.Bid = adRequest.Bid
+					//adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
 					//demand.Result <- adResponse
 					break
 				}
 			} else {
-				adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MAP_ERROR)
+				//adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MAP_ERROR)
 				//demand.Result <- adResponse
+				adResponse.StatusCode = lib.ERROR_MAP_ERROR
 			}
 		}
-		if adResponse.StatusCode != lib.STATUS_SUCCESS {
-			adResponse.ResBody = strResponse
-			beego.Debug(adResponse.ResBody)
-		}
-
-		demand.Result <- adResponse
-
 	}
 
+	if adResponse.StatusCode != lib.STATUS_SUCCESS {
+		adResponse.ResBody = strResponse
+		beego.Debug(adResponse.ResBody)
+	}
+	demand.Result <- adResponse
 }
 
-func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
+func mapMHResult(adResponse *m.AdResponse, mhAdunit *m.MHAdUnit) {
 
-	adResponse = new(m.AdResponse)
 	adResponse.StatusCode = mhAdunit.Returncode
-	adResponse.SetResponseTime(time.Now().Unix())
 
 	if adResponse.StatusCode == 200 {
 		adUnit := new(m.AdUnit)
@@ -134,5 +133,5 @@ func mapMHResult(mhAdunit *m.MHAdUnit) (adResponse *m.AdResponse) {
 		adUnit.AdHeight = mhAdunit.Adheight
 	}
 
-	return adResponse
+	//return adResponse
 }

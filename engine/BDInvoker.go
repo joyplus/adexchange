@@ -101,11 +101,15 @@ func invokeBD(demand *Demand) {
 	stringArr := strings.Split(demand.AdRequest.Osv, ".")
 
 	var strOsvMinor string
+	var strOsvMajor string
+	if len(stringArr) > 0 {
+		strOsvMajor = stringArr[0]
+	}
 	if len(stringArr) > 1 {
 		strOsvMinor = stringArr[1]
 	}
 	devOsVersion := &bd.Version{
-		Major: pUint32(lib.ConvertStrToInt(stringArr[0])),
+		Major: pUint32(lib.ConvertStrToInt(strOsvMajor)),
 		Minor: pUint32(lib.ConvertStrToInt(strOsvMinor)),
 	}
 	devModel := demand.AdRequest.Device // IPhone5s
