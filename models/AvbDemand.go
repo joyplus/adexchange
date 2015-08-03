@@ -40,7 +40,7 @@ type AllocationDetail struct {
 //	return res
 //}
 
-func (this *AvbDemand) CheckAvailable(adRequest *AdRequest) (avbFlg bool) {
+func (this *AvbDemand) CheckAvailable(adRequest *AdRequest) (avbFlg bool, targetingCode string) {
 	beego.Debug(this)
 
 	if this.detailAllocationFlg {
@@ -50,11 +50,23 @@ func (this *AvbDemand) CheckAvailable(adRequest *AdRequest) (avbFlg bool) {
 		allocationKey2 := "CITY" + "_" + cityCode
 
 		_, ok1 := this.allocationDetailMap[allocationKey1]
-		_, ok2 := this.allocationDetailMap[allocationKey2]
 
-		if ok1 || ok2 {
+		if ok1 {
 			avbFlg = true
+			targetingCode = provinceCode
+			return
 		}
+
+		_, ok2 := this.allocationDetailMap[allocationKey2]
+		if ok2 {
+			avbFlg = true
+			targetingCode = cityCode
+			return
+		}
+
+		//if ok1 || ok2 {
+		//	avbFlg = true
+		//}
 
 	} else {
 		if this.PlanImp > this.ActualImp {

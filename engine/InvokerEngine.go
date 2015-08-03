@@ -13,12 +13,13 @@ import (
 //var c1 *httpclient.HttpClient
 
 type Demand struct {
-	URL         string
-	Timeout     int
-	AdRequest   *m.AdRequest
-	AdspaceKey  string
-	AdSecretKey string
-	Result      chan *m.AdResponse
+	URL           string
+	Timeout       int
+	AdRequest     *m.AdRequest
+	AdspaceKey    string
+	AdSecretKey   string
+	Result        chan *m.AdResponse
+	TargetingCode string
 }
 
 //key:<adspace_key>; value:<PmpInfo>
@@ -55,6 +56,10 @@ func init() {
 		beego.Emergency(err.Error())
 	}
 	err = _FuncMap.Bind("invokeBD", invokeBD)
+	if err != nil {
+		beego.Emergency(err.Error())
+	}
+	err = _FuncMap.Bind("invokeMHQueue", invokeMHQueue)
 	if err != nil {
 		beego.Emergency(err.Error())
 	}
@@ -110,7 +115,9 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		beego.Debug(key4AdspaceMap)
 		adspaceData, ok := _AdspaceMap[key4AdspaceMap]
 
-		if ok && checkAvbDemand(adRequest, adspaceData) {
+		avbFlg, targetingCode := checkAvbDemand(adRequest, adspaceData)
+
+		if ok && avbFlg {
 
 			demandInfo := _DemandMap[demandId]
 
@@ -120,6 +127,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.AdRequest = adRequest
 			demand.AdspaceKey = adspaceData.AdspaceKey
 			demand.AdSecretKey = adspaceData.SecretKey
+			demand.TargetingCode = targetingCode
 			demand.Result = make(chan *m.AdResponse)
 			demandAry[demandIndex] = demand
 			demandIndex++
@@ -233,17 +241,17 @@ func SetupPmpAdspaceMap(pmpAdspaceMap map[string]m.PmpInfo) {
 	_PmpAdspaceMap = pmpAdspaceMap
 }
 
-func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) bool {
+func checkAvbDemand(adRequest *m.AdRequest, adspaceData m.AdspaceData) (avbFlg bool, targetingCode string) {
 
 	beego.Debug("Start to Check avb demand")
 	key := adRequest.AdspaceKey + "_" + adspaceData.AdspaceKey
 
 	beego.Debug("avb key:" + key)
 	if avbDemand, ok := _AvbAdspaceDemand[key]; ok {
-		return avbDemand.CheckAvailable(adRequest)
+		avbFlg, targetingCode = avbDemand.CheckAvailable(adRequest)
 	}
 
-	return false
+	return avbFlg, targetingCode
 
 }
 

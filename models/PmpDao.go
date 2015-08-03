@@ -86,7 +86,7 @@ func validUrl(url string) bool {
 func GetAvbDemandMap(adDate string) (avbDemandMap map[string]*AvbDemand, err error) {
 	o := orm.NewOrm()
 
-	beego.Debug("Start update demand daily report")
+	beego.Debug("Get Avb Demand Map")
 
 	var records []*AvbDemand
 	sql := "select allocation.id as allocation_id,allocation.pmp_adspace_id, allocation.demand_adspace_id, pmp.pmp_adspace_key,demand.demand_adspace_key,allocation.imp as plan_imp, allocation.clk as plan_clk,report.imp as actual_imp, report.clk as actual_clk from pmp_daily_allocation as allocation left join pmp_daily_report as report on allocation.ad_date=report.ad_date and allocation.pmp_adspace_id=report.pmp_adspace_id and allocation.demand_adspace_id=report.demand_adspace_id inner join pmp_adspace as pmp on allocation.pmp_adspace_id=pmp.id inner join pmp_demand_adspace as demand on allocation.demand_adspace_id=demand.id where allocation.ad_date=?"
