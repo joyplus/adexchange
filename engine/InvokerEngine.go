@@ -20,6 +20,10 @@ type Demand struct {
 	AdSecretKey   string
 	Result        chan *m.AdResponse
 	TargetingCode string
+	AppName       string
+	PkgName       string
+	Pcat          int
+	Ua            string
 }
 
 //key:<adspace_key>; value:<PmpInfo>
@@ -129,6 +133,13 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.AdSecretKey = adspaceData.SecretKey
 			demand.TargetingCode = targetingCode
 			demand.Result = make(chan *m.AdResponse)
+
+			//mockup app info
+			beego.Debug(adspaceData)
+			demand.AppName = adspaceData.AppName
+			demand.PkgName = adspaceData.PkgName
+			demand.Pcat = adspaceData.Pcat
+			demand.Ua = adspaceData.Ua
 			demandAry[demandIndex] = demand
 			demandIndex++
 			//go invokeMH(demand)
