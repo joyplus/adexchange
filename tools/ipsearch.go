@@ -258,7 +258,7 @@ func QueryIP(ipStr string) (string, string) {
 		return "", ""
 	}
 	//todo local test mode
-	if strings.EqualFold("[", ipStr) {
+	if strings.EqualFold("127.0.0.1", ipStr) {
 		return "上海市", "上海市"
 	}
 

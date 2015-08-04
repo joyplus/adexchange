@@ -7,7 +7,7 @@ import (
 	"github.com/astaxie/beego/context"
 	"github.com/garyburd/redigo/redis"
 	"gopkg.in/vmihailenco/msgpack.v2"
-	"strings"
+	//"strings"
 )
 
 type BaseController struct {
@@ -46,15 +46,15 @@ func getQueueName(logType int) string {
 }
 
 func GetClientIP(input *context.BeegoInput) string {
-	ips := input.Proxy()
-	if len(ips) > 0 && ips[0] != "" {
-		return ips[0]
-	}
-	ip := strings.Split(input.Request.RemoteAddr, ":")
-	if len(ip) > 0 {
-		return ip[0]
-	}
-	return ""
+	//ips := input.Proxy()
+	//if len(ips) > 0 && ips[0] != "" {
+	//	return ips[0]
+	//}
+	//ip := strings.Split(input.Request.RemoteAddr, ":")
+	//if len(ip) > 0 {
+	//	return ip[0]
+	//}
+	return input.IP()
 }
 
 func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {

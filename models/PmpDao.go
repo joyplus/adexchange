@@ -9,7 +9,7 @@ import (
 func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[string][]int, err error) {
 	o := orm.NewOrm()
 
-	sql := "select matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_secret_key from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id order by adspace.pmp_adspace_key,matrix.priority"
+	sql := "select matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_secret_key, app.pkg_name,app.app_name,app.pcat,app.ua from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id left join pmp_app_info as app on app.id=demand.app_id order by adspace.pmp_adspace_key,matrix.priority"
 
 	var dataList []PmpAdplaceInfo
 
@@ -31,6 +31,11 @@ func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[st
 	for _, record := range dataList {
 		adspaceData := AdspaceData{AdspaceKey: record.DemandAdspaceKey}
 		adspaceData.SecretKey = record.DemandSecretKey
+		adspaceData.AppName = record.AppName
+		adspaceData.PkgName = record.PkgName
+		adspaceData.Pcat = record.Pcat
+		adspaceData.Ua = record.Ua
+
 		adspaceMap[record.PmpAdspaceKey+"_"+lib.ConvertIntToString(record.DemandId)] = adspaceData
 
 		if oldAdspaceKey != record.PmpAdspaceKey {
@@ -86,7 +91,7 @@ func validUrl(url string) bool {
 func GetAvbDemandMap(adDate string) (avbDemandMap map[string]*AvbDemand, err error) {
 	o := orm.NewOrm()
 
-	beego.Debug("Start update demand daily report")
+	beego.Debug("Get Avb Demand Map")
 
 	var records []*AvbDemand
 	sql := "select allocation.id as allocation_id,allocation.pmp_adspace_id, allocation.demand_adspace_id, pmp.pmp_adspace_key,demand.demand_adspace_key,allocation.imp as plan_imp, allocation.clk as plan_clk,report.imp as actual_imp, report.clk as actual_clk from pmp_daily_allocation as allocation left join pmp_daily_report as report on allocation.ad_date=report.ad_date and allocation.pmp_adspace_id=report.pmp_adspace_id and allocation.demand_adspace_id=report.demand_adspace_id inner join pmp_adspace as pmp on allocation.pmp_adspace_id=pmp.id inner join pmp_demand_adspace as demand on allocation.demand_adspace_id=demand.id where allocation.ad_date=?"

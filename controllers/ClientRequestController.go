@@ -8,12 +8,12 @@ import (
 	"time"
 )
 
-type RequestController struct {
+type ClientRequestController struct {
 	BaseController
 }
 
-//Request Ad
-func (this *RequestController) RequestAd() {
+//Request Ad for client
+func (this *ClientRequestController) RequestAd4Client() {
 	adRequest := m.AdRequest{}
 	adResponse := new(m.AdResponse)
 	beego.Debug(this.Ctx.Input.Request)
@@ -22,6 +22,14 @@ func (this *RequestController) RequestAd() {
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
 		adRequest.RequestTime = time.Now().Unix()
+		clientIp := GetClientIP(this.Ctx.Input)
+		beego.Debug("Request Client IP:" + clientIp)
+		adRequest.Ip = clientIp
+
+		ua := this.Ctx.Input.Header("User-Agent")
+		beego.Debug("Request UA:" + ua)
+		adRequest.Ua = ua
+
 		tmp := engine.InvokeDemand(&adRequest)
 
 		if tmp == nil {
