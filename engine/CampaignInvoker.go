@@ -13,14 +13,10 @@ func invokeCampaign(demand *Demand) {
 	adRequest := demand.AdRequest
 	beego.Debug("Start Invoke Campaign,bid:" + adRequest.Bid)
 
-	adResponse := getCachedAdResponse(adRequest)
+	adResponse := getCachedAdResponse(demand)
 
 	if adResponse == nil {
-		adResponse := new(m.AdResponse)
-		adResponse.Bid = adRequest.Bid
-		adResponse.AdspaceKey = adRequest.AdspaceKey
-		adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
-		adResponse.SetResponseTime(time.Now().Unix())
+		adResponse := initAdResponse(demand)
 		campaigns, err := m.GetCampaigns(demand.AdspaceKey, time.Now().Format("2006-01-02"))
 		if err != nil {
 			beego.Error(err.Error)
@@ -40,7 +36,7 @@ func invokeCampaign(demand *Demand) {
 			demand.Result <- adResponse
 
 		}
-		setCachedAdResponse(generateCacheKey(adRequest), adResponse)
+		setCachedAdResponse(generateCacheKey(demand), adResponse)
 
 	} else {
 
@@ -63,8 +59,8 @@ func mapCampaign(adResponse *m.AdResponse, campaign *m.PmpCampaign) {
 
 }
 
-func generateCacheKey(adRequest *m.AdRequest) string {
-	return beego.AppConfig.String("runmode") + "_CAMPAIGN_" + adRequest.AdspaceKey
+func generateCacheKey(demand *Demand) string {
+	return beego.AppConfig.String("runmode") + "_CAMPAIGN_" + demand.AdRequest.AdspaceKey + "_" + demand.AdspaceKey
 }
 
 func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
@@ -81,10 +77,10 @@ func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 	}
 }
 
-func getCachedAdResponse(adRequest *m.AdRequest) (adResponse *m.AdResponse) {
+func getCachedAdResponse(demand *Demand) (adResponse *m.AdResponse) {
 	c := lib.Pool.Get()
 
-	key := generateCacheKey(adRequest)
+	key := generateCacheKey(demand)
 	v, err := c.Do("GET", key)
 	if err != nil {
 		beego.Error(err.Error())

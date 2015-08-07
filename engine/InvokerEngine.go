@@ -18,6 +18,7 @@ type Demand struct {
 	AdRequest     *m.AdRequest
 	AdspaceKey    string
 	AdSecretKey   string
+	Priority      int
 	Result        chan *m.AdResponse
 	TargetingCode string
 	AppName       string
@@ -35,8 +36,8 @@ var _AdspaceSecretMap map[string]string
 //key:<adspace_key>_<demand_id>; value:<demand_adspace_key>,<demand_secret_key>
 var _AdspaceMap map[string]m.AdspaceData
 
-//key:<adspace_key>; value:<demand_id1>,<demand_id2>...
-var _AdspaceDemandMap map[string][]int
+//key:<adspace_key>; value:<demand_adspace_key1>,<demand_adspace_key2>...
+var _AdspaceDemandMap map[string][]string
 
 //key:<demand_id>; value:<demand_url>
 var _DemandMap map[int]m.DemandInfo
@@ -102,20 +103,20 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		return generateErrorResponse(adRequest, "", lib.ERROR_NO_PMP_ADSPACE_ERROR)
 	}
 
-	demandIds := _AdspaceDemandMap[adspaceKey]
-
-	if len(demandIds) == 0 {
+	aryDemandAdspaceKeys := _AdspaceDemandMap[adspaceKey]
+	beego.Debug(aryDemandAdspaceKeys)
+	if len(aryDemandAdspaceKeys) == 0 {
 
 		return generateErrorResponse(adRequest, "", lib.ERROR_ILLEGAL_ADSPACE)
 	}
 
-	demandAry := make([]*Demand, len(demandIds))
+	demandAry := make([]*Demand, len(aryDemandAdspaceKeys))
 
 	demandIndex := 0
 
-	for _, demandId := range demandIds {
+	for _, demandAdspaceKey := range aryDemandAdspaceKeys {
 
-		key4AdspaceMap := adspaceKey + "_" + lib.ConvertIntToString(demandId)
+		key4AdspaceMap := adspaceKey + "_" + demandAdspaceKey
 		beego.Debug(key4AdspaceMap)
 		adspaceData, ok := _AdspaceMap[key4AdspaceMap]
 
@@ -123,7 +124,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 		if ok && avbFlg {
 
-			demandInfo := _DemandMap[demandId]
+			demandInfo := _DemandMap[adspaceData.DemandId]
 
 			demand := new(Demand)
 			demand.URL = demandInfo.RequestUrlTemplate
@@ -131,6 +132,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.AdRequest = adRequest
 			demand.AdspaceKey = adspaceData.AdspaceKey
 			demand.AdSecretKey = adspaceData.SecretKey
+			demand.Priority = adspaceData.Priority
 			demand.TargetingCode = targetingCode
 			demand.Result = make(chan *m.AdResponse)
 
@@ -157,7 +159,6 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	for index := 0; index < demandIndex; index++ {
 		demand := demandAry[index]
 		tmp = <-demand.Result
-
 		if tmp != nil && tmp.StatusCode == 200 {
 			adResultAry[successIndex] = tmp
 			successIndex++
@@ -169,6 +170,8 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	if successIndex == 0 {
 		return tmp
 	}
+
+	beego.Debug(successIndex)
 
 	adResponse := chooseAdResponse(adResultAry[:successIndex])
 	adResponse.AdspaceKey = adRequest.AdspaceKey
@@ -228,9 +231,33 @@ func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) 
 	//		break
 	//	}
 	//}
-	if len(aryAdResponse) > 0 {
-		random := lib.GetRandomNumber(0, len(aryAdResponse))
-		adResponse = aryAdResponse[random]
+	if len(aryAdResponse) == 1 {
+
+		adResponse = aryAdResponse[0]
+
+	} else if len(aryAdResponse) > 1 {
+
+		aryWeightItem := make([]*lib.WeightItem, len(aryAdResponse))
+		currentIndex := 0
+		for i, adResponseItem := range aryAdResponse {
+			weightItem := new(lib.WeightItem)
+			aryWeightItem[i] = weightItem
+			weightItem.Weight = adResponseItem.Priority
+			weightItem.StartNumber = currentIndex + 1
+			weightItem.EndNumber = currentIndex + weightItem.Weight
+			weightItem.Index = i
+			currentIndex = currentIndex + weightItem.Weight
+		}
+
+		selectedIndex := lib.ChooseItem(aryWeightItem)
+
+		beego.Debug("SelectedIndex: " + lib.ConvertIntToString(selectedIndex))
+
+		adResponse = aryAdResponse[selectedIndex]
+
+		beego.Debug(aryAdResponse)
+		//random := lib.GetRandomNumber(0, len(aryAdResponse))
+		//adResponse = aryAdResponse[random]
 	}
 
 	return
@@ -239,7 +266,7 @@ func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) 
 func SetupAdspaceMap(adspaceMap map[string]m.AdspaceData) {
 	_AdspaceMap = adspaceMap
 }
-func SetupAdspaceDemandMap(adspaceDemandMap map[string][]int) {
+func SetupAdspaceDemandMap(adspaceDemandMap map[string][]string) {
 	_AdspaceDemandMap = adspaceDemandMap
 }
 func SetupDemandMap(demandMap map[int]m.DemandInfo) {
@@ -273,5 +300,18 @@ func generateErrorResponse(adRequest *m.AdRequest, demandAdspaceKey string, stat
 	adResponse.AdspaceKey = adRequest.AdspaceKey
 	adResponse.DemandAdspaceKey = demandAdspaceKey
 	adResponse.ResponseTime = time.Now().Unix()
+	return adResponse
+}
+
+func initAdResponse(demand *Demand) (adResponse *m.AdResponse) {
+	adResponse = new(m.AdResponse)
+	adResponse.Bid = demand.AdRequest.Bid
+	adResponse.AdspaceKey = demand.AdRequest.AdspaceKey
+	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
+	adResponse.SetResponseTime(time.Now().Unix())
+	adResponse.Priority = demand.Priority
+
+	beego.Debug(demand.Priority)
+
 	return adResponse
 }

@@ -76,11 +76,7 @@ func invokeMH(demand *Demand) {
 		Timeout: time.Duration(demand.Timeout) * time.Millisecond,
 	}.Do()
 
-	adResponse := new(m.AdResponse)
-	adResponse.Bid = adRequest.Bid
-	adResponse.AdspaceKey = adRequest.AdspaceKey
-	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
-	adResponse.SetResponseTime(time.Now().Unix())
+	adResponse := initAdResponse(demand)
 
 	var strResponse string
 	if serr, ok := err.(*goreq.Error); ok {
