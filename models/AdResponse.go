@@ -14,6 +14,7 @@ type AdResponse struct {
 	Adunit            *AdUnit
 	ResBody           string
 	PmpClkTrackingUrl string
+	Priority          int
 }
 
 type TrackResponse struct {
@@ -133,8 +134,10 @@ type MHAdUnit struct {
 }
 
 type AdspaceData struct {
+	DemandId   int
 	AdspaceKey string
 	SecretKey  string
+	Priority   int
 	AppName    string
 	PkgName    string
 	Pcat       int
@@ -146,6 +149,7 @@ type PmpAdplaceInfo struct {
 	DemandId         int
 	DemandAdspaceKey string
 	DemandSecretKey  string
+	Priority         int
 	AppName          string
 	PkgName          string
 	Pcat             int

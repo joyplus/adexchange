@@ -1,15 +1,15 @@
 package models
 
 import (
-	"adexchange/lib"
+	//"adexchange/lib"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
 
-func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[string][]int, err error) {
+func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[string][]string, err error) {
 	o := orm.NewOrm()
 
-	sql := "select matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_secret_key, app.pkg_name,app.app_name,app.pcat,app.ua from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id left join pmp_app_info as app on app.id=demand.app_id order by adspace.pmp_adspace_key,matrix.priority"
+	sql := "select matrix.priority,matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_secret_key, app.pkg_name,app.app_name,app.pcat,app.ua from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id left join pmp_app_info as app on app.id=demand.app_id order by adspace.pmp_adspace_key,matrix.priority"
 
 	var dataList []PmpAdplaceInfo
 
@@ -26,36 +26,38 @@ func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[st
 	adspaceMap = make(map[string]AdspaceData)
 
 	//key:<adspace_key>; value:<demand_id1>,<demand_id2>...
-	adspaceDemandMap = make(map[string][]int)
+	adspaceDemandMap = make(map[string][]string)
 
 	for _, record := range dataList {
 		adspaceData := AdspaceData{AdspaceKey: record.DemandAdspaceKey}
+		adspaceData.DemandId = record.DemandId
 		adspaceData.SecretKey = record.DemandSecretKey
+		adspaceData.Priority = record.Priority
 		adspaceData.AppName = record.AppName
 		adspaceData.PkgName = record.PkgName
 		adspaceData.Pcat = record.Pcat
 		adspaceData.Ua = record.Ua
 
-		adspaceMap[record.PmpAdspaceKey+"_"+lib.ConvertIntToString(record.DemandId)] = adspaceData
+		adspaceMap[record.PmpAdspaceKey+"_"+record.DemandAdspaceKey] = adspaceData
 
 		if oldAdspaceKey != record.PmpAdspaceKey {
 			oldAdspaceKey = record.PmpAdspaceKey
 
 			if pmpDemandInfo != nil {
-				demandIds := pmpDemandInfo.GetDemandIds()
-				adspaceDemandMap[pmpDemandInfo.AdspaceKey] = demandIds
+				aryDemandAdspaceKey := pmpDemandInfo.GetDemandAdspaceKeys()
+				adspaceDemandMap[pmpDemandInfo.AdspaceKey] = aryDemandAdspaceKey
 			}
 			pmpDemandInfo = new(PmpDemandInfo)
-			pmpDemandInfo.InitDemand()
+			pmpDemandInfo.InitDemandAdspace()
 			pmpDemandInfo.AdspaceKey = record.PmpAdspaceKey
-			pmpDemandInfo.AddDemand(record.DemandId)
+			pmpDemandInfo.AddDemandAdspace(record.DemandAdspaceKey)
 		} else {
-			pmpDemandInfo.AddDemand(record.DemandId)
+			pmpDemandInfo.AddDemandAdspace(record.DemandAdspaceKey)
 		}
 	}
 
-	demandIds := pmpDemandInfo.GetDemandIds()
-	adspaceDemandMap[pmpDemandInfo.AdspaceKey] = demandIds
+	aryDemandAdsapceKey := pmpDemandInfo.GetDemandAdspaceKeys()
+	adspaceDemandMap[pmpDemandInfo.AdspaceKey] = aryDemandAdsapceKey
 
 	return adspaceMap, adspaceDemandMap, err
 }

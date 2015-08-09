@@ -184,10 +184,7 @@ func invokeBD(demand *Demand) {
 	if err != nil {
 		generateErrorResp(lib.ERROR_BD_MARSHAL_REQ, "failed to marshal bd request", err, demand)
 	} else {
-		adResponse := new(m.AdResponse)
-		adResponse.Bid = demand.AdRequest.Bid
-		adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
-		adResponse.SetResponseTime(time.Now().Unix())
+		adResponse := initAdResponse(demand)
 
 		resp, err := goreq.Request{
 			Method:  "POST",
