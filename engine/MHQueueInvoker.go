@@ -64,6 +64,7 @@ func processDemand(demand *Demand, queueName string) {
 	newDemand.AdSecretKey = demand.AdSecretKey
 	newDemand.TargetingCode = demand.TargetingCode
 	newDemand.Result = make(chan *m.AdResponse)
+	newDemand.Priority = demand.Priority
 
 	go invokeMH(newDemand)
 	adResponse := <-newDemand.Result

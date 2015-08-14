@@ -52,9 +52,9 @@ func (this *RequestController) TrackClk() {
 
 	if len(originalTrackingUrl) > 0 {
 		this.Ctx.Redirect(302, originalTrackingUrl)
+	} else {
+		adResponse.StatusCode = lib.ERROR_AD_EXPIRED
+		this.Data["json"] = &adResponse
+		this.ServeJson()
 	}
-	//else {
-	//	this.Data["json"] = &adResponse
-	//	this.ServeJson()
-	//}
 }

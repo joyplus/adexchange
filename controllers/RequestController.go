@@ -21,6 +21,8 @@ func (this *RequestController) RequestAd() {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
+		adRequest.Bid = GenerateBid(adRequest)
+
 		adRequest.RequestTime = time.Now().Unix()
 		tmp := engine.InvokeDemand(&adRequest)
 
@@ -48,20 +50,8 @@ func (this *RequestController) RequestAd() {
 		//	beego.Debug("Enter ssaass ad")
 		//}
 	}
-	commonResponse := adResponse.GenerateCommonResponse()
 
-	if adResponse.Adunit != nil {
-		if adResponse.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
-			cacheKey := lib.GetMd5String(adResponse.Bid)
-			url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey
-			commonResponse.SetHtmlCreativeUrl(url)
-			SetCachedAdResponse(cacheKey, adResponse)
-		} else {
-			cacheKey := lib.GetMd5String(adResponse.Bid)
-			SetCachedClkUrl(cacheKey, adResponse.Adunit.ClickUrl)
-			adResponse.Adunit.ClickUrl = adResponse.PmpClkTrackingUrl
-		}
-	}
+	commonResponse := GetCommonResponse(adResponse)
 
 	this.Data["json"] = commonResponse
 	this.ServeJson()

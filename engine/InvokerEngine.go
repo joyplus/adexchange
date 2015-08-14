@@ -117,7 +117,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	for _, demandAdspaceKey := range aryDemandAdspaceKeys {
 
 		key4AdspaceMap := adspaceKey + "_" + demandAdspaceKey
-		beego.Debug(key4AdspaceMap)
+		//beego.Debug(key4AdspaceMap)
 		adspaceData, ok := _AdspaceMap[key4AdspaceMap]
 
 		avbFlg, targetingCode := checkAvbDemand(adRequest, adspaceData)
@@ -239,17 +239,27 @@ func chooseAdResponse(aryAdResponse []*m.AdResponse) (adResponse *m.AdResponse) 
 
 		aryWeightItem := make([]*lib.WeightItem, len(aryAdResponse))
 		currentIndex := 0
+		selectedIndex := 999
+
 		for i, adResponseItem := range aryAdResponse {
+			if adResponseItem.Priority >= 100 {
+				selectedIndex = i
+				break
+			}
 			weightItem := new(lib.WeightItem)
 			aryWeightItem[i] = weightItem
 			weightItem.Weight = adResponseItem.Priority
+			beego.Debug(adResponseItem.Priority)
 			weightItem.StartNumber = currentIndex + 1
 			weightItem.EndNumber = currentIndex + weightItem.Weight
 			weightItem.Index = i
 			currentIndex = currentIndex + weightItem.Weight
+
 		}
 
-		selectedIndex := lib.ChooseItem(aryWeightItem)
+		if selectedIndex == 999 {
+			selectedIndex = lib.ChooseItem(aryWeightItem)
+		}
 
 		beego.Debug("SelectedIndex: " + lib.ConvertIntToString(selectedIndex))
 
@@ -310,8 +320,6 @@ func initAdResponse(demand *Demand) (adResponse *m.AdResponse) {
 	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
 	adResponse.SetResponseTime(time.Now().Unix())
 	adResponse.Priority = demand.Priority
-
-	beego.Debug(demand.Priority)
 
 	return adResponse
 }
