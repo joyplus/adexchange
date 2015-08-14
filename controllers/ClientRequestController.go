@@ -21,6 +21,8 @@ func (this *ClientRequestController) RequestAd4Client() {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
+		adRequest.Bid = GenerateBid(adRequest)
+
 		adRequest.RequestTime = time.Now().Unix()
 		clientIp := GetClientIP(this.Ctx.Input)
 		beego.Debug("Request Client IP:" + clientIp)

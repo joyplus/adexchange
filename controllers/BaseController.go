@@ -65,7 +65,7 @@ func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", prefix+cacheKey, 300)
+	_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
 	if err != nil {
 		beego.Error(err.Error())
 	}
@@ -96,7 +96,7 @@ func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", prefix+cacheKey, 120)
+	_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
 	if err != nil {
 		beego.Error(err.Error())
 	}
@@ -148,5 +148,11 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 	}
 
 	return
+
+}
+
+func GenerateBid(adRequest m.AdRequest) string {
+
+	return adRequest.Bid + "-" + lib.GetMd5String(lib.GenerateBid(adRequest.AdspaceKey))
 
 }

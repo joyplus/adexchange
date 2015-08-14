@@ -21,6 +21,8 @@ func (this *RequestController) RequestAd() {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
+		adRequest.Bid = GenerateBid(adRequest)
+
 		adRequest.RequestTime = time.Now().Unix()
 		tmp := engine.InvokeDemand(&adRequest)
 

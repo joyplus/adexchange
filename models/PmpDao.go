@@ -9,7 +9,7 @@ import (
 func GetMatrixData() (adspaceMap map[string]AdspaceData, adspaceDemandMap map[string][]string, err error) {
 	o := orm.NewOrm()
 
-	sql := "select matrix.priority,matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_secret_key, app.pkg_name,app.app_name,app.pcat,app.ua from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id left join pmp_app_info as app on app.id=demand.app_id order by adspace.pmp_adspace_key,matrix.priority"
+	sql := "select matrix.priority,matrix.pmp_adspace_id, adspace.pmp_adspace_key, matrix.demand_id as demand_id,demand.demand_adspace_key as demand_adspace_key,demand.secret_key as demand_secret_key, app.pkg_name,app.app_name,app.pcat,app.ua from pmp_adspace_matrix as matrix inner join pmp_adspace as adspace on matrix.pmp_adspace_id=adspace.id inner join pmp_demand_adspace as demand on matrix.demand_adspace_id=demand.id left join pmp_app_info as app on app.id=demand.app_id order by adspace.pmp_adspace_key,matrix.priority desc"
 
 	var dataList []PmpAdplaceInfo
 
