@@ -102,7 +102,7 @@ func invokeMH(demand *Demand) {
 		//	err = res.Body.FromJsonTo(&resultMap)
 		//}
 		strResponse, _ = res.Body.ToString()
-		err = json.Unmarshal([]byte(strResponse), &resultMap)
+		err = json.Unmarshal(lib.EscapeCtrl([]byte(strResponse)), &resultMap)
 		defer res.Body.Close()
 
 		if err != nil {
