@@ -127,10 +127,11 @@ func invokeMH(demand *Demand) {
 		}
 	}
 
-	if adResponse.StatusCode != lib.STATUS_SUCCESS {
-		adResponse.ResBody = strResponse
-		beego.Debug(adResponse.ResBody)
-	}
+	//todo
+	//if adResponse.StatusCode != lib.STATUS_SUCCESS {
+	//	adResponse.ResBody = strResponse
+	//}
+	adResponse.ResBody = strResponse
 	demand.Result <- adResponse
 }
 

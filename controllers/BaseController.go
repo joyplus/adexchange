@@ -153,6 +153,6 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 
 func GenerateBid(adRequest m.AdRequest) string {
 
-	return adRequest.Bid + "-" + lib.GetMd5String(lib.GenerateBid(adRequest.AdspaceKey))
+	return adRequest.Bid + lib.GetMd5String(lib.GenerateBid(adRequest.AdspaceKey))
 
 }
