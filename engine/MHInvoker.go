@@ -127,11 +127,9 @@ func invokeMH(demand *Demand) {
 		}
 	}
 
-	//todo
-	//if adResponse.StatusCode != lib.STATUS_SUCCESS {
-	//	adResponse.ResBody = strResponse
-	//}
-	adResponse.ResBody = strResponse
+	if adResponse.StatusCode != lib.STATUS_SUCCESS {
+		adResponse.ResBody = strResponse
+	}
 	demand.Result <- adResponse
 }
 
