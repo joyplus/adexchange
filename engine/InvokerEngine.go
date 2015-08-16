@@ -164,7 +164,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			successIndex++
 		}
 
-		SendDemandLog(tmp)
+		go SendDemandLog(tmp)
 	}
 
 	if successIndex == 0 {

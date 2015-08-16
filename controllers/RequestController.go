@@ -37,7 +37,7 @@ func (this *RequestController) RequestAd() {
 		//only running pmp adspace need track request log
 		if adResponse.StatusCode != lib.ERROR_NO_PMP_ADSPACE_ERROR {
 			adRequest.StatusCode = adResponse.StatusCode
-			SendLog(adRequest, 1)
+			go SendLog(adRequest, 1)
 		}
 
 		//if err != nil {
