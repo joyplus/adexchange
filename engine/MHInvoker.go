@@ -50,7 +50,8 @@ func invokeMH(demand *Demand) {
 	item.Set("conn", adRequest.Conn)
 	item.Set("carrier", adRequest.Carrier)
 	//hard code 2 to return json response
-	item.Set("apitype", "2")
+	//hard code 4 to return json response with display titile and text
+	item.Set("apitype", "4")
 	item.Set("os", lib.ConvertIntToString(adRequest.Os))
 	item.Set("osv", adRequest.Osv)
 	item.Set("imei", adRequest.Imei)
@@ -149,6 +150,8 @@ func mapMHResult(adResponse *m.AdResponse, mhAdunit *m.MHAdUnit) {
 		adUnit.ClkTrackingUrls = mhAdunit.Thclkurl
 		adUnit.AdWidth = mhAdunit.Adwidth
 		adUnit.AdHeight = mhAdunit.Adheight
+		adUnit.DisplayTitle = mhAdunit.Displaytitle
+		adUnit.DisplayText = mhAdunit.Displaytext
 	}
 
 	//return adResponse

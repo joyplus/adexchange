@@ -178,7 +178,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	adRequest.DemandAdspaceKey = adResponse.DemandAdspaceKey
 	if adResponse.StatusCode == 200 {
 		adResponse.Adunit.CreativeType = _PmpAdspaceMap[adResponse.AdspaceKey].CreativeType
-		impTrackUrl, clkTrackUrl := generateTrackingUrl(adRequest)
+		impTrackUrl, clkTrackUrl := generateTrackingUrl(adResponse, adRequest)
 		adResponse.AddImpTracking(impTrackUrl)
 		adResponse.PmpClkTrackingUrl = clkTrackUrl
 	}
@@ -186,10 +186,10 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 	return adResponse
 }
 
-func generateTrackingUrl(adRequest *m.AdRequest) (string, string) {
+func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (string, string) {
 	var buffer bytes.Buffer
 	buffer.WriteString("bid=")
-	buffer.WriteString(adRequest.Bid)
+	buffer.WriteString(adResponse.Bid)
 	buffer.WriteString("&adspaceid=")
 	buffer.WriteString(adRequest.AdspaceKey)
 	buffer.WriteString("&dkey=")
