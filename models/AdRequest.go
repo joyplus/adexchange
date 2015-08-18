@@ -34,4 +34,5 @@ type AdRequest struct {
 	StatusCode       int
 	RequestTime      int64
 	ProcessDuration  int64
+	Did              string `form:"did"`
 }

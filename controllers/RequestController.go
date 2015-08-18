@@ -24,7 +24,7 @@ func (this *RequestController) RequestAd() {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
-		adRequest.Bid = GenerateBid(adRequest)
+		adRequest.Did = GenerateBid(adRequest)
 
 		adRequest.RequestTime = time.Now().Unix()
 		tmp := engine.InvokeDemand(&adRequest)
@@ -32,7 +32,9 @@ func (this *RequestController) RequestAd() {
 		if tmp == nil {
 			adResponse.StatusCode = lib.ERROR_NO_DEMAND_ERROR
 			adResponse.Bid = adRequest.Bid
+			adResponse.Did = adRequest.Did
 			adResponse.AdspaceKey = adRequest.AdspaceKey
+			adResponse.ResponseTime = time.Now().Unix()
 		} else {
 			adResponse = tmp
 		}

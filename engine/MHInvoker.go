@@ -18,7 +18,7 @@ func invokeMH(demand *Demand) {
 	item := url.Values{}
 
 	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
-	item.Set("bid", adRequest.Bid)
+	item.Set("bid", demand.Did)
 	item.Set("adspaceid", demand.AdspaceKey)
 	//hard code 2 to request MH as hero app
 	item.Set("adtype", "2")
@@ -131,12 +131,16 @@ func invokeMH(demand *Demand) {
 	if adResponse.StatusCode != lib.STATUS_SUCCESS {
 		adResponse.ResBody = strResponse
 	}
+
+	go SendDemandLog(adResponse)
+
 	demand.Result <- adResponse
 }
 
 func mapMHResult(adResponse *m.AdResponse, mhAdunit *m.MHAdUnit) {
 
 	adResponse.StatusCode = mhAdunit.Returncode
+	adResponse.Did = mhAdunit.Bid
 
 	if adResponse.StatusCode == 200 {
 		adUnit := new(m.AdUnit)

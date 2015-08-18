@@ -48,7 +48,7 @@ func (this *RequestController) TrackClk() {
 		go SendLog(adRequest, 3)
 	}
 
-	cacheKey := lib.GetMd5String(adRequest.Bid)
+	cacheKey := lib.GetMd5String(adRequest.Did)
 
 	originalTrackingUrl := GetCachedClkUrl(cacheKey)
 

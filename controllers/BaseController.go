@@ -135,7 +135,7 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 
 	if adResponse.Adunit != nil {
 		if adResponse.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
-			cacheKey := lib.GetMd5String(adResponse.Bid)
+			cacheKey := lib.GetMd5String(adResponse.Did)
 
 			url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey
 			adResponse.AddClkTracking(adResponse.PmpClkTrackingUrl)
@@ -143,7 +143,7 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 			SetCachedAdResponse(cacheKey, adResponse)
 		} else {
 
-			cacheKey := lib.GetMd5String(adResponse.Bid)
+			cacheKey := lib.GetMd5String(adResponse.Did)
 
 			SetCachedClkUrl(cacheKey, adResponse.Adunit.ClickUrl)
 			adResponse.Adunit.ClickUrl = adResponse.PmpClkTrackingUrl
@@ -156,6 +156,6 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 
 func GenerateBid(adRequest m.AdRequest) string {
 
-	return adRequest.Bid + lib.GetMd5String(lib.GenerateBid(adRequest.AdspaceKey))
+	return lib.GetMd5String(lib.GenerateBid(adRequest.AdspaceKey))
 
 }
