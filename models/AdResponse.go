@@ -111,26 +111,29 @@ func (this *AdResponse) AddClkTracking(url string) {
 type AdUnit struct {
 	Cid             string   `json:"cid"`
 	ClickUrl        string   `json:"clickUrl"`
-	DisplayText     string   `json:"displayText"`
 	CreativeType    int      `json:"creativeType"`
 	CreativeUrls    []string `json:"creativeUrls"`
 	ImpTrackingUrls []string `json:"impTrackingUrls"`
 	ClkTrackingUrls []string `json:"clkTrackingUrls"`
 	AdWidth         int      `json:"adWidth"`
 	AdHeight        int      `json:"adHeight"`
+	DisplayTitle    string   `json:"displayTitle"`
+	DisplayText     string   `json:"displayText"`
 }
 
 type MHAdUnit struct {
-	Adspaceid   string
-	Returncode  int
-	Cid         string
-	Adwidth     int
-	Adheight    int
-	Adtype      int
-	Imgurl      string
-	Clickurl    string
-	Imgtracking []string
-	Thclkurl    []string
+	Adspaceid    string
+	Returncode   int
+	Cid          string
+	Adwidth      int
+	Adheight     int
+	Adtype       int
+	Imgurl       string
+	Clickurl     string
+	Imgtracking  []string
+	Thclkurl     []string
+	Displaytitle string
+	Displaytext  string
 }
 
 type AdspaceData struct {

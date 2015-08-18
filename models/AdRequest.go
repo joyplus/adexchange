@@ -33,4 +33,5 @@ type AdRequest struct {
 	Lat              float32 `form:"lat"`
 	StatusCode       int
 	RequestTime      int64
+	ProcessDuration  int64
 }

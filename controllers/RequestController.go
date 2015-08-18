@@ -14,6 +14,9 @@ type RequestController struct {
 
 //Request Ad
 func (this *RequestController) RequestAd() {
+
+	t1 := time.Now().UnixNano()
+
 	adRequest := m.AdRequest{}
 	adResponse := new(m.AdResponse)
 	beego.Debug(this.Ctx.Input.Request)
@@ -37,18 +40,13 @@ func (this *RequestController) RequestAd() {
 		//only running pmp adspace need track request log
 		if adResponse.StatusCode != lib.ERROR_NO_PMP_ADSPACE_ERROR {
 			adRequest.StatusCode = adResponse.StatusCode
+
+			//这里添加代码
+			t2 := time.Now().UnixNano()
+			adRequest.ProcessDuration = (t2 - t1) / 1000000
 			go SendLog(adRequest, 1)
 		}
 
-		//if err != nil {
-		//	beego.Debug("Enter sss ad")
-		//	if e, ok := err.(*lib.SysError); ok {
-		//		adResponse.StatusCode = e.ErrorCode
-		//	} else {
-		//		adResponse.StatusCode = lib.ERROR_UNKNON_ERROR
-		//	}
-		//	beego.Debug("Enter ssaass ad")
-		//}
 	}
 
 	commonResponse := GetCommonResponse(adResponse)

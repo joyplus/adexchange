@@ -24,7 +24,7 @@ func (this *RequestController) TrackImp() {
 		beego.Debug("Clk Client IP:" + clientIp)
 		adRequest.Ip = clientIp
 		adRequest.RequestTime = time.Now().Unix()
-		SendLog(adRequest, 2)
+		go SendLog(adRequest, 2)
 	}
 
 	this.Data["json"] = &adResponse
@@ -45,9 +45,11 @@ func (this *RequestController) TrackClk() {
 		beego.Debug("Imp Client IP:" + clientIp)
 		adRequest.Ip = clientIp
 		adRequest.RequestTime = time.Now().Unix()
-		SendLog(adRequest, 3)
+		go SendLog(adRequest, 3)
 	}
+
 	cacheKey := lib.GetMd5String(adRequest.Bid)
+
 	originalTrackingUrl := GetCachedClkUrl(cacheKey)
 
 	if len(originalTrackingUrl) > 0 {
