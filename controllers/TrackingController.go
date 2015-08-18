@@ -27,8 +27,8 @@ func (this *RequestController) TrackImp() {
 		go SendLog(adRequest, 2)
 	}
 
-	this.Data["json"] = &adResponse
-	this.ServeJson()
+	//this.Data["json"] = &adResponse
+	//this.ServeJson()
 
 }
 
@@ -54,9 +54,10 @@ func (this *RequestController) TrackClk() {
 
 	if len(originalTrackingUrl) > 0 {
 		this.Ctx.Redirect(302, originalTrackingUrl)
-	} else {
-		adResponse.StatusCode = lib.ERROR_AD_EXPIRED
-		this.Data["json"] = &adResponse
-		this.ServeJson()
 	}
+	//else {
+	//	adResponse.StatusCode = lib.ERROR_AD_EXPIRED
+	//	this.Data["json"] = &adResponse
+	//	this.ServeJson()
+	//}
 }
