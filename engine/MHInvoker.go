@@ -14,7 +14,7 @@ import (
 func invokeMH(demand *Demand) {
 
 	adRequest := demand.AdRequest
-	beego.Debug("Start Invoke MH,bid:" + adRequest.Bid)
+	beego.Debug("Start Invoke MH,did:" + adRequest.Did)
 	item := url.Values{}
 
 	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
