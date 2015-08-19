@@ -76,7 +76,7 @@ func processDemand(demand *Demand, queueName string) {
 
 	//Generate new did for queue invoker
 
-	newDemand.Did = lib.GetMd5String(lib.GenerateBid(newDemand.AdRequest.AdspaceKey))
+	newDemand.Did = lib.GenerateBid(newDemand.AdRequest.AdspaceKey)
 	//beego.Debug(newDemand.Did)
 
 	go invokeMH(newDemand)
