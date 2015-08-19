@@ -11,6 +11,7 @@ type AdResponse struct {
 	DemandAdspaceKey  string
 	ResponseTime      int64
 	Bid               string
+	Did               string
 	Adunit            *AdUnit
 	ResBody           string
 	PmpClkTrackingUrl string
@@ -124,6 +125,7 @@ type AdUnit struct {
 type MHAdUnit struct {
 	Adspaceid    string
 	Returncode   int
+	Bid          string
 	Cid          string
 	Adwidth      int
 	Adheight     int

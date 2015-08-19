@@ -112,7 +112,7 @@ func GenerateOrderNumber(purchaseType string) string {
 
 func GenerateBid(prefix string) string {
 	nums := generateRandomNumber(1, 10000, 1)
-	return prefix + GetCurrentTime() + fmt.Sprintf("%d", nums[0])
+	return GetMd5String(prefix + GetCurrentTime() + fmt.Sprintf("%d", nums[0]))
 }
 
 func ConvertStrToInt(s string) int {

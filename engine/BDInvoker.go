@@ -181,10 +181,12 @@ func invokeBD(demand *Demand) {
 
 	data, err := proto.Marshal(&req)
 
+	adResponse := initAdResponse(demand)
+
 	if err != nil {
-		generateErrorResp(lib.ERROR_BD_MARSHAL_REQ, "failed to marshal bd request", err, demand)
+		adResponse.StatusCode = lib.ERROR_BD_MARSHAL_REQ
 	} else {
-		adResponse := initAdResponse(demand)
+		//adResponse := initAdResponse(demand)
 
 		resp, err := goreq.Request{
 			Method:  "POST",
@@ -196,10 +198,12 @@ func invokeBD(demand *Demand) {
 		if serr, ok := err.(*goreq.Error); ok {
 			beego.Critical(err.Error())
 			if serr.Timeout() {
-				generateErrorResp(lib.ERROR_TIMEOUT_ERROR, "failed to send request to baidu", err, demand)
+				adResponse.StatusCode = lib.ERROR_TIMEOUT_ERROR
+				//generateErrorResp(lib.ERROR_TIMEOUT_ERROR, "failed to send request to baidu", err, demand)
 
 			} else {
-				generateErrorResp(lib.ERROR_BD_SERVER, "failed to send request to baidu", err, demand)
+				adResponse.StatusCode = lib.ERROR_BD_SERVER
+				//generateErrorResp(lib.ERROR_BD_SERVER, "failed to send request to baidu", err, demand)
 
 			}
 
@@ -210,22 +214,26 @@ func invokeBD(demand *Demand) {
 			defer resp.Body.Close()
 
 			if err != nil {
-				generateErrorResp(lib.ERROR_BD_FAILED_RES, "failed to get bd response body", err, demand)
+				adResponse.StatusCode = lib.ERROR_BD_FAILED_RES
+				//generateErrorResp(lib.ERROR_BD_FAILED_RES, "failed to get bd response body", err, demand)
 			} else {
 
 				err = proto.Unmarshal([]byte(respStr), bidResp)
 
 				if err != nil {
-					generateErrorResp(lib.ERROR_BD_MARSHAL_RES, "failed to unmarshal response body", err, demand)
+					adResponse.StatusCode = lib.ERROR_BD_MARSHAL_RES
+					//generateErrorResp(lib.ERROR_BD_MARSHAL_RES, "failed to unmarshal response body", err, demand)
 				} else {
 					beego.Debug("baidu response: ", bidResp.String())
 					mapBDResponse(bidResp, adResponse)
 					beego.Debug("map to pmp response successfully.")
-					demand.Result <- adResponse
 				}
 			}
 		}
 	}
+
+	go SendDemandLog(adResponse)
+	demand.Result <- adResponse
 }
 
 func pUint32(v int) *uint32 {
@@ -269,8 +277,8 @@ func mapBDResponse(bdResp *bd.BidResponse, adResponse *m.AdResponse) {
 	//	}
 }
 
-func generateErrorResp(errorCode int, message string, err error, demand *Demand) {
-	beego.Critical(err.Error())
-	adResponse := generateErrorResponse(demand.AdRequest, demand.AdspaceKey, errorCode)
-	demand.Result <- adResponse
-}
+//func generateErrorResp(errorCode int, message string, err error, demand *Demand) {
+//	beego.Critical(err.Error())
+//	adResponse := generateErrorResponse(demand.AdRequest, demand.AdspaceKey, errorCode)
+//	demand.Result <- adResponse
+//}

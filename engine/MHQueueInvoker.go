@@ -17,6 +17,7 @@ func invokeMHQueue(demand *Demand) {
 	//queueChan := make(chan *m.AdResponse)
 
 	go processDemand(demand, queueName)
+	go processDemand(demand, queueName)
 	//go processAdResponseQueue(queueName, queueChan)
 	//go waitQueue(demand.Timeout, timeoutChan)
 
@@ -40,6 +41,13 @@ func invokeMHQueue(demand *Demand) {
 
 func generateQueueName(demand *Demand) (queueName string) {
 	var buffer bytes.Buffer
+
+	strToday := time.Now().Format("2006-01-02")
+
+	buffer.WriteString("_")
+	buffer.WriteString("MHQUEUE")
+	buffer.WriteString("_")
+	buffer.WriteString(strToday)
 	buffer.WriteString("_")
 	buffer.WriteString(demand.AdRequest.AdspaceKey)
 	buffer.WriteString("_")
@@ -66,10 +74,19 @@ func processDemand(demand *Demand, queueName string) {
 	newDemand.Result = make(chan *m.AdResponse)
 	newDemand.Priority = demand.Priority
 
+	//Generate new did for queue invoker
+
+	newDemand.Did = lib.GenerateBid(newDemand.AdRequest.AdspaceKey)
+	//beego.Debug(newDemand.Did)
+
 	go invokeMH(newDemand)
 	adResponse := <-newDemand.Result
+
+	//sent in MHInvoker
+	//go SendDemandLog(adResponse)
+
 	if adResponse.StatusCode == lib.STATUS_SUCCESS {
-		SendDemandResponse(adResponse, queueName)
+		go SendDemandResponse(adResponse, queueName)
 	}
 
 }
@@ -79,6 +96,8 @@ func SendDemandResponse(adResponse *m.AdResponse, queueName string) {
 	c := lib.Pool.Get()
 	b, err := msgpack.Marshal(adResponse)
 
+	beego.Debug("==========" + beego.AppConfig.String("runmode") + queueName)
+
 	if err == nil {
 		c = lib.Pool.Get()
 		c.Do("lpush", beego.AppConfig.String("runmode")+queueName, b)
@@ -87,43 +106,44 @@ func SendDemandResponse(adResponse *m.AdResponse, queueName string) {
 	}
 }
 
-func waitQueue(timeout int, timeoutChan chan bool) {
-	time.Sleep(time.Millisecond * time.Duration(10))
-	timeoutChan <- true
-}
+//func waitQueue(timeout int, timeoutChan chan bool) {
+//	time.Sleep(time.Millisecond * time.Duration(10))
+//	timeoutChan <- true
+//}
 
-func processAdResponseQueue(queueName string, queueChan chan *m.AdResponse) {
+//func processAdResponseQueue(queueName string, queueChan chan *m.AdResponse) {
 
-	c := lib.Pool.Get()
+//	c := lib.Pool.Get()
 
-	reply, err := c.Do("rpop", beego.AppConfig.String("runmode")+queueName)
+//	beego.Debug("==========" + beego.AppConfig.String("runmode") + queueName)
+//	reply, err := c.Do("rpop", beego.AppConfig.String("runmode")+queueName)
 
-	if err != nil {
-		beego.Error(err.Error())
-	}
-	var adResponse *m.AdResponse
-	switch reply := reply.(type) {
-	case []byte:
-		b, _ := redis.Bytes(reply, nil)
-		adResponse = getAdResponse(b)
-		break
-	case nil:
+//	if err != nil {
+//		beego.Error(err.Error())
+//	}
+//	var adResponse *m.AdResponse
+//	switch reply := reply.(type) {
+//	case []byte:
+//		b, _ := redis.Bytes(reply, nil)
+//		adResponse = getAdResponse(b)
+//		break
+//	case nil:
 
-		beego.Info("AdResponse Queue Connection timeout")
-		break
-	default:
-		beego.Info("AdResponse Queue Unknow reply:")
-		beego.Info(reply)
-		break
-	}
-	defer c.Close()
+//		beego.Info("AdResponse Queue Connection timeout")
+//		break
+//	default:
+//		beego.Info("AdResponse Queue Unknow reply:")
+//		beego.Info(reply)
+//		break
+//	}
+//	defer c.Close()
 
-	queueChan <- adResponse
-	//if queueChan != nil {
-	//	queueChan <- adResponse
-	//}
+//	queueChan <- adResponse
+//	//if queueChan != nil {
+//	//	queueChan <- adResponse
+//	//}
 
-}
+//}
 
 func getAdResponse(b []byte) (adResponse *m.AdResponse) {
 	adResponse = new(m.AdResponse)

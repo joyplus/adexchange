@@ -1,8 +1,8 @@
 package controllers
 
-import (
-	"github.com/astaxie/beego"
-)
+//import (
+//	"github.com/astaxie/beego"
+//)
 
 type ViewAdController struct {
 	BaseController
@@ -13,7 +13,7 @@ func (this *ViewAdController) ViewAd() {
 	cacheKey := this.GetString("id")
 	adResponse := GetCachedAdResponse(cacheKey)
 
-	beego.Debug(adResponse)
+	//beego.Debug(adResponse)
 
 	if adResponse != nil {
 		this.TplNames = "tpl/ad.html"

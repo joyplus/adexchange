@@ -25,6 +25,7 @@ type Demand struct {
 	PkgName       string
 	Pcat          int
 	Ua            string
+	Did           string
 }
 
 //key:<adspace_key>; value:<PmpInfo>
@@ -136,8 +137,9 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.TargetingCode = targetingCode
 			demand.Result = make(chan *m.AdResponse)
 
+			demand.Did = adRequest.Did
+
 			//mockup app info
-			beego.Debug(adspaceData)
 			demand.AppName = adspaceData.AppName
 			demand.PkgName = adspaceData.PkgName
 			demand.Pcat = adspaceData.Pcat
@@ -164,14 +166,14 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			successIndex++
 		}
 
-		go SendDemandLog(tmp)
+		//go SendDemandLog(tmp)
 	}
 
 	if successIndex == 0 {
 		return tmp
 	}
 
-	beego.Debug(successIndex)
+	//beego.Debug(successIndex)
 
 	adResponse := chooseAdResponse(adResultAry[:successIndex])
 	adResponse.AdspaceKey = adRequest.AdspaceKey
@@ -189,7 +191,9 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (string, string) {
 	var buffer bytes.Buffer
 	buffer.WriteString("bid=")
-	buffer.WriteString(adResponse.Bid)
+	buffer.WriteString(adRequest.Bid)
+	buffer.WriteString("&did=")
+	buffer.WriteString(adResponse.Did)
 	buffer.WriteString("&adspaceid=")
 	buffer.WriteString(adRequest.AdspaceKey)
 	buffer.WriteString("&dkey=")
@@ -316,6 +320,7 @@ func generateErrorResponse(adRequest *m.AdRequest, demandAdspaceKey string, stat
 func initAdResponse(demand *Demand) (adResponse *m.AdResponse) {
 	adResponse = new(m.AdResponse)
 	adResponse.Bid = demand.AdRequest.Bid
+	adResponse.Did = demand.AdRequest.Did
 	adResponse.AdspaceKey = demand.AdRequest.AdspaceKey
 	adResponse.SetDemandAdspaceKey(demand.AdspaceKey)
 	adResponse.SetResponseTime(time.Now().Unix())

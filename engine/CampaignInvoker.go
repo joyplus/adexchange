@@ -16,32 +16,24 @@ func invokeCampaign(demand *Demand) {
 	adResponse := getCachedAdResponse(demand)
 
 	if adResponse == nil {
-		adResponse := initAdResponse(demand)
+		adResponse = initAdResponse(demand)
 		campaigns, err := m.GetCampaigns(demand.AdspaceKey, time.Now().Format("2006-01-02"))
 		if err != nil {
 			beego.Error(err.Error)
 			adResponse.StatusCode = lib.ERROR_CAMPAIGN_DB_ERROR
-			demand.Result <- adResponse
-
-		}
-
-		if len(campaigns) == 0 {
-
-			adResponse.StatusCode = lib.ERROR_NOAD
-			demand.Result <- adResponse
 		} else {
-			random := lib.GetRandomNumber(0, len(campaigns))
-			mapCampaign(adResponse, campaigns[random])
-
-			demand.Result <- adResponse
-
+			if len(campaigns) == 0 {
+				adResponse.StatusCode = lib.ERROR_NOAD
+			} else {
+				random := lib.GetRandomNumber(0, len(campaigns))
+				mapCampaign(adResponse, campaigns[random])
+				setCachedAdResponse(generateCacheKey(demand), adResponse)
+			}
 		}
-		setCachedAdResponse(generateCacheKey(demand), adResponse)
-
-	} else {
-
-		demand.Result <- adResponse
 	}
+
+	go SendDemandLog(adResponse)
+	demand.Result <- adResponse
 
 }
 

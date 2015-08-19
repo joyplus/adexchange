@@ -21,7 +21,7 @@ func (this *ClientRequestController) RequestAd4Client() {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
-		adRequest.Bid = GenerateBid(adRequest)
+		adRequest.Did = lib.GenerateBid(adRequest.AdspaceKey)
 
 		adRequest.RequestTime = time.Now().Unix()
 		clientIp := GetClientIP(this.Ctx.Input)
