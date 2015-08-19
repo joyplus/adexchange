@@ -12,6 +12,9 @@ import (
 
 func invokeMHQueue(demand *Demand) {
 	//timeoutChan := make(chan bool, 1)
+
+	beego.Debug("Start Invoke MHQueue,did:" + demand.AdRequest.Did)
+
 	var adResponse *m.AdResponse
 	queueName := generateQueueName(demand)
 	//queueChan := make(chan *m.AdResponse)
