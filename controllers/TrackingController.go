@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
 	"github.com/astaxie/beego"
@@ -24,7 +25,7 @@ func (this *RequestController) TrackImp() {
 		beego.Debug("Clk Client IP:" + clientIp)
 		adRequest.Ip = clientIp
 		adRequest.RequestTime = time.Now().Unix()
-		go SendLog(adRequest, 2)
+		engine.SendRequestLog(&adRequest, 2)
 	}
 
 	//this.Data["json"] = &adResponse
@@ -45,7 +46,7 @@ func (this *RequestController) TrackClk() {
 		beego.Debug("Imp Client IP:" + clientIp)
 		adRequest.Ip = clientIp
 		adRequest.RequestTime = time.Now().Unix()
-		go SendLog(adRequest, 3)
+		engine.SendRequestLog(&adRequest, 3)
 	}
 
 	cacheKey := adRequest.Did

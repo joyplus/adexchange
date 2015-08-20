@@ -14,7 +14,7 @@ import (
 func invokeMH(demand *Demand) {
 
 	adRequest := demand.AdRequest
-	beego.Debug("Start Invoke MH,did:" + adRequest.Did)
+	beego.Debug("Start Invoke MH,did:" + demand.Did)
 	item := url.Values{}
 
 	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
@@ -70,6 +70,7 @@ func invokeMH(demand *Demand) {
 	item.Set("lon", lib.ConvertFloatToString(adRequest.Lon))
 	item.Set("lat", lib.ConvertFloatToString(adRequest.Lat))
 
+	beego.Debug(demand.Timeout)
 	res, err := goreq.Request{
 		Uri:         demand.URL,
 		QueryString: item,
@@ -81,13 +82,14 @@ func invokeMH(demand *Demand) {
 
 	var strResponse string
 	if serr, ok := err.(*goreq.Error); ok {
-		beego.Critical(err.Error())
+
 		if serr.Timeout() {
 			//adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_TIMEOUT_ERROR)
 			adResponse.StatusCode = lib.ERROR_TIMEOUT_ERROR
 		} else {
 			//adResponse = generateErrorResponse(adRequest, demand.AdspaceKey, lib.ERROR_MHSERVER_ERROR)
 			adResponse.StatusCode = lib.ERROR_MHSERVER_ERROR
+			beego.Critical(err.Error())
 		}
 
 	} else {

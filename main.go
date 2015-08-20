@@ -1,6 +1,7 @@
 package main
 
 import (
+	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
 	_ "adexchange/routers"
@@ -91,6 +92,10 @@ func main() {
 	go tasks.ScheduleInit(initDuration)
 	go tasks.CheckAvbDemandInit(avbCheckDuration)
 
+	go engine.StartDemandLogService()
+	go engine.StartReqLogService()
+	go engine.StartImpLogService()
+	go engine.StartClkLogService()
 	//go engine.StartDemandLogService()
 
 	beego.Run()

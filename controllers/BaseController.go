@@ -15,21 +15,22 @@ type BaseController struct {
 }
 
 //Send log to the queue
-func SendLog(adRequest m.AdRequest, logType int) {
+//func SendLog(adRequest m.AdRequest, logType int) {
 
-	b, err := msgpack.Marshal(adRequest)
+//engine.SendRequestLog(&adRequest, logType)
+//b, err := msgpack.Marshal(adRequest)
 
-	if err == nil {
-		c := lib.Pool.Get()
-		c.Do("lpush", getQueueName(logType), b)
+//if err == nil {
+//	c := lib.Pool.Get()
+//	c.Do("lpush", getQueueName(logType), b)
 
-		defer c.Close()
-	} else {
+//	defer c.Close()
+//} else {
 
-		beego.Error(err.Error())
-	}
+//	beego.Error(err.Error())
+//}
 
-}
+//}
 
 func getQueueName(logType int) string {
 	prefix := beego.AppConfig.String("runmode") + "_"

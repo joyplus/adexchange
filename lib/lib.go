@@ -107,12 +107,15 @@ func generateRandomNumber(start int, end int, count int) []int {
 //TRX: 订单
 func GenerateOrderNumber(purchaseType string) string {
 	nums := generateRandomNumber(10000, 99999, 1)
+
 	return purchaseType + GetCurrentTime() + fmt.Sprintf("%d", nums[0])
 }
 
 func GenerateBid(prefix string) string {
 	nums := generateRandomNumber(1, 10000, 1)
-	return GetMd5String(prefix + GetCurrentTime() + fmt.Sprintf("%d", nums[0]))
+	strTime := ConvertIntToString(int(time.Now().UnixNano()))
+
+	return GetMd5String(prefix + strTime + fmt.Sprintf("%d", nums[0]))
 }
 
 func ConvertStrToInt(s string) int {
