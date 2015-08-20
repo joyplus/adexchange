@@ -96,6 +96,7 @@ func main() {
 	go engine.StartReqLogService()
 	go engine.StartImpLogService()
 	go engine.StartClkLogService()
+	go engine.StartMHQueueService()
 	//go engine.StartDemandLogService()
 
 	beego.Run()

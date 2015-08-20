@@ -11,6 +11,11 @@ import (
 	"time"
 )
 
+type MHQueueData struct {
+	QueueName  string
+	AdResponse *m.AdResponse
+}
+
 func invokeMHQueue(demand *Demand) {
 
 	beego.Debug("Start Invoke MHQueue,did:" + demand.Did)
@@ -100,25 +105,25 @@ func processDemand(demand *Demand, queueName string, index int) {
 	//go SendDemandLog(adResponse)
 
 	if adResponse.StatusCode == lib.STATUS_SUCCESS {
-		go SendDemandResponse(adResponse, queueName)
+		SendMHQueue(adResponse, queueName)
 	}
 
 }
 
-func SendDemandResponse(adResponse *m.AdResponse, queueName string) {
+//func SendDemandResponse(adResponse *m.AdResponse, queueName string) {
 
-	c := lib.Pool.Get()
-	b, err := msgpack.Marshal(adResponse)
+//	c := lib.Pool.Get()
+//	b, err := msgpack.Marshal(adResponse)
 
-	beego.Debug("==========" + beego.AppConfig.String("runmode") + queueName)
+//	beego.Debug("==========" + beego.AppConfig.String("runmode") + queueName)
 
-	if err == nil {
-		c = lib.Pool.Get()
-		c.Do("lpush", beego.AppConfig.String("runmode")+queueName, b)
-	} else {
-		beego.Error(err.Error())
-	}
-}
+//	if err == nil {
+//		c = lib.Pool.Get()
+//		c.Do("lpush", beego.AppConfig.String("runmode")+queueName, b)
+//	} else {
+//		beego.Error(err.Error())
+//	}
+//}
 
 func waitQueue(timeout int, timeoutChan chan bool) {
 	time.Sleep(time.Millisecond * time.Duration(timeout))
