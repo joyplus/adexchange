@@ -28,6 +28,7 @@ func (this *RequestController) TrackImp() {
 		engine.SendRequestLog(&adRequest, 2)
 	}
 
+	this.Ctx.Redirect(302, beego.AppConfig.String("public_server")+"/1.gif")
 	//this.Data["json"] = &adResponse
 	//this.ServeJson()
 

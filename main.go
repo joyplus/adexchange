@@ -65,6 +65,7 @@ func main() {
 
 	beego.ViewsPath = "views"
 	beego.AddTemplateExt("html")
+	beego.SetStaticPath("/public", "public")
 
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
