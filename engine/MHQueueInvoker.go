@@ -4,6 +4,7 @@ import (
 	"adexchange/lib"
 	m "adexchange/models"
 	"bytes"
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/garyburd/redigo/redis"
 	"gopkg.in/vmihailenco/msgpack.v2"
@@ -11,30 +12,40 @@ import (
 )
 
 func invokeMHQueue(demand *Demand) {
-	//timeoutChan := make(chan bool, 1)
 
-	beego.Debug("Start Invoke MHQueue,did:" + demand.AdRequest.Did)
+	beego.Debug("Start Invoke MHQueue,did:" + demand.Did)
 
 	var adResponse *m.AdResponse
 	queueName := generateQueueName(demand)
-	//queueChan := make(chan *m.AdResponse)
+	queueChan := make(chan *m.AdResponse)
+	timeoutChan := make(chan bool, 1)
 
-	go processDemand(demand, queueName)
-	go processDemand(demand, queueName)
+	go processDemand(demand, queueName, 0)
+	go processDemand(demand, queueName, 1)
+
+	//go processDemand(demand, queueName, i)
 	//go processAdResponseQueue(queueName, queueChan)
-	//go waitQueue(demand.Timeout, timeoutChan)
-
-	//select {
-	//case adResponse = <-queueChan:
-	//	beego.Debug("Queue Return")
-	//	break
-	//case <-timeoutChan:
-	//	beego.Debug("Queue Timeout")
-	//	adResponse = generateErrorResponse(demand.AdRequest, demand.AdspaceKey, lib.ERROR_TIMEOUT_ERROR)
-	//	break
-	//}
+	go waitQueue(demand.Timeout, timeoutChan)
+	go processAdResponseFromQueue(queueName, queueChan)
+	select {
+	case adResponse = <-queueChan:
+		beego.Debug("Queue Return adresponse")
+		break
+	case <-timeoutChan:
+		beego.Debug("Queue Timeout")
+		adResponse = generateErrorResponse(demand.AdRequest, demand.AdspaceKey, lib.ERROR_TIMEOUT_ERROR)
+		break
+	}
 	//beego.Debug("End queue")
-	adResponse = getAdResponseFromQueue(queueName)
+	//t1 := time.Now().UnixNano()
+	//adResponse = getAdResponseFromQueue(queueName)
+	//t2 := time.Now().UnixNano()
+
+	//duration := int((t2 - t1) / 1000000)
+
+	//if duration > 100 {
+	//	beego.Info(fmt.Sprintf("=====Redis duration=====:%d", duration))
+	//}
 	if adResponse == nil {
 		adResponse = generateErrorResponse(demand.AdRequest, demand.AdspaceKey, lib.ERROR_NO_AD_FROM_QUEUE)
 	}
@@ -65,7 +76,7 @@ func generateQueueName(demand *Demand) (queueName string) {
 	return
 }
 
-func processDemand(demand *Demand, queueName string) {
+func processDemand(demand *Demand, queueName string, index int) {
 
 	newDemand := new(Demand)
 	newDemand.URL = demand.URL
@@ -79,7 +90,7 @@ func processDemand(demand *Demand, queueName string) {
 
 	//Generate new did for queue invoker
 
-	newDemand.Did = lib.GenerateBid(newDemand.AdRequest.AdspaceKey)
+	newDemand.Did = lib.GenerateBid(newDemand.AdRequest.AdspaceKey + lib.ConvertIntToString(index))
 	//beego.Debug(newDemand.Did)
 
 	go invokeMH(newDemand)
@@ -109,10 +120,10 @@ func SendDemandResponse(adResponse *m.AdResponse, queueName string) {
 	}
 }
 
-//func waitQueue(timeout int, timeoutChan chan bool) {
-//	time.Sleep(time.Millisecond * time.Duration(10))
-//	timeoutChan <- true
-//}
+func waitQueue(timeout int, timeoutChan chan bool) {
+	time.Sleep(time.Millisecond * time.Duration(timeout))
+	timeoutChan <- true
+}
 
 //func processAdResponseQueue(queueName string, queueChan chan *m.AdResponse) {
 
@@ -158,7 +169,11 @@ func getAdResponse(b []byte) (adResponse *m.AdResponse) {
 	return adResponse
 }
 
-func getAdResponseFromQueue(queueName string) (adResponse *m.AdResponse) {
+func processAdResponseFromQueue(queueName string, queueChan chan *m.AdResponse) {
+
+	t1 := time.Now().UnixNano()
+
+	var adResponse *m.AdResponse
 
 	c := lib.Pool.Get()
 
@@ -175,18 +190,24 @@ func getAdResponseFromQueue(queueName string) (adResponse *m.AdResponse) {
 		break
 	case nil:
 
-		beego.Info("AdResponse Queue Connection timeout")
+		beego.Debug("AdResponse Queue return nil")
 		break
 	default:
-		beego.Info("AdResponse Queue Unknow reply:")
-		beego.Info(reply)
+		beego.Debug("AdResponse Queue Unknow reply:")
+		beego.Debug(reply)
 		break
 	}
-	defer c.Close()
+	//defer c.Close()
 
-	return
+	queueChan <- adResponse
+	//return
 	//if queueChan != nil {
 	//	queueChan <- adResponse
 	//}
+	t2 := time.Now().UnixNano()
+	duration := int((t2 - t1) / 1000000)
 
+	if duration > 100 {
+		beego.Info(fmt.Sprintf("=====Redis duration=====:%d", duration))
+	}
 }

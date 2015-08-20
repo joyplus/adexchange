@@ -14,6 +14,8 @@ type ClientRequestController struct {
 
 //Request Ad for client
 func (this *ClientRequestController) RequestAd4Client() {
+	t1 := time.Now().UnixNano()
+
 	adRequest := m.AdRequest{}
 	adResponse := new(m.AdResponse)
 	beego.Debug(this.Ctx.Input.Request)
@@ -45,7 +47,9 @@ func (this *ClientRequestController) RequestAd4Client() {
 		//only running pmp adspace need track request log
 		if adResponse.StatusCode != lib.ERROR_NO_PMP_ADSPACE_ERROR {
 			adRequest.StatusCode = adResponse.StatusCode
-			go SendLog(adRequest, 1)
+			t2 := time.Now().UnixNano()
+			adRequest.ProcessDuration = (t2 - t1) / 1000000
+			engine.SendRequestLog(&adRequest, 1)
 		}
 
 		//if err != nil {

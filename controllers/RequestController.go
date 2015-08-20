@@ -46,7 +46,7 @@ func (this *RequestController) RequestAd() {
 			//这里添加代码
 			t2 := time.Now().UnixNano()
 			adRequest.ProcessDuration = (t2 - t1) / 1000000
-			go SendLog(adRequest, 1)
+			engine.SendRequestLog(&adRequest, 1)
 		}
 
 	}
