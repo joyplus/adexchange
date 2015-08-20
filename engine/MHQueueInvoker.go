@@ -203,16 +203,17 @@ func processAdResponseFromQueue(queueName string, queueChan chan *m.AdResponse) 
 		break
 	}
 	//defer c.Close()
-
-	queueChan <- adResponse
-	//return
-	//if queueChan != nil {
-	//	queueChan <- adResponse
-	//}
 	t2 := time.Now().UnixNano()
 	duration := int((t2 - t1) / 1000000)
 
 	if duration > 100 {
 		beego.Info(fmt.Sprintf("=====Redis duration=====:%d", duration))
 	}
+
+	queueChan <- adResponse
+	//return
+	//if queueChan != nil {
+	//	queueChan <- adResponse
+	//}
+
 }
