@@ -1,21 +1,26 @@
 <img id="adImg" width={{.width}} height={{.height}} onload="imgLoaded();" />
 <div id="trackingDiv" style="top:0;left:0;width:0;height:0"></div>
 <script type="text/javascript" >
+var implTrackingUrls = {{.AD.implTrackingUrls}};
+var clkTrackingUrls = {{.AD.clkTrackingUrls}};
+
 function initAd() {
 	var clkUrl = {{.clickUrl}};
-	var clkTrackingUrls = {{.AD.clkTrackingUrls}};
+
 	var imgUrls = {{.AD.imgUrls}}
 	
 	var imgDom = document.getElementById("adImg");
 	var len = imgUrls.length;
 	if (len > 0) {
-		imgDom.onclick = function(){window.location.href = clkUrl;}
+		imgDom.onclick = function(){
+			trackingLoaded(clkTrackingUrls)
+			window.location.href = clkUrl;
+		}
 		imgDom.src = imgUrls[0];
 	}
 }
-function imgLoaded() {
-	var implTrackingUrls = {{.AD.implTrackingUrls}};
-	var len = implTrackingUrls.length;
+function trackingLoaded(trackingUrls) {
+	var len = trackingUrls.length;
 	var trackingDiv = document.getElementById("trackingDiv");
 	for (var i = 0; i < len; i++) {
 		var frm = document.createElement("iframe");
@@ -23,8 +28,13 @@ function imgLoaded() {
 		frm.width = 0;
 		frm.height = 0;
 		frm.frameBorder = 0;
-		frm.src = implTrackingUrls[i];
+		frm.src = trackingUrls[i];
 	}
 }
+
+function imgLoaded() {
+	trackingLoaded(implTrackingUrls)
+}
+
 window.onload =initAd;
 </script>

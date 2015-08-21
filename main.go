@@ -9,7 +9,6 @@ import (
 	"adexchange/tools"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"runtime"
 )
 
 //var c1, c2 httpclient.HttpClient
@@ -62,10 +61,11 @@ func main() {
 	//beego.EnableAdmin = true
 	//beego.AdminHttpAddr = "localhost"
 	//beego.AdminHttpPort = 8888
-	runtime.GOMAXPROCS(runtime.NumCPU())
+	//runtime.GOMAXPROCS(runtime.NumCPU())
 
 	beego.ViewsPath = "views"
 	beego.AddTemplateExt("html")
+	beego.SetStaticPath("/public", "public")
 
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
@@ -96,6 +96,7 @@ func main() {
 	go engine.StartReqLogService()
 	go engine.StartImpLogService()
 	go engine.StartClkLogService()
+	go engine.StartMHQueueService()
 	//go engine.StartDemandLogService()
 
 	beego.Run()

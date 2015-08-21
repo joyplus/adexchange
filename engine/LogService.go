@@ -8,6 +8,7 @@ import (
 )
 
 var _demandLogPool chan *m.AdResponse
+var _mhQueuePool chan *MHQueueData
 var _reqLogPool chan *m.AdRequest
 var _impLogPool chan *m.AdRequest
 var _clkLogPool chan *m.AdRequest
@@ -15,6 +16,7 @@ var _clkLogPool chan *m.AdRequest
 func init() {
 
 	_demandLogPool = make(chan *m.AdResponse, 5000)
+	_mhQueuePool = make(chan *MHQueueData, 5000)
 	_reqLogPool = make(chan *m.AdRequest, 2000)
 	_impLogPool = make(chan *m.AdRequest, 1000)
 	_clkLogPool = make(chan *m.AdRequest, 1000)
@@ -33,7 +35,26 @@ func StartDemandLogService() {
 			c = lib.Pool.Get()
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_DEMAND", b)
 		} else {
-			beego.Error(err.Error())
+			beego.Critical(err.Error())
+		}
+	}
+
+	defer c.Close()
+}
+
+func StartMHQueueService() {
+
+	c := lib.Pool.Get()
+
+	for {
+		mhQueueData := <-_mhQueuePool
+		b, err := msgpack.Marshal(mhQueueData.AdResponse)
+
+		if err == nil {
+			c = lib.Pool.Get()
+			c.Do("lpush", beego.AppConfig.String("runmode")+mhQueueData.QueueName, b)
+		} else {
+			beego.Critical(err.Error())
 		}
 	}
 
@@ -52,7 +73,7 @@ func StartReqLogService() {
 			c = lib.Pool.Get()
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_REQ", b)
 		} else {
-			beego.Error(err.Error())
+			beego.Critical(err.Error())
 		}
 	}
 
@@ -71,7 +92,7 @@ func StartImpLogService() {
 			c = lib.Pool.Get()
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_IMP", b)
 		} else {
-			beego.Error(err.Error())
+			beego.Critical(err.Error())
 		}
 	}
 
@@ -127,4 +148,13 @@ func SendRequestLog(adRequest *m.AdRequest, logType int) {
 		beego.Critical("adRequest is null")
 	}
 
+}
+
+func SendMHQueue(adResponse *m.AdResponse, queueName string) {
+	if adResponse != nil && len(queueName) > 0 {
+		mhQueueData := new(MHQueueData)
+		mhQueueData.AdResponse = adResponse
+		mhQueueData.QueueName = queueName
+		_mhQueuePool <- mhQueueData
+	}
 }
