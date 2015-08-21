@@ -46,6 +46,8 @@ var _DemandMap map[int]m.DemandInfo
 //key:<adspace_key>_<demand_adspace_key>; value:<*AvbDemand>
 var _AvbAdspaceDemand map[string]*m.AvbDemand
 
+var _TplHashSet *lib.HashSet
+
 var _FuncMap lib.Funcs
 
 var IMP_TRACKING_SERVER string
@@ -327,4 +329,16 @@ func initAdResponse(demand *Demand) (adResponse *m.AdResponse) {
 	adResponse.Priority = demand.Priority
 
 	return adResponse
+}
+
+func GetPmpAdspaceTemplate(adspaceKey string) string {
+	return _PmpAdspaceMap[adspaceKey].TplName
+}
+
+func SetTplHashSet(tplHashSet *lib.HashSet) {
+	_TplHashSet = tplHashSet
+}
+
+func CheckTplName(tplName string) bool {
+	return _TplHashSet.Get(tplName)
 }
