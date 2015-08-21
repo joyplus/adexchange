@@ -14,13 +14,13 @@ type TrackingController struct {
 
 func (this *RequestController) TrackImp() {
 	adRequest := m.AdRequest{}
-	adResponse := new(m.TrackResponse)
+	//adResponse := new(m.TrackResponse)
 	beego.Debug("Enter Tracking imp")
 
 	if err := this.ParseForm(&adRequest); err != nil {
-		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
+		adRequest.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
-		adResponse.StatusCode = lib.STATUS_SUCCESS
+		adRequest.StatusCode = lib.STATUS_SUCCESS
 		clientIp := GetClientIP(this.Ctx.Input)
 		beego.Debug("Clk Client IP:" + clientIp)
 		adRequest.Ip = clientIp
@@ -28,7 +28,7 @@ func (this *RequestController) TrackImp() {
 		engine.SendRequestLog(&adRequest, 2)
 	}
 
-	this.Ctx.Redirect(302, beego.AppConfig.String("public_server")+"/1.gif")
+	//this.Ctx.Redirect(302, beego.AppConfig.String("public_server")+"/1.gif")
 	//this.Data["json"] = &adResponse
 	//this.ServeJson()
 
@@ -36,13 +36,13 @@ func (this *RequestController) TrackImp() {
 
 func (this *RequestController) TrackClk() {
 	adRequest := m.AdRequest{}
-	adResponse := new(m.TrackResponse)
+	//adResponse := new(m.TrackResponse)
 	beego.Debug("Enter Tracking clk")
 
 	if err := this.ParseForm(&adRequest); err != nil {
-		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
+		adRequest.StatusCode = lib.ERROR_PARSE_REQUEST
 	} else {
-		adResponse.StatusCode = lib.STATUS_SUCCESS
+		adRequest.StatusCode = lib.STATUS_SUCCESS
 		clientIp := GetClientIP(this.Ctx.Input)
 		beego.Debug("Imp Client IP:" + clientIp)
 		adRequest.Ip = clientIp

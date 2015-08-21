@@ -1,28 +1,39 @@
-<img id="adImg" width={{.width}} height={{.height}}  />
-
-{{range .AD.implTrackingUrls}}
-<img src="{{.}}"/>
-{{end}}
-
-<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-
+<img id="adImg" width={{.width}} height={{.height}} onload="imgLoaded();" />
+<div id="trackingDiv" style="top:0;left:0;width:0;height:0"></div>
 <script type="text/javascript" >
+var implTrackingUrls = {{.AD.implTrackingUrls}};
+var clkTrackingUrls = {{.AD.clkTrackingUrls}};
+
 function initAd() {
 	var clkUrl = {{.clickUrl}};
+
 	var imgUrls = {{.AD.imgUrls}}
 	
 	var imgDom = document.getElementById("adImg");
 	var len = imgUrls.length;
 	if (len > 0) {
 		imgDom.onclick = function(){
-			
-			{{range .AD.clkTrackingUrls}}
-				jQuery.ajax({{.}})
-			{{end}}
-			//window.location.href = clkUrl;
+			trackingLoaded(clkTrackingUrls)
+			window.location.href = clkUrl;
 		}
 		imgDom.src = imgUrls[0];
 	}
+}
+function trackingLoaded(trackingUrls) {
+	var len = trackingUrls.length;
+	var trackingDiv = document.getElementById("trackingDiv");
+	for (var i = 0; i < len; i++) {
+		var frm = document.createElement("iframe");
+		trackingDiv.appendChild(frm);
+		frm.width = 0;
+		frm.height = 0;
+		frm.frameBorder = 0;
+		frm.src = trackingUrls[i];
+	}
+}
+
+function imgLoaded() {
+	trackingLoaded(implTrackingUrls)
 }
 
 window.onload =initAd;
