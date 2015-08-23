@@ -1,7 +1,7 @@
 package models
 
 import (
-	//"adexchange/lib"
+	"adexchange/lib"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
@@ -138,7 +138,7 @@ func GetAvbDemandMap(adDate string) (avbDemandMap map[string]*AvbDemand, err err
 func GetPmpInfo() (pmpAdspaceMap map[string]PmpInfo, err error) {
 	o := orm.NewOrm()
 
-	sql := "select pmp_adspace_key, creative_type from pmp_adspace where status=0"
+	sql := "select pmp_adspace_key, creative_type, tpl_name from pmp_adspace where status=0"
 
 	var dataList []PmpInfo
 
@@ -153,6 +153,29 @@ func GetPmpInfo() (pmpAdspaceMap map[string]PmpInfo, err error) {
 
 	for _, record := range dataList {
 		pmpAdspaceMap[record.PmpAdspaceKey] = record
+	}
+
+	return
+}
+
+func GetTplSet() (tplHashSet *lib.HashSet, err error) {
+	o := orm.NewOrm()
+
+	sql := "select distinct(tpl_name) as tpl_name from pmp_adspace "
+
+	var dataList []PmpInfo
+
+	_, err = o.Raw(sql).QueryRows(&dataList)
+
+	if err != nil {
+		beego.Critical(err.Error())
+		return
+	}
+
+	tplHashSet = lib.NewHashSet()
+
+	for _, record := range dataList {
+		tplHashSet.Add(record.TplName)
 	}
 
 	return

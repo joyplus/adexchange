@@ -1,8 +1,8 @@
 package controllers
 
-//import (
-//	"github.com/astaxie/beego"
-//)
+import (
+	"adexchange/engine"
+)
 
 type ViewAdController struct {
 	BaseController
@@ -13,10 +13,14 @@ func (this *ViewAdController) ViewAd() {
 	cacheKey := this.GetString("id")
 	adResponse := GetCachedAdResponse(cacheKey)
 
+	tplName := this.GetString("tpl")
+
+	flg := engine.CheckTplName(tplName)
+
 	//beego.Debug(adResponse)
 
-	if adResponse != nil {
-		this.TplNames = "tpl/ad.html"
+	if adResponse != nil && flg {
+		this.TplNames = "tpl/" + tplName + ".html"
 
 		adParam := map[string][]string{"clkTrackingUrls": adResponse.Adunit.ClkTrackingUrls, "implTrackingUrls": adResponse.Adunit.ImpTrackingUrls, "imgUrls": adResponse.Adunit.CreativeUrls}
 

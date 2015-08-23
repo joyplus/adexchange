@@ -172,4 +172,5 @@ type DemandInfo struct {
 type PmpInfo struct {
 	PmpAdspaceKey string
 	CreativeType  int
+	TplName       string
 }

@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"github.com/astaxie/beego"
 	//"github.com/franela/goreq"
-	//"net/url"
+	"net/url"
 	"time"
 )
 
@@ -45,6 +45,8 @@ var _DemandMap map[int]m.DemandInfo
 
 //key:<adspace_key>_<demand_adspace_key>; value:<*AvbDemand>
 var _AvbAdspaceDemand map[string]*m.AvbDemand
+
+var _TplHashSet *lib.HashSet
 
 var _FuncMap lib.Funcs
 
@@ -217,10 +219,11 @@ func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (stri
 	buffer.WriteString("&uid=")
 	buffer.WriteString(adRequest.Uid)
 	buffer.WriteString("&ua=")
-	buffer.WriteString(adRequest.Ua)
+	buffer.WriteString(url.QueryEscape(adRequest.Ua))
 
 	paramStr := buffer.String()
 	impTrackUrl := IMP_TRACKING_SERVER + "?" + paramStr
+
 	clkTrackUrl := CLK_TRACKING_SERVER + "?" + paramStr
 
 	return impTrackUrl, clkTrackUrl
@@ -327,4 +330,16 @@ func initAdResponse(demand *Demand) (adResponse *m.AdResponse) {
 	adResponse.Priority = demand.Priority
 
 	return adResponse
+}
+
+func GetPmpAdspaceTemplate(adspaceKey string) string {
+	return _PmpAdspaceMap[adspaceKey].TplName
+}
+
+func SetTplHashSet(tplHashSet *lib.HashSet) {
+	_TplHashSet = tplHashSet
+}
+
+func CheckTplName(tplName string) bool {
+	return _TplHashSet.Get(tplName)
 }

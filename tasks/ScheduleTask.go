@@ -34,10 +34,13 @@ func InitEngineData() {
 
 	beego.Debug(pmpAdspaceMap)
 
+	tplHashSet, _ := m.GetTplSet()
+
 	engine.SetupAdspaceMap(adspaceMap)
 	engine.SetupAdspaceDemandMap(adspaceDemandMap)
 	engine.SetupDemandMap(demandMap)
 	engine.SetupPmpAdspaceMap(pmpAdspaceMap)
+	engine.SetTplHashSet(tplHashSet)
 
 }
 

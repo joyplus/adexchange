@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
 	"github.com/astaxie/beego"
@@ -137,8 +138,9 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 	if adResponse.Adunit != nil {
 		if adResponse.Adunit.CreativeType == lib.CREATIVE_TYPE_HTML {
 			cacheKey := adResponse.Did
+			tplName := engine.GetPmpAdspaceTemplate(adResponse.AdspaceKey)
 
-			url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey
+			url := beego.AppConfig.String("viewad_server") + "?id=" + cacheKey + "&tpl=" + tplName
 			adResponse.AddClkTracking(adResponse.PmpClkTrackingUrl)
 			commonResponse.SetHtmlCreativeUrl(url)
 			SetCachedAdResponse(cacheKey, adResponse)
