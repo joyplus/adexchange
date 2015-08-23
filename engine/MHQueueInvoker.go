@@ -71,6 +71,11 @@ func generateQueueName(demand *Demand) (queueName string) {
 	buffer.WriteString(demand.AdRequest.AdspaceKey)
 	buffer.WriteString("_")
 	buffer.WriteString(demand.AdspaceKey)
+	buffer.WriteString("_")
+	buffer.WriteString(lib.ConvertIntToString(demand.AdRequest.Width))
+	buffer.WriteString("_")
+	buffer.WriteString(lib.ConvertIntToString(demand.AdRequest.Height))
+
 	if len(demand.TargetingCode) > 0 {
 		buffer.WriteString("_")
 		buffer.WriteString(demand.TargetingCode)
