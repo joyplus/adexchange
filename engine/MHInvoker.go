@@ -64,8 +64,8 @@ func invokeMH(demand *Demand) {
 	item.Set("device", adRequest.Device)
 
 	item.Set("ip", adRequest.Ip)
-	item.Set("width", adRequest.Width)
-	item.Set("height", adRequest.Height)
+	item.Set("width", lib.ConvertIntToString(adRequest.Width))
+	item.Set("height", lib.ConvertIntToString(adRequest.Height))
 	item.Set("density", adRequest.Density)
 	item.Set("lon", lib.ConvertFloatToString(adRequest.Lon))
 	item.Set("lat", lib.ConvertFloatToString(adRequest.Lat))

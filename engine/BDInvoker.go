@@ -153,8 +153,8 @@ func invokeBD(demand *Demand) {
 	adWidth := demand.AdRequest.Width
 	adHeight := demand.AdRequest.Height
 	adSize := bd.Size{
-		Width:  pUint32(lib.ConvertStrToInt(adWidth)),  // required
-		Height: pUint32(lib.ConvertStrToInt(adHeight)), // required
+		Width:  pUint32(adWidth),  // required
+		Height: pUint32(adHeight), // required
 	}
 	//	adType := bd.AdSlot_StaticInfo_BANNER
 	//	adStaticInfo := bd.AdSlot_StaticInfo{

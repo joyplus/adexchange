@@ -25,8 +25,8 @@ type AdRequest struct {
 	Device           string  `form:"device"`
 	Ua               string  `form:"ua"`
 	Ip               string  `form:"ip"`
-	Width            string  `form:"width"`
-	Height           string  `form:"height"`
+	Width            int     `form:"width"`
+	Height           int     `form:"height"`
 	Pcat             string  `form:"pcat"`
 	Density          string  `form:"density"`
 	Lon              float32 `form:"lon"`
