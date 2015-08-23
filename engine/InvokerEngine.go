@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"github.com/astaxie/beego"
 	//"github.com/franela/goreq"
-	//"net/url"
+	"net/url"
 	"time"
 )
 
@@ -219,10 +219,11 @@ func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (stri
 	buffer.WriteString("&uid=")
 	buffer.WriteString(adRequest.Uid)
 	buffer.WriteString("&ua=")
-	buffer.WriteString(adRequest.Ua)
+	buffer.WriteString(url.QueryEscape(adRequest.Ua))
 
 	paramStr := buffer.String()
 	impTrackUrl := IMP_TRACKING_SERVER + "?" + paramStr
+
 	clkTrackUrl := CLK_TRACKING_SERVER + "?" + paramStr
 
 	return impTrackUrl, clkTrackUrl
