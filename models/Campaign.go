@@ -10,7 +10,7 @@ package models
 //	"github.com/astaxie/beego/orm"
 //)
 
-type PmpCampaign struct {
+type PmpCampaignCreative struct {
 	Id          int    `orm:"column(id);auto"`
 	Name        string `orm:"column(name);size(45);null"`
 	StartDate   string `orm:"column(start_date);type(date);null"`
