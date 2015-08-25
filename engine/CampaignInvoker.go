@@ -66,7 +66,7 @@ func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", cacheKey, 60)
+	_, err = c.Do("EXPIRE", cacheKey, 300)
 	if err != nil {
 		beego.Error(err.Error())
 	}
