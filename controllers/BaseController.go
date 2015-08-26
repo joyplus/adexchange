@@ -60,23 +60,23 @@ func GetClientIP(input *context.BeegoInput) string {
 }
 
 func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {
-	c := lib.Pool.Get()
+	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_URL_"
 
-	if _, err = c.Do("SET", prefix+cacheKey, clkUrl); err != nil {
+	if _, err = c.Do("SET", prefix+cacheKey, clkUrl, "EX", "3600"); err != nil {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
-	if err != nil {
-		beego.Error(err.Error())
-	}
+	//_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
+	//if err != nil {
+	//	beego.Error(err.Error())
+	//}
 
 	return
 }
 
 func GetCachedClkUrl(cacheKey string) (clkUrl string) {
-	c := lib.Pool.Get()
+	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_URL_"
 	beego.Debug(prefix + cacheKey)
 	clkUrl, err := redis.String(c.Do("GET", prefix+cacheKey))
@@ -89,23 +89,23 @@ func GetCachedClkUrl(cacheKey string) (clkUrl string) {
 }
 
 func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
-	c := lib.Pool.Get()
+	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_"
 
 	val, err := msgpack.Marshal(adResponse)
 
-	if _, err = c.Do("SET", prefix+cacheKey, val); err != nil {
+	if _, err = c.Do("SET", prefix+cacheKey, val, "EX", "3600"); err != nil {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
-	if err != nil {
-		beego.Error(err.Error())
-	}
+	//_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
+	//if err != nil {
+	//	beego.Error(err.Error())
+	//}
 }
 
 func GetCachedAdResponse(cacheKey string) (adResponse *m.AdResponse) {
-	c := lib.Pool.Get()
+	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_"
 
 	v, err := c.Do("GET", prefix+cacheKey)
