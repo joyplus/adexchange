@@ -63,14 +63,14 @@ func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {
 	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_URL_"
 
-	if _, err = c.Do("SET", prefix+cacheKey, clkUrl); err != nil {
+	if _, err = c.Do("SET", prefix+cacheKey, clkUrl, "EX", "3600"); err != nil {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
-	if err != nil {
-		beego.Error(err.Error())
-	}
+	//_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
+	//if err != nil {
+	//	beego.Error(err.Error())
+	//}
 
 	return
 }
@@ -94,14 +94,14 @@ func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 
 	val, err := msgpack.Marshal(adResponse)
 
-	if _, err = c.Do("SET", prefix+cacheKey, val); err != nil {
+	if _, err = c.Do("SET", prefix+cacheKey, val, "EX", "3600"); err != nil {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
-	if err != nil {
-		beego.Error(err.Error())
-	}
+	//_, err = c.Do("EXPIRE", prefix+cacheKey, 3600)
+	//if err != nil {
+	//	beego.Error(err.Error())
+	//}
 }
 
 func GetCachedAdResponse(cacheKey string) (adResponse *m.AdResponse) {
