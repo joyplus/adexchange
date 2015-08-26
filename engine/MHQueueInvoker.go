@@ -185,7 +185,7 @@ func processAdResponseFromQueue(queueName string, queueChan chan *m.AdResponse) 
 
 	var adResponse *m.AdResponse
 
-	c := lib.Pool.Get()
+	c := lib.GetQueuePool().Get()
 
 	reply, err := c.Do("rpop", beego.AppConfig.String("runmode")+queueName)
 
@@ -207,7 +207,9 @@ func processAdResponseFromQueue(queueName string, queueChan chan *m.AdResponse) 
 		beego.Debug(reply)
 		break
 	}
-	//defer c.Close()
+
+	defer c.Close()
+
 	t2 := time.Now().UnixNano()
 	duration := int((t2 - t1) / 1000000)
 

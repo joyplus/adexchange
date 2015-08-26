@@ -59,21 +59,21 @@ func generateCacheKey(demand *Demand) string {
 }
 
 func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
-	c := lib.Pool.Get()
+	c := lib.GetCachePool().Get()
 	val, err := msgpack.Marshal(adResponse)
 
 	if _, err = c.Do("SET", cacheKey, val); err != nil {
 		beego.Error(err.Error())
 	}
 
-	_, err = c.Do("EXPIRE", cacheKey, 300)
+	_, err = c.Do("EXPIRE", cacheKey, 3000)
 	if err != nil {
 		beego.Error(err.Error())
 	}
 }
 
 func getCachedAdResponse(demand *Demand) (adResponse *m.AdResponse) {
-	c := lib.Pool.Get()
+	c := lib.GetCachePool().Get()
 
 	key := generateCacheKey(demand)
 	v, err := c.Do("GET", key)

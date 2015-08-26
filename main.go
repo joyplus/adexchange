@@ -82,7 +82,8 @@ func main() {
 	tools.Init("ip.dat")
 	m.Connect()
 
-	lib.Pool = lib.NewPool(beego.AppConfig.String("redis_server"), "")
+	lib.SetQueuePool(lib.NewPool(beego.AppConfig.String("redis_server_queue"), ""))
+	lib.SetCachePool(lib.NewPool(beego.AppConfig.String("redis_server_cache"), ""))
 
 	//start initial configuration
 	tasks.InitEngineData()
