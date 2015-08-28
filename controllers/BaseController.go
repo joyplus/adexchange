@@ -63,7 +63,7 @@ func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {
 	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_URL_"
 
-	if _, err = c.Do("SET", prefix+cacheKey, clkUrl, "EX", "3600"); err != nil {
+	if _, err = c.Do("SETEX", prefix+cacheKey, 3600, clkUrl); err != nil {
 		beego.Error(err.Error())
 	}
 
@@ -94,7 +94,7 @@ func SetCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 
 	val, err := msgpack.Marshal(adResponse)
 
-	if _, err = c.Do("SET", prefix+cacheKey, val, "EX", "3600"); err != nil {
+	if _, err = c.Do("SETEX", prefix+cacheKey, 3600, val); err != nil {
 		beego.Error(err.Error())
 	}
 
