@@ -62,7 +62,7 @@ func setCachedAdResponse(cacheKey string, adResponse *m.AdResponse) {
 	c := lib.GetCachePool().Get()
 	val, err := msgpack.Marshal(adResponse)
 
-	if _, err = c.Do("SET", cacheKey, val, "EX", "1800"); err != nil {
+	if _, err = c.Do("SETEX", cacheKey, 1800, val); err != nil {
 		beego.Error(err.Error())
 	}
 

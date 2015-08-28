@@ -1,3 +1,4 @@
+ALTER TABLE `pmp_demand_adspace` ADD `adspace_type` int(1) NOT NULL AFTER `app_id`;
 ALTER TABLE `pmp_request_log` ADD `did` VARCHAR(50) NOT NULL AFTER `bid`;
 ALTER TABLE `pmp_tracking_log` ADD `did` VARCHAR(50) NOT NULL AFTER `bid`;
 ALTER TABLE `pmp_demand_response_log` ADD `did` VARCHAR(50) NOT NULL AFTER `bid`;
@@ -23,3 +24,9 @@ CREATE TABLE `pmp_campaign_creative` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COLLATE=utf8_unicode_ci;
 
 ALTER TABLE `pmp_adspace` ADD `forever_flg` INT(2) NOT NULL AFTER `media_id`;
+
+/*20150828*/
+ALTER TABLE `pmp_campaign`
+  DROP `width`,
+  DROP `height`,
+  DROP `creative_url`;
