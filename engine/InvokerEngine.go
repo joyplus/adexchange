@@ -13,19 +13,20 @@ import (
 //var c1 *httpclient.HttpClient
 
 type Demand struct {
-	URL           string
-	Timeout       int
-	AdRequest     *m.AdRequest
-	AdspaceKey    string
-	AdSecretKey   string
-	Priority      int
-	Result        chan *m.AdResponse
-	TargetingCode string
-	AppName       string
-	PkgName       string
-	Pcat          int
-	Ua            string
-	Did           string
+	URL            string
+	Timeout        int
+	AdRequest      *m.AdRequest
+	AdspaceKey     string
+	RealAdspaceKey string
+	AdSecretKey    string
+	Priority       int
+	Result         chan *m.AdResponse
+	TargetingCode  string
+	AppName        string
+	PkgName        string
+	Pcat           int
+	Ua             string
+	Did            string
 }
 
 //key:<adspace_key>; value:<PmpInfo>
@@ -133,6 +134,7 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 			demand.URL = demandInfo.RequestUrlTemplate
 			demand.Timeout = demandInfo.Timeout
 			demand.AdRequest = adRequest
+			demand.RealAdspaceKey = adspaceData.RealAdspaceKey
 			demand.AdspaceKey = adspaceData.AdspaceKey
 			demand.AdSecretKey = adspaceData.SecretKey
 			demand.Priority = adspaceData.Priority

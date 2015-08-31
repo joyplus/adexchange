@@ -139,19 +139,21 @@ type MHAdUnit struct {
 }
 
 type AdspaceData struct {
-	DemandId   int
-	AdspaceKey string
-	SecretKey  string
-	Priority   int
-	AppName    string
-	PkgName    string
-	Pcat       int
-	Ua         string
+	DemandId       int
+	AdspaceKey     string
+	RealAdspaceKey string
+	SecretKey      string
+	Priority       int
+	AppName        string
+	PkgName        string
+	Pcat           int
+	Ua             string
 }
 
 type PmpAdplaceInfo struct {
 	PmpAdspaceKey    string
 	DemandId         int
+	RealAdspaceKey   string
 	DemandAdspaceKey string
 	DemandSecretKey  string
 	Priority         int
