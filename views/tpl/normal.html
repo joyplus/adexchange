@@ -1,7 +1,11 @@
-<img id="adImg" width={{.width}} height={{.height}} onload="imgLoaded();" />
+<img id="adImg" width={{.width}} height={{.height}} />
 <div id="trackingDiv" style="top:0;left:0;width:0;height:0"></div>
+
+{{range .AD.implTrackingUrls}}
+<img src="{{.}}" />
+{{end}}
+
 <script type="text/javascript" >
-var implTrackingUrls = {{.AD.implTrackingUrls}};
 var clkTrackingUrls = {{.AD.clkTrackingUrls}};
 
 function initAd() {
@@ -30,10 +34,6 @@ function trackingLoaded(trackingUrls) {
 		frm.frameBorder = 0;
 		frm.src = trackingUrls[i];
 	}
-}
-
-function imgLoaded() {
-	trackingLoaded(implTrackingUrls)
 }
 
 window.onload =initAd;

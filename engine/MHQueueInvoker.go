@@ -92,6 +92,7 @@ func processDemand(demand *Demand, queueName string, index int) {
 	newDemand.URL = demand.URL
 	newDemand.Timeout = demand.Timeout * 10
 	newDemand.AdRequest = demand.AdRequest
+	newDemand.RealAdspaceKey = demand.RealAdspaceKey
 	newDemand.AdspaceKey = demand.AdspaceKey
 	newDemand.AdSecretKey = demand.AdSecretKey
 	newDemand.TargetingCode = demand.TargetingCode

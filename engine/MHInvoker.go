@@ -19,7 +19,7 @@ func invokeMH(demand *Demand) {
 
 	//item.Set("bid", lib.GenerateBid(demand.AdspaceKey))
 	item.Set("bid", demand.Did)
-	item.Set("adspaceid", demand.AdspaceKey)
+	item.Set("adspaceid", demand.RealAdspaceKey)
 	//hard code 2 to request MH as hero app
 	item.Set("adtype", "2")
 
@@ -46,9 +46,18 @@ func invokeMH(demand *Demand) {
 	} else {
 		item.Set("ua", adRequest.Ua)
 	}
+	if len(adRequest.Conn) > 0 {
+		item.Set("conn", adRequest.Conn)
+	} else {
+		item.Set("conn", "1")
+	}
 
-	item.Set("conn", adRequest.Conn)
-	item.Set("carrier", adRequest.Carrier)
+	if len(adRequest.Carrier) > 0 {
+		item.Set("carrier", adRequest.Carrier)
+	} else {
+		item.Set("Carrier", "1")
+	}
+
 	//hard code 2 to return json response
 	//hard code 4 to return json response with display titile and text
 	item.Set("apitype", "4")

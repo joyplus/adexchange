@@ -149,7 +149,7 @@ func invokeBD(demand *Demand) {
 	}
 
 	/* Adslot  (required) */
-	adSpaceId := demand.AdspaceKey
+	adSpaceId := demand.RealAdspaceKey
 	adWidth := demand.AdRequest.Width
 	adHeight := demand.AdRequest.Height
 	adSize := bd.Size{
