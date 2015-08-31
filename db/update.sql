@@ -50,10 +50,10 @@ ALTER TABLE `pmp_adspace` CHANGE `del_flg` `del_flg` TINYINT(1) NULL DEFAULT '0'
 ALTER TABLE `pmp_demand_platform_desk` CHANGE `del_flg` `del_flg` TINYINT(1) NULL DEFAULT '0';
 ALTER TABLE `pmp_demand_adspace` CHANGE `del_flg` `del_flg` TINYINT(1) NULL DEFAULT '0';
 ALTER TABLE `pmp_media` CHANGE `del_flg` `del_flg` TINYINT(1) NULL DEFAULT '0';
-UPDATE `pmp`.`pmp_demand_adspace` SET `del_flg` = 0;
-UPDATE `pmp`.`pmp_adspace` SET `del_flg` = 0;
-UPDATE `pmp`.`pmp_demand_adspace` SET `del_flg` = 0;
-UPDATE `pmp`.`pmp_media` SET `del_flg` = 0;
+UPDATE `pmp_demand_adspace` SET `del_flg` = 0;
+UPDATE `pmp_adspace` SET `del_flg` = 0;
+UPDATE `pmp_demand_adspace` SET `del_flg` = 0;
+UPDATE `pmp_media` SET `del_flg` = 0;
 
 ALTER TABLE `pmp_demand_adspace` ADD `real_adspace_key` VARCHAR(50) NOT NULL AFTER `update_time`;
 ALTER table pmp_demand_adspace add UNIQUE UNIQUE_DEMAND_ADSPACE_KEY(demand_adspace_key);
