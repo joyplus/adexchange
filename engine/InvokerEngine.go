@@ -220,8 +220,8 @@ func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (stri
 	buffer.WriteString(adRequest.Oid)
 	buffer.WriteString("&uid=")
 	buffer.WriteString(adRequest.Uid)
-	buffer.WriteString("&ua=")
-	buffer.WriteString(url.QueryEscape(adRequest.Ua))
+	//buffer.WriteString("&ua=")
+	//buffer.WriteString(url.QueryEscape(adRequest.Ua))
 
 	paramStr := buffer.String()
 	impTrackUrl := IMP_TRACKING_SERVER + "?" + paramStr
