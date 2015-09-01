@@ -25,92 +25,93 @@ func init() {
 
 func StartDemandLogService() {
 
+	c := lib.GetQueuePool().Get()
 	for {
 		adResponse := <-_demandLogPool
 		b, err := msgpack.Marshal(adResponse)
 
 		if err == nil {
-			c := lib.GetQueuePool().Get()
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_DEMAND", b)
-			defer c.Close()
-
 		} else {
 			beego.Critical(err.Error())
 		}
 	}
 
+	defer c.Close()
 }
 
 func StartMHQueueService() {
+
+	c := lib.GetQueuePool().Get()
 
 	for {
 		mhQueueData := <-_mhQueuePool
 		b, err := msgpack.Marshal(mhQueueData.AdResponse)
 
 		if err == nil {
-			c := lib.GetQueuePool().Get()
+
 			c.Do("lpush", beego.AppConfig.String("runmode")+mhQueueData.QueueName, b)
-			defer c.Close()
 
 		} else {
 			beego.Critical(err.Error())
 		}
 	}
+	defer c.Close()
 
 }
 
 func StartReqLogService() {
-
+	c := lib.GetQueuePool().Get()
 	for {
 		adRequest := <-_reqLogPool
 		b, err := msgpack.Marshal(adRequest)
 
 		if err == nil {
-			c := lib.GetQueuePool().Get()
 
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_REQ", b)
-			defer c.Close()
 
 		} else {
 			beego.Critical(err.Error())
 		}
 	}
+	defer c.Close()
 
 }
 
 func StartImpLogService() {
+	c := lib.GetQueuePool().Get()
 
 	for {
 		adRequest := <-_impLogPool
 		b, err := msgpack.Marshal(adRequest)
 
 		if err == nil {
-			c := lib.GetQueuePool().Get()
+
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_IMP", b)
-			defer c.Close()
 
 		} else {
 			beego.Critical(err.Error())
 		}
 	}
+	defer c.Close()
 
 }
 
 func StartClkLogService() {
-
+	c := lib.GetQueuePool().Get()
 	for {
 		adRequest := <-_clkLogPool
 		b, err := msgpack.Marshal(adRequest)
 
 		if err == nil {
-			c := lib.GetQueuePool().Get()
+
 			c.Do("lpush", beego.AppConfig.String("runmode")+"_ADMUX_CLK", b)
-			defer c.Close()
 
 		} else {
 			beego.Error(err.Error())
 		}
 	}
+	defer c.Close()
 
 }
 
