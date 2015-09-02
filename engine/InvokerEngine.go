@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"github.com/astaxie/beego"
 	//"github.com/franela/goreq"
-	"net/url"
+	//"net/url"
 	"time"
 )
 
@@ -125,6 +125,9 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 		adspaceData, ok := _AdspaceMap[key4AdspaceMap]
 
 		avbFlg, targetingCode := checkAvbDemand(adRequest, adspaceData)
+
+		//todo need implement this function
+		mockupGeoLocation(adRequest, targetingCode)
 
 		if ok && avbFlg {
 
