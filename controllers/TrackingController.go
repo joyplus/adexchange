@@ -25,6 +25,8 @@ func (this *RequestController) TrackImp() {
 		beego.Debug("Clk Client IP:" + clientIp)
 		adRequest.Ip = clientIp
 		adRequest.RequestTime = time.Now().Unix()
+		ua := this.Ctx.Input.Header("User-Agent")
+		adRequest.Ua = ua
 		engine.SendRequestLog(&adRequest, 2)
 	}
 
@@ -47,6 +49,8 @@ func (this *RequestController) TrackClk() {
 		beego.Debug("Imp Client IP:" + clientIp)
 		adRequest.Ip = clientIp
 		adRequest.RequestTime = time.Now().Unix()
+		ua := this.Ctx.Input.Header("User-Agent")
+		adRequest.Ua = ua
 		engine.SendRequestLog(&adRequest, 3)
 	}
 

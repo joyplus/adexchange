@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"github.com/astaxie/beego"
 	//"github.com/franela/goreq"
-	"net/url"
+	//"net/url"
 	"time"
 )
 
@@ -126,6 +126,9 @@ func InvokeDemand(adRequest *m.AdRequest) *m.AdResponse {
 
 		avbFlg, targetingCode := checkAvbDemand(adRequest, adspaceData)
 
+		//todo need implement this function
+		mockupGeoLocation(adRequest, targetingCode)
+
 		if ok && avbFlg {
 
 			demandInfo := _DemandMap[adspaceData.DemandId]
@@ -220,8 +223,8 @@ func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (stri
 	buffer.WriteString(adRequest.Oid)
 	buffer.WriteString("&uid=")
 	buffer.WriteString(adRequest.Uid)
-	buffer.WriteString("&ua=")
-	buffer.WriteString(url.QueryEscape(adRequest.Ua))
+	//buffer.WriteString("&ua=")
+	//buffer.WriteString(url.QueryEscape(adRequest.Ua))
 
 	paramStr := buffer.String()
 	impTrackUrl := IMP_TRACKING_SERVER + "?" + paramStr
