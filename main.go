@@ -69,6 +69,9 @@ func main() {
 
 	beego.SetLogger("file", `{"filename":"logs/admux.log"}`)
 	beego.SetLogFuncCall(true)
+
+	//beego.SetLogger("conn", `{"net":"tcp","addr":":7020"}`)
+
 	logLevel, _ := beego.AppConfig.Int("log_level")
 	beego.SetLevel(logLevel)
 
