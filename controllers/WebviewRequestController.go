@@ -58,11 +58,7 @@ func (this *WebviewRequestController) WebviewReq() {
 	tplName := engine.GetPmpAdspaceTemplate(adRequest.AdspaceKey)
 	flg := engine.CheckTplName(tplName)
 
-	beego.Debug(tplName)
-
 	if flg {
-		this.TplNames = "tpl/" + tplName + ".html"
-
 		this.Data["statusCode"] = adResponse.StatusCode
 
 		if adResponse.StatusCode == lib.STATUS_SUCCESS {
@@ -72,11 +68,12 @@ func (this *WebviewRequestController) WebviewReq() {
 			this.Data["clickUrl"] = adResponse.Adunit.ClickUrl
 			this.Data["width"] = adResponse.Adunit.AdWidth
 			this.Data["height"] = adResponse.Adunit.AdHeight
+			this.TplNames = "tpl/" + tplName + ".html"
+			this.Render()
 		} else {
 			this.Ctx.Output.SetStatus(adResponse.StatusCode)
 		}
 
-		this.Render()
 	} else {
 		this.Ctx.Output.SetStatus(lib.ERROR_NO_TEMPLATE)
 	}
