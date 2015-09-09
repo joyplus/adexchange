@@ -346,5 +346,8 @@ func SetTplHashSet(tplHashSet *lib.HashSet) {
 }
 
 func CheckTplName(tplName string) bool {
-	return _TplHashSet.Get(tplName)
+	if len(tplName) > 0 && _TplHashSet.Get(tplName) {
+		return true
+	}
+	return false
 }

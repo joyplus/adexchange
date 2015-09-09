@@ -72,9 +72,13 @@ func (this *WebviewRequestController) WebviewReq() {
 			this.Data["clickUrl"] = adResponse.Adunit.ClickUrl
 			this.Data["width"] = adResponse.Adunit.AdWidth
 			this.Data["height"] = adResponse.Adunit.AdHeight
+		} else {
+			this.Ctx.Output.SetStatus(adResponse.StatusCode)
 		}
 
 		this.Render()
+	} else {
+		this.Ctx.Output.SetStatus(lib.ERROR_NO_TEMPLATE)
 	}
 
 }
