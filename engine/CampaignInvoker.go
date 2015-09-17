@@ -33,6 +33,11 @@ func invokeCampaign(demand *Demand) {
 		}
 	}
 
+	//reset cache data for the refreshed data
+	adResponse.Bid = adRequest.Bid
+	adResponse.Did = adRequest.Did
+	adResponse.SetResponseTime(time.Now().Unix())
+
 	go SendDemandLog(adResponse)
 	demand.Result <- adResponse
 
