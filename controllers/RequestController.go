@@ -23,6 +23,8 @@ func (this *RequestController) RequestAd() {
 	if err := this.ParseForm(&adRequest); err != nil {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
+	} else if ValidRequest(&adRequest) != true {
+		adResponse.StatusCode = lib.ERROR_REQUIRED_FIELD_MISSING
 	} else {
 		adRequest.Did = lib.GenerateBid(adRequest.AdspaceKey)
 
