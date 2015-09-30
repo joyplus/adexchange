@@ -33,19 +33,19 @@ type BaseController struct {
 
 //}
 
-func getQueueName(logType int) string {
-	prefix := beego.AppConfig.String("runmode") + "_"
+//func getQueueName(logType int) string {
+//	prefix := beego.AppConfig.String("runmode") + "_"
 
-	if logType == 1 {
-		return prefix + "ADMUX_REQ"
-	} else if logType == 2 {
-		return prefix + "ADMUX_IMP"
-	} else if logType == 3 {
-		return prefix + "ADMUX_CLK"
-	} else {
-		return ""
-	}
-}
+//	if logType == 1 {
+//		return prefix + "ADMUX_REQ"
+//	} else if logType == 2 {
+//		return prefix + "ADMUX_IMP"
+//	} else if logType == 3 {
+//		return prefix + "ADMUX_CLK"
+//	} else {
+//		return ""
+//	}
+//}
 
 func GetClientIP(input *context.BeegoInput) string {
 	//ips := input.Proxy()

@@ -12,6 +12,8 @@ var _mhQueuePool chan *MHQueueData
 var _reqLogPool chan *m.AdRequest
 var _impLogPool chan *m.AdRequest
 var _clkLogPool chan *m.AdRequest
+var _activeLogPool chan *m.EventRequest
+var _installLogPool chan *m.InstallRequest
 
 func init() {
 
@@ -20,6 +22,8 @@ func init() {
 	_reqLogPool = make(chan *m.AdRequest, 2000)
 	_impLogPool = make(chan *m.AdRequest, 1000)
 	_clkLogPool = make(chan *m.AdRequest, 1000)
+	_activeLogPool = make(chan *m.EventRequest, 200)
+	_installLogPool = make(chan *m.InstallRequest, 200)
 
 }
 
@@ -153,5 +157,28 @@ func SendMHQueue(adResponse *m.AdResponse, queueName string) {
 		mhQueueData.AdResponse = adResponse
 		mhQueueData.QueueName = queueName
 		_mhQueuePool <- mhQueueData
+	}
+}
+
+func StartEventRequestLogService() {
+	c := lib.GetQueuePool().Get()
+	for {
+		activeEvent := <-_activeLogPool
+		b, err := msgpack.Marshal(activeEvent)
+
+		if err == nil {
+
+			c.Do("lpush", beego.AppConfig.String("runmode")+"_LTV_ACTIVE", b)
+
+		} else {
+			beego.Error(err.Error())
+		}
+	}
+	defer c.Close()
+}
+
+func SendEventRequestLog(activeEvent *m.EventRequest) {
+	if activeEvent != nil {
+		_activeLogPool <- activeEvent
 	}
 }
