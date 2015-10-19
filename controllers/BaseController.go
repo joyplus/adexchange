@@ -62,8 +62,9 @@ func GetClientIP(input *context.BeegoInput) string {
 func SetCachedClkUrl(cacheKey string, clkUrl string) (err error) {
 	c := lib.GetCachePool().Get()
 	prefix := beego.AppConfig.String("runmode") + "_URL_"
+	cachePeroid, _ := beego.AppConfig.Int("cache_clickurl_period")
 
-	if _, err = c.Do("SETEX", prefix+cacheKey, 3600, clkUrl); err != nil {
+	if _, err = c.Do("SETEX", prefix+cacheKey, cachePeroid, clkUrl); err != nil {
 		beego.Error(err.Error())
 	}
 
