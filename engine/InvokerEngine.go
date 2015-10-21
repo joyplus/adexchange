@@ -228,6 +228,8 @@ func generateTrackingUrl(adResponse *m.AdResponse, adRequest *m.AdRequest) (stri
 	buffer.WriteString(lib.ConvertIntToString(adRequest.Width))
 	buffer.WriteString("&height=")
 	buffer.WriteString(lib.ConvertIntToString(adRequest.Height))
+	buffer.WriteString("&cuk=")
+	buffer.WriteString(adResponse.ClickUrlCacheKey)
 
 	//buffer.WriteString("&ua=")
 	//buffer.WriteString(url.QueryEscape(adRequest.Ua))

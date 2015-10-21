@@ -167,6 +167,8 @@ func mapMHResult(adResponse *m.AdResponse, mhAdunit *m.MHAdUnit) {
 		adUnit.AdHeight = mhAdunit.Adheight
 		adUnit.DisplayTitle = mhAdunit.Displaytitle
 		adUnit.DisplayText = mhAdunit.Displaytext
+
+		adResponse.ClickUrlCacheKey = lib.GetMd5String(mhAdunit.Imgurl)
 	}
 
 	//return adResponse

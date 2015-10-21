@@ -16,6 +16,7 @@ type AdResponse struct {
 	ResBody           string
 	PmpClkTrackingUrl string
 	Priority          int
+	ClickUrlCacheKey  string
 }
 
 type TrackResponse struct {

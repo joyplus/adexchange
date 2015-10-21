@@ -35,4 +35,5 @@ type AdRequest struct {
 	RequestTime      int64
 	ProcessDuration  int64
 	Did              string `form:"did"`
+	Cuk              string `form:"cuk"`
 }

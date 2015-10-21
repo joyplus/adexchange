@@ -147,7 +147,7 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 			SetCachedAdResponse(cacheKey, adResponse)
 		} else {
 
-			cacheKey := adResponse.Did
+			cacheKey := adResponse.ClickUrlCacheKey
 
 			SetCachedClkUrl(cacheKey, adResponse.Adunit.ClickUrl)
 			adResponse.Adunit.ClickUrl = adResponse.PmpClkTrackingUrl
