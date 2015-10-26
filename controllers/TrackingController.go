@@ -54,7 +54,7 @@ func (this *RequestController) TrackClk() {
 		engine.SendRequestLog(&adRequest, 3)
 	}
 
-	cacheKey := adRequest.Did
+	cacheKey := adRequest.Cuk
 
 	originalTrackingUrl := GetCachedClkUrl(cacheKey)
 
