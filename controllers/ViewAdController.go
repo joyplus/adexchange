@@ -20,7 +20,7 @@ func (this *ViewAdController) ViewAd() {
 	//beego.Debug(adResponse)
 
 	if adResponse != nil && flg {
-		this.TplNames = "tpl/" + tplName + ".html"
+		this.TplName = "tpl/" + tplName + ".html"
 
 		adParam := map[string][]string{"clkTrackingUrls": adResponse.Adunit.ClkTrackingUrls, "implTrackingUrls": adResponse.Adunit.ImpTrackingUrls, "imgUrls": adResponse.Adunit.CreativeUrls}
 
