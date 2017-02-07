@@ -4,8 +4,9 @@ import (
 	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
-	"github.com/astaxie/beego"
 	"time"
+
+	"github.com/astaxie/beego"
 )
 
 type WebviewRequestController struct {
@@ -18,7 +19,7 @@ func (this *WebviewRequestController) WebviewReq() {
 
 	adRequest := m.AdRequest{}
 	adResponse := new(m.AdResponse)
-	beego.Debug(this.Ctx.Input.Request)
+	beego.Debug(this.Ctx.Input.RequestBody)
 	if err := this.ParseForm(&adRequest); err != nil {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
@@ -68,7 +69,7 @@ func (this *WebviewRequestController) WebviewReq() {
 			this.Data["clickUrl"] = adResponse.Adunit.ClickUrl
 			this.Data["width"] = adResponse.Adunit.AdWidth
 			this.Data["height"] = adResponse.Adunit.AdHeight
-			this.TplNames = "tpl/" + tplName + ".html"
+			this.TplName = "tpl/" + tplName + ".html"
 			this.Render()
 		} else {
 			this.Ctx.Output.SetStatus(adResponse.StatusCode)

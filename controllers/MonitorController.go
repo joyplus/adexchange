@@ -2,6 +2,7 @@ package controllers
 
 import (
 	m "adexchange/models"
+
 	"github.com/astaxie/beego"
 )
 
@@ -16,6 +17,6 @@ func (this *MonitorController) UpdateStatus() {
 	beego.Debug("Enter update status")
 
 	this.Data["json"] = &adResponse
-	this.ServeJson()
+	this.ServeJSON()
 
 }

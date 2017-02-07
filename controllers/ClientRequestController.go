@@ -4,8 +4,9 @@ import (
 	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
-	"github.com/astaxie/beego"
 	"time"
+
+	"github.com/astaxie/beego"
 )
 
 type ClientRequestController struct {
@@ -18,7 +19,7 @@ func (this *ClientRequestController) RequestAd4Client() {
 
 	adRequest := m.AdRequest{}
 	adResponse := new(m.AdResponse)
-	beego.Debug(this.Ctx.Input.Request)
+	//beego.Debug(this.Ctx.Input.Request)
 	if err := this.ParseForm(&adRequest); err != nil {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
@@ -82,6 +83,6 @@ func (this *ClientRequestController) RequestAd4Client() {
 	commonResponse := GetCommonResponse(adResponse)
 
 	this.Data["json"] = commonResponse
-	this.ServeJson()
+	this.ServeJSON()
 
 }

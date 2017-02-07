@@ -7,6 +7,7 @@ import (
 	_ "adexchange/routers"
 	"adexchange/tasks"
 	"adexchange/tools"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
@@ -63,7 +64,7 @@ func main() {
 	//beego.AdminHttpPort = 8888
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 
-	beego.ViewsPath = "views"
+	//beego.ViewsPath = "views"
 	beego.AddTemplateExt("html")
 	beego.SetStaticPath("/public", "public")
 
