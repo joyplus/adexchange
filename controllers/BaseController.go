@@ -4,6 +4,7 @@ import (
 	"adexchange/engine"
 	"adexchange/lib"
 	m "adexchange/models"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/garyburd/redigo/redis"
@@ -160,29 +161,31 @@ func GetCommonResponse(adResponse *m.AdResponse) (commonResponse m.CommonRespons
 
 func ValidRequest(adRequest *m.AdRequest) (flg bool) {
 
-	if adRequest.Os >= 2 {
-		return
-	}
+	//	if adRequest.Os >= 2 {
+	//		return
+	//	}
 
-	switch adRequest.Os {
-	case 0:
-		if len(adRequest.Imei) > 0 && len(adRequest.Aid) > 0 {
-			flg = true
-		}
-		break
-	case 1:
-		if len(adRequest.Idfa) > 0 {
-			flg = true
-		}
-		break
-	case 2:
-		if len(adRequest.Uid) > 0 {
-			flg = true
-		}
+	//	switch adRequest.Os {
+	//	case 0:
+	//		if len(adRequest.Imei) > 0 && len(adRequest.Aid) > 0 {
+	//			flg = true
+	//		}
+	//		break
+	//	case 1:
+	//		if len(adRequest.Idfa) > 0 {
+	//			flg = true
+	//		}
+	//		break
+	//	case 2:
+	//		if len(adRequest.Uid) > 0 {
+	//			flg = true
+	//		}
 
-	default:
-		break
-	}
+	//	default:
+	//		break
+	//	}
+
+	flg = true
 	return
 
 }

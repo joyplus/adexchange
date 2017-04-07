@@ -20,7 +20,7 @@ func (this *RequestController) RequestAd() {
 
 	adRequest := m.AdRequest{}
 	adResponse := new(m.AdResponse)
-	beego.Debug(this.Ctx.Input.RequestBody)
+	beego.Debug(this.Ctx.Request)
 	if err := this.ParseForm(&adRequest); err != nil {
 
 		adResponse.StatusCode = lib.ERROR_PARSE_REQUEST
